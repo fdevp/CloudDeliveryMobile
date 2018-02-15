@@ -54,6 +54,9 @@
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Lottie, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Com.Airbnb.Android.Lottie.2.3.1.0\lib\MonoAndroid40\Lottie.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android.Export" />
     <Reference Include="MvvmCross.Binding, Version=5.6.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -103,6 +106,9 @@
     </Reference>
     <Reference Include="PCLStorage.Abstractions, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
       <HintPath>..\packages\PCLStorage.1.0.2\lib\monoandroid\PCLStorage.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Refractored.GifImageView, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Refractored.GifImageView.2.0.0\lib\monoandroid\Refractored.GifImageView.dll</HintPath>
     </Reference>
     <Reference Include="SQLite-net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\sqlite-net-pcl.1.4.118\lib\netstandard1.1\SQLite-net.dll</HintPath>
@@ -184,13 +190,18 @@
     <Compile Include="Activities\SigninActivity.cs" />
     <Compile Include="Activities\RootActivity.cs" />
     <Compile Include="Activities\SplashScreenActivity.cs" />
+    <Compile Include="Activities\TokenLoadingActivity.cs" />
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
+    <Compile Include="Components\DebugTrace.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\location.json" />
+    <AndroidAsset Include="Assets\truck_running.json" />
+    <AndroidAsset Include="Assets\lofftie_loading.json" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -201,13 +212,18 @@
     <AndroidResource Include="Resources\layout\main_signin.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\main_root.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\main_tokenloading.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fragments\" />
-    <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CloudDeliveryMobile\CloudDeliveryMobile.csproj">
@@ -216,7 +232,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\values\colors.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
@@ -231,8 +249,31 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_person_orange_A400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_person_orange_A400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_person_orange_A400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_person_orange_A400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_person_grey_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_person_grey_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_person_grey_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_person_grey_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_lock_grey_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_lock_grey_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_lock_grey_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_lock_grey_400_48dp.png" />
     <Content Include="Resources\drawable-xxxhdpi\icon.png" />
-    <AndroidResource Include="Resources\values\style_splash.xml" />
+    <AndroidResource Include="Resources\values\styles_splash.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\rocket.png" />
+    <AndroidResource Include="Resources\drawable\login_background_dark.png" />
+    <AndroidResource Include="Resources\values\styles_login.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\shape_loginbutton.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_person_orange_A400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_person_grey_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_lock_grey_400_48dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

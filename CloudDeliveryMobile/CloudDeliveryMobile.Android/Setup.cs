@@ -11,6 +11,8 @@ using Android.Views;
 using Android.Widget;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Droid.Support.V7.AppCompat;
+using MvvmCross.Platform.Platform;
+using WitkacMobile.Droid;
 
 namespace CloudDeliveryMobile.Android
 {
@@ -18,6 +20,11 @@ namespace CloudDeliveryMobile.Android
     {
         public Setup(Context applicationContext) : base(applicationContext)
         {
+        }
+
+        protected override IMvxTrace CreateDebugTrace()
+        {
+            return new DebugTrace();
         }
 
         protected override IMvxApplication CreateApp()

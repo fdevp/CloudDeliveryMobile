@@ -1,5 +1,8 @@
-﻿using CloudDeliveryMobile.ViewModels;
+﻿using CloudDeliveryMobile.Providers;
+using CloudDeliveryMobile.Providers.Implementations;
+using CloudDeliveryMobile.ViewModels;
 using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +14,17 @@ namespace CloudDeliveryMobile
     {
         public override void Initialize()
         {
-            RegisterNavigationServiceAppStart<SigninViewModel>();
+
+            Mvx.RegisterType<IDeviceProvider, DeviceProvider>();
+            Mvx.RegisterType<IHttpProvider, HttpProvider>();
+
+            var storageProvider = new StorageProvider(Mvx.Resolve<IDeviceProvider>());
+            Mvx.RegisterSingleton<IStorageProvider>(storageProvider);
+
+            var sessionProvider = new SessionProvider(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<IStorageProvider>());
+            Mvx.RegisterSingleton<ISessionProvider>(sessionProvider);            
+
+            RegisterNavigationServiceAppStart<TokenSignInViewModel>();
         }
     }
 }
