@@ -18,9 +18,14 @@ namespace CloudDeliveryMobile.Providers.Implementations
 
         public async Task<string> GetAsync(string resource, Dictionary<string, string> data = null)
         {
+            string query = resource;
             //data
-            var content = new FormUrlEncodedContent(data);
-            string query = String.Concat(resource, "?", content.ReadAsStringAsync().Result);
+            if (data != null)
+            {
+                var content = new FormUrlEncodedContent(data);
+                query = String.Concat(resource, "?", content.ReadAsStringAsync().Result);
+            }
+            
 
             using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, query))
             {

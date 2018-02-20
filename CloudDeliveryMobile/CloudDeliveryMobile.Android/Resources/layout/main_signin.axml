@@ -14,12 +14,17 @@
     android:layout_marginTop="100dp"
     android:layout_gravity="center" />
 
+  <ImageView
+    android:src="@drawable/name_icon"
+    android:layout_width="200dp"
+    android:layout_height="50dp"
+    android:layout_gravity="center" />
 
   <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="110dp">
+    android:layout_marginTop="60dp">
 
     <android.support.design.widget.TextInputLayout
        android:layout_width="fill_parent"

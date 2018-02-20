@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using PCLStorage;
 using Plugin.DeviceInfo;
-
 namespace CloudDeliveryMobile.Providers.Implementations
 {
     public class DeviceProvider : IDeviceProvider
@@ -39,5 +38,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
         {
             return this.DataFolder().CheckExistsAsync(filename).Result == ExistenceCheckResult.FileExists;
         }
+
+      
     }
 }

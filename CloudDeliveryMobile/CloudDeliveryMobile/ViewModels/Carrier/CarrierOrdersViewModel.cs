@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudDeliveryMobile.ViewModels
+namespace CloudDeliveryMobile.ViewModels.Carrier
 {
-    public class RootViewModel : BaseViewModel
+    public class CarrierOrdersViewModel : BaseViewModel
     {
 
     }

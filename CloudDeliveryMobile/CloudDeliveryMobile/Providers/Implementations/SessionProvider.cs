@@ -72,6 +72,15 @@ namespace CloudDeliveryMobile.Providers.Implementations
             this.storageProvider.ClearData();
         }
 
+        public bool HasSalePointRole()
+        {
+            return this.SessionData.InRole("salepoint");
+        }
+
+        public bool HasCarrierRole()
+        {
+            return this.SessionData.InRole("carrier");
+        }
 
         private IHttpProvider httpProvider;
         private IStorageProvider storageProvider;

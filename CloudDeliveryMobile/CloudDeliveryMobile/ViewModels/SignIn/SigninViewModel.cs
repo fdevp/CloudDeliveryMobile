@@ -48,22 +48,52 @@ namespace CloudDeliveryMobile.ViewModels
 
         public async Task SignIn()
         {
-            await this.sessionProvider.SignIn(this.model).ContinueWith(t =>
+            await this.sessionProvider.SignIn(this.model).ContinueWith(async t =>
             {
                 if (t.Exception != null)
                 {
-                    this.InProgress = false;
+                    this.clearProgress();
                     return;
                 }
 
-                //sign in success
-                this.navigationService.Navigate<RootViewModel>().ContinueWith(x =>
+                await this.GoToRoot().ContinueWith(async x =>
                 {
-                    this.model.Password = string.Empty;
-                    this.InProgress = false;
+                    this.clearProgress();
+                    await this.navigationService.Close(this);
                 });
-
             });
+        }
+
+        public override void Start()
+        {
+            try
+            {
+                this.model.Username = this.storageProvider.Select(DataKeys.LastUsername);
+            }
+            catch (Exception e)
+            {
+
+            }
+
+        }
+
+        private async Task GoToRoot()
+        {
+            //sign in success
+            if (this.sessionProvider.HasCarrierRole())
+            {
+                await this.navigationService.Navigate<RootCarrierViewModel>();
+            }
+            else if (this.sessionProvider.HasSalePointRole())
+            {
+                await this.navigationService.Navigate<RootSalePointViewModel>();
+            }
+        }
+
+        private void clearProgress()
+        {
+            this.Password = string.Empty;
+            this.InProgress = false;
         }
 
         private LoginModel model = new LoginModel();

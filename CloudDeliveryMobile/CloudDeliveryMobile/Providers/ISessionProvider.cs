@@ -9,7 +9,19 @@ namespace CloudDeliveryMobile.Providers
 {
     public interface ISessionProvider
     {
-        SessionData SessionData { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        bool HasSalePointRole();
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        bool HasCarrierRole();
 
         /// <summary>
         /// try use token to get data
