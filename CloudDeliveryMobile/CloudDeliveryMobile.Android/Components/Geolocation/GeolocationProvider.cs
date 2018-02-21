@@ -28,24 +28,22 @@ namespace CloudDeliveryMobile.Android.Components
         /// </summary>
         /// <param name="interval">in miliseconds</param>
         /// <param name="fastestinterval">in miliseconds</param>
-        public GeolocationProvider(Activity activity, int interval, int fastestInterval, LocationCallback callback)
+        public GeolocationProvider(Activity activity)
         {
             this.activity = activity;
-            this.interval = interval;
-            this.fastestInterval = fastestInterval;
-            this.callback = callback;
-
             this.client = new FusedLocationProviderClient(Application.Context);
         }
 
-        public async void StartWatcher(int accuracy)
+        public async void StartWatcher(int accuracy, int interval, int fastestInterval, LocationCallback callback)
         {
             if (this.Running)
                 return;
 
+            this.callback = callback;
+
             var locationRequest = new LocationRequest()
-                                 .SetInterval(this.interval)
-                                 .SetFastestInterval(this.fastestInterval)
+                                 .SetInterval(interval)
+                                 .SetFastestInterval(fastestInterval)
                                  .SetPriority(accuracy);
 
 
@@ -73,7 +71,7 @@ namespace CloudDeliveryMobile.Android.Components
 
 
             //
-            await client.RequestLocationUpdatesAsync(locationRequest, callback).ContinueWith(t =>
+            await client.RequestLocationUpdatesAsync(locationRequest, this.callback).ContinueWith(t =>
             {
                 this.Running = true;
             });
@@ -82,7 +80,7 @@ namespace CloudDeliveryMobile.Android.Components
 
         public async void StopWatcher()
         {
-            await client.RemoveLocationUpdatesAsync(callback).ContinueWith(t =>
+            await client.RemoveLocationUpdatesAsync(this.callback).ContinueWith(t =>
             {
                 this.Running = false;
             });
@@ -93,14 +91,10 @@ namespace CloudDeliveryMobile.Android.Components
             return await this.client.GetLastLocationAsync();
         }
 
-        private LocationCallback callback;
-        private int interval;
-        private int fastestInterval;
+
         private Activity activity;
-        private Location lastLocation;
 
         private FusedLocationProviderClient client;
-        private LocationRequest locationRequest;
-        
+        private LocationCallback callback;
     }
 }

@@ -13,6 +13,7 @@
                class="com.google.android.gms.maps.MapFragment" />
 
     <ImageButton
+      android:id="@+id/gelocBtn"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="top|right"

@@ -29,15 +29,21 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
         private Marker mCurrentPosition;
         private GeolocationProvider geolocationProvider;
 
+        private ImageButton geoLocButton;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
             View view = this.BindingInflate(FragmentId, null);
 
-            //geolocation
-            this.geolocationProvider = new GeolocationProvider(this.Activity, 10000, 5000, new GeoPositionCallback(this.Activity,this.map,this.mCurrentPosition));
+            //buttons
+            this.geoLocButton = view.FindViewById<ImageButton>(Resource.Id.gelocBtn);
+            this.geoLocButton.Click += ToggleGeolocationWatcher;
 
-            //get map
+            //geolocation
+            this.geolocationProvider = new GeolocationProvider(this.Activity);
+
+            //map
             MapFragment mapFragment = (MapFragment)this.Activity.FragmentManager.FindFragmentById(Resource.Id.carrier_gmap_fragment);
             mapFragment.GetMapAsync(this);
 
@@ -55,7 +61,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
 
             this.InitCurrentPositionMarker();
         }
-
 
         public void InitCurrentPositionMarker()
         {
@@ -90,14 +95,19 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
 
         }
 
-
-
-        public void ToggleGeolocationWatcher()
+        public void ToggleGeolocationWatcher(object sender, EventArgs e)
         {
             if (this.geolocationProvider.Running)
+            {
                 this.geolocationProvider.StopWatcher();
+                this.geoLocButton.SetImageResource(Resource.Drawable.ic_my_location_grey_700_48dp);
+            }
             else
-                this.geolocationProvider.StartWatcher(LocationRequest.PriorityHighAccuracy);
+            {
+                this.geolocationProvider.StartWatcher(LocationRequest.PriorityHighAccuracy, 12000, 10000, new GeoPositionCallback(this.Activity, this.map, this.mCurrentPosition));
+                this.geoLocButton.SetImageResource(Resource.Drawable.ic_my_location_deep_orange_400_48dp);
+            }
+
         }
 
 
