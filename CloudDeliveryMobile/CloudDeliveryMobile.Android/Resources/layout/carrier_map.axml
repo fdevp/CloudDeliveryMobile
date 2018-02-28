@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/carrier_map_layout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,17 +13,31 @@
                android:layout_height="match_parent"
                class="com.google.android.gms.maps.MapFragment" />
 
-    <ImageButton
-      android:id="@+id/gelocBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="top|right"
+  <ImageButton
+        android:id="@+id/floating_orders_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="top|left"
         android:layout_margin="15dp"
-        android:background="@drawable/shape_map_element"
+        android:background="@drawable/shape_circle"
         android:scaleType="fitCenter"
-        android:padding="7dp"
-        android:src="@drawable/ic_my_location_grey_700_48dp"
+        android:padding="12dp"
+        android:src="@drawable/ic_person_grey_400_48dp"
+        app:MvxBind="Click ShowFloatingOrders"
         />
 
 
+  <ImageButton
+      android:id="@+id/geloc_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="15dp"
+        android:background="@drawable/shape_circle"
+        android:scaleType="fitCenter"
+        android:padding="12dp"
+        android:src="@drawable/ic_my_location_grey_700_48dp"
+        />
+  
+  
 </FrameLayout>

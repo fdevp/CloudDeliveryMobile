@@ -25,7 +25,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
                 var content = new FormUrlEncodedContent(data);
                 query = String.Concat(resource, "?", content.ReadAsStringAsync().Result);
             }
-            
+
 
             using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, query))
             {
@@ -64,6 +64,50 @@ namespace CloudDeliveryMobile.Providers.Implementations
                 return await response.Content.ReadAsStringAsync();
             }
         }
+
+
+        public async Task<string> PutAsync(string resource, object data = null, bool urlencoded = false)
+        {
+            using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, resource))
+            {
+                //data
+                if (data != null)
+                {
+                    if (urlencoded)
+                        httpRequestMessage.Content = new FormUrlEncodedContent((Dictionary<string, string>)data);
+                    else
+                        httpRequestMessage.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                }
+
+                var response = await httpClient.SendAsync(httpRequestMessage);
+
+                //error response handling
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException(response.StatusCode.ToString());
+                }
+
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+
+        public async Task<string> DeleteAsync(string resource)
+        {
+            using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, resource))
+            {
+                var response = await httpClient.SendAsync(httpRequestMessage);
+
+                //error response handling
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException(response.StatusCode.ToString());
+                }
+
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
 
         public void SetAuthorizationHeader(string token)
         {

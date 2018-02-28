@@ -31,5 +31,26 @@ namespace CloudDeliveryMobile.Providers
         /// </summary>
         /// <param name="token"></param>
         void SetAuthorizationHeader(string token);
+
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <param name="data"></param>
+        /// <param name="urlencoded"></param>
+        /// <returns></returns>
+        Task<string> PutAsync(string resource, object data = null, bool urlencoded = false);
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <param name="data"></param>
+        /// <param name="urlencoded"></param>
+        /// <returns></returns>
+        Task<string> DeleteAsync(string resource);
     }
 }

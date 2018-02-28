@@ -1,5 +1,8 @@
 ﻿using CloudDeliveryMobile.Models;
+using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Providers;
+using CloudDeliveryMobile.Services;
+using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,19 +16,29 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 {
     public class CarrierMapViewModel : BaseViewModel
     {
+        private MvxInteraction _ordersUpdateInteraction = new MvxInteraction();
+
+        public IMvxInteraction OrdersUpdateInteraction => _ordersUpdateInteraction;
+
+        public List<OrderListItem> PendingOrders
+        {
+            get
+            {
+                return this.ordersService.PendingOrders;
+            }
+        }
+
         public GeoPosition CurrentPosition
         {
             get
             {
                 return this.currentPosition;
             }
-        }
-
-        public void UpdateCurrentPosition(double lat, double lng)
-        {
-            this.currentPosition.lat = lat;
-            this.currentPosition.lng = lng;
-            RaisePropertyChanged(() => this.CurrentPosition);
+            set
+            {
+                this.currentPosition = value;
+                RaisePropertyChanged(() => CurrentPosition);
+            }
         }
 
         public GeoPosition BasePosition
@@ -53,15 +66,54 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-
-        public CarrierMapViewModel(IDeviceProvider deviceProvider)
+        public MvxCommand ShowFloatingOrders
         {
-            this.deviceProvider = deviceProvider;
+            get
+            {
+                return new MvxCommand(() =>
+                {
+                    this._ordersUpdateInteraction.Raise();
+                    this.navigationService.Navigate<CarrierFloatingOrdersViewModel>();
+                });
+            }
         }
 
-        private IDeviceProvider deviceProvider;
+        public MvxCommand<int> ShowOrderDetails
+        {
+            get
+            {
+                return new MvxCommand<int>(id =>
+                {
+                    this.navigationService.Navigate<CarrierFloatingOrderDetailsViewModel,int>(id);
+                });
+            }
+        }
+
+        public CarrierMapViewModel(IDeviceProvider deviceProvider, IMvxNavigationService navigationService, IOrdersService ordersService)
+        {
+            this.deviceProvider = deviceProvider;
+            this.navigationService = navigationService;
+            this.ordersService = ordersService;
+        }
+
+        public async override void Start()
+        {
+            base.Start();
+            this.ordersService.PendingOrdersUpdated += this.SendInteraction;
+            await this.ordersService.GetPendingOrders();
+        }
+
+        private void SendInteraction(object sender, EventArgs e)
+        {
+            this._ordersUpdateInteraction.Raise();
+        }
+
         private float? baseZoom;
         private GeoPosition basePosition;
         private GeoPosition currentPosition = new GeoPosition();
+
+        private IDeviceProvider deviceProvider;
+        private IMvxNavigationService navigationService;
+        private IOrdersService ordersService;
     }
 }

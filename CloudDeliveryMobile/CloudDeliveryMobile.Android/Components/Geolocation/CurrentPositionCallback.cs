@@ -28,9 +28,7 @@ namespace CloudDeliveryMobile.Android.Components
         {
             base.OnLocationResult(result);
             this.activity.RunOnUiThread(() => {
-                this.posMarker.Position.Latitude = result.LastLocation.Latitude;
-                this.posMarker.Position.Longitude = result.LastLocation.Longitude;
-
+                this.posMarker.Position = new LatLng(result.LastLocation.Latitude, result.LastLocation.Longitude);
                 this.gmap.AnimateCamera(CameraUpdateFactory.NewLatLng(this.posMarker.Position));
             });
             

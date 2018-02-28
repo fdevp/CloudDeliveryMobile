@@ -34,10 +34,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Converters\DestinationStringValueConverter.cs" />
+    <Compile Include="Converters\PriorityStringValueConverter.cs" />
+    <Compile Include="Converters\TimeStringValueConverter.cs" />
     <Compile Include="Helpers\Exceptions\InvalidTokenException.cs" />
     <Compile Include="Helpers\Exceptions\SignInException.cs" />
     <Compile Include="Models\Account\SessionData.cs" />
+    <Compile Include="Models\Enums\OrderStatus.cs" />
     <Compile Include="Models\GeoPosition.cs" />
+    <Compile Include="Models\Orders\Trace\ApproximateTrace.cs" />
+    <Compile Include="Models\Orders\OrderListItem.cs" />
+    <Compile Include="Models\Orders\OrderDetails.cs" />
+    <Compile Include="Models\Orders\Trace\DurationDistance.cs" />
+    <Compile Include="Models\Orders\Trace\Trace.cs" />
     <Compile Include="Resources\ConstantValues.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -71,10 +80,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ApiResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\OrdersApiResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrdersApiResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Implementations\OrdersService.cs" />
+    <Compile Include="Services\IOrdersService.cs" />
+    <Compile Include="Services\ISalePointsService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Carrier\CarrierFloatingOrderDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Carrier\CarrierFloatingOrdersViewModel.cs" />
     <Compile Include="ViewModels\Carrier\CarrierMapViewModel.cs" />
     <Compile Include="ViewModels\Carrier\CarrierOrdersViewModel.cs" />
     <Compile Include="ViewModels\Carrier\CarrierRootViewModel.cs" />
+    <Compile Include="ViewModels\InProgressViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\RootSalePointViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SignIn\SigninViewModel.cs" />
@@ -133,10 +153,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\ConstantValues.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -153,6 +170,10 @@
     <EmbeddedResource Include="Resources\ApiResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ApiResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\OrdersApiResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OrdersApiResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

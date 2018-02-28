@@ -20,6 +20,7 @@ using CloudDeliveryMobile.ViewModels;
 using CloudDeliveryMobile.ViewModels.Carrier;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
+using MvvmCross.Droid.Views.Attributes;
 using Plugin.Permissions;
 
 namespace CloudDeliveryMobile.Android.Activities
@@ -29,6 +30,7 @@ namespace CloudDeliveryMobile.Android.Activities
     {
         protected override void OnCreate(Bundle bundle)
         {
+            
             SetTheme(Resource.Style.Theme_AppCompat_DayNight_NoActionBar);
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.main_root);

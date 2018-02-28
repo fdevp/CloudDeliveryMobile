@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_marginTop="?attr/actionBarSize"
+  android:layout_width="wrap_content"
+  android:layout_height="match_parent">
+
+
+  <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:layout_width="match_parent"
+      android:layout_height="170dp"
+      android:padding="10dp"
+      android:layout_marginLeft="15dp"
+      android:layout_marginBottom="5dp"
+      android:layout_marginRight="15dp"
+      android:layout_alignParentBottom="true"
+      android:orientation="vertical"
+      android:background="@drawable/floating_element_style">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+        <com.airbnb.lottie.LottieAnimationView
+                 android:id="@+id/float_details_salepoint_icon"
+                 android:layout_width="40dp"
+                 android:layout_height="40dp"
+                 app:lottie_fileName="round.json"
+                 app:lottie_loop="true"
+                 app:lottie_autoPlay="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/float_details_salepoint_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            app:MvxBind="Text SalepointText"/>
+
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="20dp"
+          android:layout_weight="1"
+          android:layout_marginLeft="18dp"
+          android:background="@drawable/shape_dotted_left_border">
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+
+        <com.airbnb.lottie.LottieAnimationView
+         android:id="@+id/float_details_endpoint_icon"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+         app:lottie_fileName="round.json"
+         app:lottie_loop="true"
+         app:lottie_autoPlay="true"/>
+
+          
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/float_details_endpoint_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            app:MvxBind="Text EndPointText"/>
+
+      </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+      <Button
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Zaakcepuj"
+          android:textColor="#fff"
+          android:padding="3dp"
+          android:layout_centerHorizontal="true"
+          android:background="@color/primaryColor"/>
+
+    </RelativeLayout>
+
+  </LinearLayout>
+
+</RelativeLayout>
+
+
+
