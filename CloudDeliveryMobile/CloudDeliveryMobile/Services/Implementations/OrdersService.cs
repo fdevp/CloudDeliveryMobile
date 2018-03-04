@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CloudDeliveryMobile.Models;
+using CloudDeliveryMobile.Models.Enums;
 using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Resources;
@@ -20,66 +21,70 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public event EventHandler PendingOrdersUpdated;
 
-        public List<OrderListItem> PendingOrders { get; private set; }
+        public event EventHandler AcceptedOrdersUpdated;
 
+        public List<Order> PendingOrders { get; private set; }
 
-        public async void Accept(int orderId)
+        public List<Order> AcceptedOrders { get; private set; }
+
+        public async Task Accept(Order order)
         {
-            string uri = string.Concat(OrdersApiResources.Accept, "/", orderId);
-            await this.httpProvider.PutAsync(uri);
+            string resource = string.Concat(OrdersApiResources.Accept, "/", order.Id);
+            string id = await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
+
+            order.Id = int.Parse(id);
+            this.AcceptedOrders.Add(order);
+
+            if (this.AcceptedOrdersUpdated != null)
+                this.AcceptedOrdersUpdated.Invoke(this, null);
+
+            this.PendingOrders.Remove(order);
+            if (this.PendingOrdersUpdated != null)
+                this.PendingOrdersUpdated.Invoke(this, null);
         }
 
-        public async void Delivered(int orderId)
+        public async Task Delivered(int orderId)
         {
-            string uri = string.Concat(OrdersApiResources.Delivered, "/", orderId);
-            await this.httpProvider.PutAsync(uri);
+            string resource = string.Concat(OrdersApiResources.Delivered, "/", orderId);
+            await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
         }
 
-
-        public async void Pickup(int orderId)
+        public async Task Pickup(int orderId)
         {
-            string uri = string.Concat(OrdersApiResources.Pickup, "/", orderId);
-            await this.httpProvider.PutAsync(uri);
+            string resource = string.Concat(OrdersApiResources.Pickup, "/", orderId);
+            await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
         }
 
-        public async Task<List<OrderListItem>> GetPendingOrders()
+        public async Task<List<Order>> GetAcceptedOrders()
         {
-            string response = await this.httpProvider.GetAsync(OrdersApiResources.PendingOrders);
-            this.PendingOrders = JsonConvert.DeserializeObject<List<OrderListItem>>(response, new JsonSerializerSettings { FloatParseHandling = FloatParseHandling.Double });
+            Dictionary<string, string> filters = new Dictionary<string, string>();
+            filters.Add("Status", OrderStatus.Accepted.ToString());
 
-            if(this.PendingOrdersUpdated != null)
+            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.List), filters);
+            this.AcceptedOrders = JsonConvert.DeserializeObject<List<Order>>(response);
+
+            if (this.AcceptedOrdersUpdated != null)
+                this.AcceptedOrdersUpdated.Invoke(this, null);
+
+            return this.AcceptedOrders;
+        }
+
+        public async Task<List<Order>> GetPendingOrders()
+        {
+
+            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.PendingOrders));
+            this.PendingOrders = JsonConvert.DeserializeObject<List<Order>>(response, new JsonSerializerSettings { FloatParseHandling = FloatParseHandling.Double });
+
+            if (this.PendingOrdersUpdated != null)
                 this.PendingOrdersUpdated.Invoke(this, null);
 
             return this.PendingOrders;
         }
 
-        public async Task<RouteRoot> GetTrace(int orderId)
-        {
-            string uri = string.Concat(OrdersApiResources.GetTrace, "/", orderId);
-            string response = await this.httpProvider.GetAsync(uri);
-            RouteRoot trace = JsonConvert.DeserializeObject<RouteRoot>(response);
-            return trace;
-        }
-
-        public async Task<RouteRoot> SetTrace(int orderId, GeoPosition currentPosition)
-        {
-            string uri = string.Concat(OrdersApiResources.GetTrace, "/", orderId);
-            string response = await this.httpProvider.PostAsync(uri, currentPosition);
-            RouteRoot trace = JsonConvert.DeserializeObject<RouteRoot>(response);
-            return trace;
-        }
-
-        public async Task<ApproximateTrace> ApproximateTrace(int orderId, GeoPosition currentPosition)
-        {
-            string response = await this.httpProvider.GetAsync(OrdersApiResources.ApproximateTrace, currentPosition.toDictionary());
-            ApproximateTrace trace = JsonConvert.DeserializeObject<ApproximateTrace>(response);
-            return trace;
-        }
-
         public async Task<OrderDetails> Details(int orderId)
         {
-            string uri = string.Concat(OrdersApiResources.Details, "/", orderId);
-            string response = await this.httpProvider.GetAsync(uri);
+            string resource = string.Concat(OrdersApiResources.Details, "/", orderId);
+            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(resource));
             OrderDetails order = JsonConvert.DeserializeObject<OrderDetails>(response);
             return order;
         }

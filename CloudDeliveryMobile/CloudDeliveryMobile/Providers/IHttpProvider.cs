@@ -8,6 +8,15 @@ namespace CloudDeliveryMobile.Providers
 {
     public interface IHttpProvider
     {
+
+        /// <summary>
+        /// get absolute uri
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        string AbsoluteUri(string resource);
+
+
         /// <summary>
         /// 
         /// </summary>

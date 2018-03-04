@@ -11,23 +11,22 @@ namespace CloudDeliveryMobile.Services
     public interface IOrdersService
     {
         event EventHandler PendingOrdersUpdated;
-        
-        List<OrderListItem> PendingOrders { get; }
 
-        Task<ApproximateTrace> ApproximateTrace(int orderId, GeoPosition currentPosition);
+        event EventHandler AcceptedOrdersUpdated;
 
-        Task<List<OrderListItem>> GetPendingOrders();
+        List<Order> PendingOrders { get; }
+        List<Order> AcceptedOrders { get; }
+
+        Task<List<Order>> GetAcceptedOrders();
+
+        Task<List<Order>> GetPendingOrders();
 
         Task<OrderDetails> Details(int orderId);
 
-        void Accept(int orderId);
+        Task Accept(Order order);
 
-        void Pickup(int orderId);
+        Task Pickup(int orderId);
 
-        void Delivered(int orderId);
-
-        Task<RouteRoot> SetTrace(int orderId, GeoPosition currentPosition);
-
-        Task<RouteRoot> GetTrace(int orderId);
+        Task Delivered(int orderId);
     }
 }

@@ -62,7 +62,7 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://clouddelivery.azurewebsites.net/api/orders/accept.
+        ///   Looks up a localized string similar to api/orders/accept.
         /// </summary>
         internal static string Accept {
             get {
@@ -71,7 +71,7 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://clouddelivery.azurewebsites.net/api/orders/CheckDistanceTime.
+        ///   Looks up a localized string similar to api/orders/CheckDistanceTime.
         /// </summary>
         internal static string ApproximateTrace {
             get {
@@ -80,7 +80,7 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://clouddelivery.azurewebsites.net/api/orders/delivered.
+        ///   Looks up a localized string similar to api/orders/delivered.
         /// </summary>
         internal static string Delivered {
             get {
@@ -89,7 +89,7 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://clouddelivery.azurewebsites.net/api/orders/details.
+        ///   Looks up a localized string similar to api/orders/details.
         /// </summary>
         internal static string Details {
             get {
@@ -98,7 +98,7 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://clouddelivery.azurewebsites.net/api/orders/gettrace.
+        ///   Looks up a localized string similar to api/orders/gettrace.
         /// </summary>
         internal static string GetTrace {
             get {
@@ -107,7 +107,16 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://clouddelivery.azurewebsites.net/api/orders/PendingList.
+        ///   Looks up a localized string similar to api/orders/list.
+        /// </summary>
+        internal static string List {
+            get {
+                return ResourceManager.GetString("List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to api/orders/PendingList.
         /// </summary>
         internal static string PendingOrders {
             get {
@@ -116,7 +125,7 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://clouddelivery.azurewebsites.net/api/orders/pickup.
+        ///   Looks up a localized string similar to api/orders/pickup.
         /// </summary>
         internal static string Pickup {
             get {
@@ -125,7 +134,7 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://clouddelivery.azurewebsites.net/api/orders/settrace.
+        ///   Looks up a localized string similar to api/orders/settrace.
         /// </summary>
         internal static string SetTrace {
             get {

@@ -117,12 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Host" xml:space="preserve">
+    <value>http://clouddelivery.azurewebsites.net/</value>
+  </data>
   <data name="Login" xml:space="preserve">
-    <value>http://clouddelivery.azurewebsites.net/token</value>
+    <value>token</value>
     <comment>Get token</comment>
   </data>
   <data name="UserInfo" xml:space="preserve">
-    <value>http://clouddelivery.azurewebsites.net/api/account/UserInfo</value>
+    <value>api/account/UserInfo</value>
     <comment>User info path (for token validation check)</comment>
   </data>
 </root>

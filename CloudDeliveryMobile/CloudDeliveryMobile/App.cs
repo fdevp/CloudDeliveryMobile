@@ -1,10 +1,12 @@
 ﻿using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Providers.Implementations;
+using CloudDeliveryMobile.Resources;
 using CloudDeliveryMobile.Services;
 using CloudDeliveryMobile.Services.Implementations;
 using CloudDeliveryMobile.ViewModels;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
+using PCLStorage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,14 @@ namespace CloudDeliveryMobile
             var httpProvider = new HttpProvider();
             Mvx.RegisterSingleton<IHttpProvider>(httpProvider);
 
-            var storageProvider = new StorageProvider(Mvx.Resolve<IDeviceProvider>());
+
+            //db
+            string externalDirPath = deviceProvider.DataPath();
+            string dbPath = PortablePath.Combine(externalDirPath, FilesNames.databaseFile);
+            var dbConnectionFactory = new DbConnectionFactory(dbPath);
+            Mvx.RegisterSingleton<IDbConnectionFactory>(dbConnectionFactory);
+
+            var storageProvider = new StorageProvider(Mvx.Resolve<IDeviceProvider>(), Mvx.Resolve<IDbConnectionFactory>());
             Mvx.RegisterSingleton<IStorageProvider>(storageProvider);
 
             var sessionProvider = new SessionProvider(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<IStorageProvider>());
@@ -32,6 +41,8 @@ namespace CloudDeliveryMobile
             var ordersService = new OrdersService(Mvx.Resolve<IHttpProvider>());
             Mvx.RegisterSingleton<IOrdersService>(ordersService);
 
+            var routesService = new RoutesService(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<IStorageProvider>());
+            Mvx.RegisterSingleton<IRoutesService>(routesService);
 
             RegisterNavigationServiceAppStart<TokenSignInViewModel>();
         }

@@ -13,7 +13,7 @@ namespace CloudDeliveryMobile.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var orderListItem = (OrderListItem)value;
+            var orderListItem = (Order)value;
             return String.Concat(orderListItem.DestinationCity, ", ", orderListItem.DestinationAddress);
         }
 

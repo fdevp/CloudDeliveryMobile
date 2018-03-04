@@ -23,7 +23,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        public List<OrderListItem> Orders
+        public List<Order> Orders
         {
             get
             {

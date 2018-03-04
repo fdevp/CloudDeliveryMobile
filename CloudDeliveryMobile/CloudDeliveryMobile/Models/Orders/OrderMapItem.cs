@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CloudDeliveryMobile.Models.Orders
 {
-    public class OrderListItem
+    public class Order
     {
         public int Id { get; set; }
 

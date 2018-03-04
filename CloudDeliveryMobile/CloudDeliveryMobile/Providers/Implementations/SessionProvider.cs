@@ -36,7 +36,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
 
             try
             {
-                string response = await this.httpProvider.GetAsync(ApiResources.UserInfo);
+                string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(ApiResources.UserInfo));
                 this.SessionData = JsonConvert.DeserializeObject<SessionData>(response);
             }
             catch (Exception e)
@@ -53,7 +53,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
         {
             try
             {
-                string response = await this.httpProvider.PostAsync(ApiResources.Login, form.ToDict(),true);
+                string response = await this.httpProvider.PostAsync(httpProvider.AbsoluteUri(ApiResources.Login), form.ToDict(),true);
                 this.SessionData = JsonConvert.DeserializeObject<SessionData>(response);
             }
             catch (Exception e)

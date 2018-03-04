@@ -16,6 +16,7 @@ using Android.Widget;
 using CloudDeliveryMobile.Android.Components;
 using CloudDeliveryMobile.Android.Components.Converters;
 using CloudDeliveryMobile.Android.Components.Geolocation;
+using CloudDeliveryMobile.Android.Fragments.Carrier.SideView;
 using CloudDeliveryMobile.ViewModels;
 using CloudDeliveryMobile.ViewModels.Carrier;
 using MvvmCross.Binding.BindingContext;
@@ -47,7 +48,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
-            View view = this.BindingInflate(FragmentId, null);
+            this.view = this.BindingInflate(FragmentId, null);
 
             //buttons
             this.geoLocButton = view.FindViewById<ImageButton>(Resource.Id.geloc_btn);
@@ -65,6 +66,9 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
             set.Bind(this).For(v => v.OrdersUpdateInteraction).To(viewModel => viewModel.OrdersUpdateInteraction).OneWay();
             set.Apply();
 
+            //sideview
+            Task.Run(async ()=> { await this.ViewModel.InitSideView.ExecuteAsync(); });
+
             return view;
         }
 
@@ -76,20 +80,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
 
             //settings
             this.map.UiSettings.ZoomControlsEnabled = true;
-
-            string polyline = "ypz~HcbifB`D{VrI~OxA`\\fA~AANHVb@d@tEtCbFkPbKcyAlV{wAlX{cAr`@ai@n~AarBh\\gPfpAi[xm@kHiEzEpD}fAzd@oaFdmAczIdxA}~Gp[_yC}Dk`DkJ{`Gr@ggKT{wHuLscEkYgyCePg~EnAyhD|GyvHf[shDtRiuDrO_hCpa@guCnbAsuGndB{eGpg@akCn\\kpEjm@ybHdeAmbI~pAurGp~@{{G|eAg_H`l@k}Dhj@}eCxTqlB`h@ulCx[ilCzeA}kInYopCxQ_bCzYs~GrZmdBn[}rBpR}pCv[gdC|C_nDsKw~DwUqjD}e@seFDyuAbL{aBjn@s`FhGskCgCguFtJqiCla@c}C`iA{rHxl@awGddBihFzn@ciBpxA}vBduAk`D|hCupEto@}uB~e@{lDjt@qnD`x@axE~ZipAha@{cCpSkoCnXopBfk@mdB~jAemC`i@yaCvh@unBln@}nD|h@ufCx^epCxOsyHvw@gnI|JkaCr_@k`FrKw`HhXkpB|f@gkBho@scCxToaDkAmpDjMssC`f@svElEgzAsHk}CeOypEmRosBaHyhDuRmdC{i@giCooBctG}`AanD{yAsvD_t@cz@o_BgbD}{AgvCmmAoaGm{@k~BcaAiuDy}Ay{Eyq@afE}bAcgNmdBiuL_PcdElN}tHkBacC}L_aB}b@_cCiZkaA}b@g{Aaf@soEgxAc_Ls~@apHe}@cnEe{AwqLwn@qvJuu@whH}t@q~Ckr@qeB}`@cWoUih@kLiqAiH}zAkKwjAu]a}AnAmfAxbAajB~~@e}ChVihBlOmXuFcVce@vA_~@_VibBarCc{@ozAkHcZwHvBar@~MuLkEaCq_AeGsvAlB_J`GDrFqMhJeGjKrf@na@bnBti@lwAb{@~xAvo@ngAxXde@fRxFtp@hRtQvT?|Y}Jz{@mO~{@qd@~{AgYv|@ea@lp@{[ht@bIvoAb_@~nBdD~fAlHpdAnTd{At}@xz@|k@jjBho@f_Dh{@jqIzm@lsJnlBppMraAlrF`k@`fFp}@rgGdXrfD~Z|bCrWlbAfbA`{DhUbkCb@peDqLtzFfUltFd|@n|Fhp@~eFlm@|gJhr@~dF|nAn|DnkAhtEpw@`lBbnAdcGzd@zuAriBxbDnnAx{BnlAzoBn|BpbIfuB`~Gr_@hbCnNx~Dl]b|FtP~vFkCxz@`j@ba@re@d\\hcBrgAtvBrw@lfCvqHfM`Sbv@dSv_@dk@bYhi@bj@_C~]lYre@tGjMjLxNhQtVmExc@uF";
-
-            
-            List<LatLng> lines = PolylineDecoder.DecodePolyline(polyline);
-            PolylineOptions popts = new PolylineOptions();
-            foreach (var item in lines)
-                popts.Add(item);
-
-            popts.InvokeColor(Color.Green);
-            popts.InvokeWidth(5);
-
-            this.map.AddPolyline(popts);
-
 
             //markers click event
             this.map.MarkerClick += MarkerClickEvent;
@@ -272,6 +262,8 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
             }
             
         }
+
+        private View view;
 
         private int FragmentId { get; } = Resource.Layout.carrier_map;
     }

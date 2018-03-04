@@ -37,16 +37,25 @@
     <Compile Include="Converters\DestinationStringValueConverter.cs" />
     <Compile Include="Converters\PriorityStringValueConverter.cs" />
     <Compile Include="Converters\TimeStringValueConverter.cs" />
+    <Compile Include="Helpers\Exceptions\HttpUnprocessableEntityException.cs" />
     <Compile Include="Helpers\Exceptions\InvalidTokenException.cs" />
     <Compile Include="Helpers\Exceptions\SignInException.cs" />
     <Compile Include="Models\Account\SessionData.cs" />
     <Compile Include="Models\Enums\OrderStatus.cs" />
+    <Compile Include="Models\Enums\RoutePointType.cs" />
+    <Compile Include="Models\Enums\RouteStatus.cs" />
     <Compile Include="Models\GeoPosition.cs" />
     <Compile Include="Models\Orders\Trace\ApproximateTrace.cs" />
-    <Compile Include="Models\Orders\OrderListItem.cs" />
+    <Compile Include="Models\Orders\OrderMapItem.cs" />
     <Compile Include="Models\Orders\OrderDetails.cs" />
     <Compile Include="Models\Orders\Trace\DurationDistance.cs" />
     <Compile Include="Models\Orders\Trace\Trace.cs" />
+    <Compile Include="Models\Routes\RouteDetails.cs" />
+    <Compile Include="Models\Routes\RouteEditModel.cs" />
+    <Compile Include="Models\Routes\RouteListItem.cs" />
+    <Compile Include="Models\Routes\RoutePoint.cs" />
+    <Compile Include="Providers\IDbConnectionFactory.cs" />
+    <Compile Include="Providers\Implementations\DbConnectionFactory.cs" />
     <Compile Include="Resources\ConstantValues.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,15 +94,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OrdersApiResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\RoutesApiResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoutesApiResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\Implementations\OrdersService.cs" />
+    <Compile Include="Services\Implementations\RoutesService.cs" />
     <Compile Include="Services\IOrdersService.cs" />
-    <Compile Include="Services\ISalePointsService.cs" />
+    <Compile Include="Services\IRoutesService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\Carrier\CarrierFloatingOrderDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Carrier\CarrierFloatingOrdersViewModel.cs" />
-    <Compile Include="ViewModels\Carrier\CarrierMapViewModel.cs" />
+    <Compile Include="ViewModels\Carrier\Map\CarrierFloatingOrderDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Carrier\Map\CarrierFloatingOrdersViewModel.cs" />
+    <Compile Include="ViewModels\Carrier\Map\CarrierMapViewModel.cs" />
     <Compile Include="ViewModels\Carrier\CarrierOrdersViewModel.cs" />
     <Compile Include="ViewModels\Carrier\CarrierRootViewModel.cs" />
+    <Compile Include="ViewModels\Carrier\SideView\CarrierSideActiveRouteViewModel.cs" />
+    <Compile Include="ViewModels\Carrier\SideView\CarrierSideRouteEditViewModel.cs" />
+    <Compile Include="ViewModels\Carrier\SideView\CarrierSideViewViewModel.cs" />
+    <Compile Include="ViewModels\Carrier\SideView\CarrierSideTakeOrdersViewModel.cs" />
     <Compile Include="ViewModels\InProgressViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\RootSalePointViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -174,6 +193,10 @@
     <EmbeddedResource Include="Resources\OrdersApiResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OrdersApiResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\RoutesApiResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RoutesApiResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

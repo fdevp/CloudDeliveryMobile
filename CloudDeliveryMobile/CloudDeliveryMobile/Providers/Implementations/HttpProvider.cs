@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using CloudDeliveryMobile.Helpers.Exceptions;
+using CloudDeliveryMobile.Resources;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,11 @@ namespace CloudDeliveryMobile.Providers.Implementations
         public HttpProvider()
         {
             this.httpClient = new HttpClient();
+        }
+
+        public string AbsoluteUri(string resource)
+        {
+            return string.Concat(ApiResources.Host, resource);
         }
 
         public async Task<string> GetAsync(string resource, Dictionary<string, string> data = null)
@@ -34,7 +41,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
                 //error response handling
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new HttpRequestException(response.StatusCode.ToString());
+                    throw new HttpUnprocessableEntityException(response.StatusCode.ToString());
                 }
                 return await response.Content.ReadAsStringAsync();
             }
@@ -58,13 +65,12 @@ namespace CloudDeliveryMobile.Providers.Implementations
                 //error response handling
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new HttpRequestException(response.StatusCode.ToString());
+                    throw new HttpUnprocessableEntityException(response.StatusCode.ToString());
                 }
 
                 return await response.Content.ReadAsStringAsync();
             }
         }
-
 
         public async Task<string> PutAsync(string resource, object data = null, bool urlencoded = false)
         {
@@ -84,13 +90,12 @@ namespace CloudDeliveryMobile.Providers.Implementations
                 //error response handling
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new HttpRequestException(response.StatusCode.ToString());
+                    throw new HttpUnprocessableEntityException(response.StatusCode.ToString());
                 }
 
                 return await response.Content.ReadAsStringAsync();
             }
         }
-
 
         public async Task<string> DeleteAsync(string resource)
         {
@@ -101,13 +106,12 @@ namespace CloudDeliveryMobile.Providers.Implementations
                 //error response handling
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new HttpRequestException(response.StatusCode.ToString());
+                    throw new HttpUnprocessableEntityException(response.StatusCode.ToString());
                 }
 
                 return await response.Content.ReadAsStringAsync();
             }
         }
-
 
         public void SetAuthorizationHeader(string token)
         {

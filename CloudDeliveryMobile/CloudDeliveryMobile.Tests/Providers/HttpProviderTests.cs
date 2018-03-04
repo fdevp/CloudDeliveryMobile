@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudDeliveryMobile.Services
+namespace CloudDeliveryMobile.Tests.Providers
 {
-    interface ISalePointsService
+    public class HttpProviderTests
     {
     }
 }

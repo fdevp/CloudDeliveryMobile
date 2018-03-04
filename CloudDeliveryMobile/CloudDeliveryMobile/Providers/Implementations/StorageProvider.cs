@@ -13,22 +13,21 @@ namespace CloudDeliveryMobile.Providers.Implementations
 {
     public class StorageProvider : IStorageProvider
     {
-        public StorageProvider(IDeviceProvider deviceProvider)
+        public StorageProvider(IDeviceProvider deviceProvider, IDbConnectionFactory dbConnectionFactory)
         {
             this.deviceProvider = deviceProvider;
-            string externalDirPath = this.deviceProvider.DataPath();
-            this.dbPath = PortablePath.Combine(externalDirPath, FilesNames.databaseFile);
-
-            using (var ctx = new SQLiteConnection(this.dbPath))
+            this.dbConnectionFactory = dbConnectionFactory;
+            
+            using (var ctx = dbConnectionFactory.GetConnection())
             {
-                //creates if not exists
+                //create if not exists
                 ctx.CreateTable<MainTable>();
             }
         }
 
         public void ClearData()
         {
-            using (var ctx = new SQLiteConnection(this.dbPath))
+            using (var ctx = dbConnectionFactory.GetConnection())
             {
                 ctx.DropTable<MainTable>();
                 ctx.CreateTable<MainTable>();
@@ -37,7 +36,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
 
         public void Delete(string key)
         {
-            using (var ctx = new SQLiteConnection(this.dbPath))
+            using (var ctx = dbConnectionFactory.GetConnection())
             {
                 ctx.DropTable<MainTable>();
                 ctx.CreateTable<MainTable>();
@@ -46,7 +45,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
 
         public bool Exists(string key)
         {
-            using (var ctx = new SQLiteConnection(this.dbPath))
+            using (var ctx = dbConnectionFactory.GetConnection())
             {
                 return ctx.Table<MainTable>().Any(x => x.Key == key);
             }
@@ -64,7 +63,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
             if (json == null)
                 throw new InvalidOperationException("Błąd przy serializowaniu obiektu.");
 
-            using (var ctx = new SQLiteConnection(this.dbPath))
+            using (var ctx = dbConnectionFactory.GetConnection())
             {
                 MainTable item = ctx.Table<MainTable>().Where(x => x.Key == key).FirstOrDefault();
 
@@ -78,7 +77,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
 
         public string Select(string key)
         {
-            using (var ctx = new SQLiteConnection(this.dbPath))
+            using (var ctx = dbConnectionFactory.GetConnection())
             {
                 MainTable item = ctx.Table<MainTable>().Where(x => x.Key == key).FirstOrDefault();
                 if (item == null)
@@ -89,6 +88,6 @@ namespace CloudDeliveryMobile.Providers.Implementations
         }
 
         private IDeviceProvider deviceProvider;
-        private string dbPath;
+        private IDbConnectionFactory dbConnectionFactory;
     }
 }

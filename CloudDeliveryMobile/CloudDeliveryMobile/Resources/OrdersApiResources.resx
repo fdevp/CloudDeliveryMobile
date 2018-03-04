@@ -118,27 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Accept" xml:space="preserve">
-    <value>http://clouddelivery.azurewebsites.net/api/orders/accept</value>
+    <value>api/orders/accept</value>
   </data>
   <data name="ApproximateTrace" xml:space="preserve">
-    <value>http://clouddelivery.azurewebsites.net/api/orders/CheckDistanceTime</value>
+    <value>api/orders/CheckDistanceTime</value>
   </data>
   <data name="Delivered" xml:space="preserve">
-    <value>http://clouddelivery.azurewebsites.net/api/orders/delivered</value>
+    <value>api/orders/delivered</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>http://clouddelivery.azurewebsites.net/api/orders/details</value>
+    <value>api/orders/details</value>
   </data>
   <data name="GetTrace" xml:space="preserve">
-    <value>http://clouddelivery.azurewebsites.net/api/orders/gettrace</value>
+    <value>api/orders/gettrace</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>api/orders/list</value>
   </data>
   <data name="PendingOrders" xml:space="preserve">
-    <value>http://clouddelivery.azurewebsites.net/api/orders/PendingList</value>
+    <value>api/orders/PendingList</value>
   </data>
   <data name="Pickup" xml:space="preserve">
-    <value>http://clouddelivery.azurewebsites.net/api/orders/pickup</value>
+    <value>api/orders/pickup</value>
   </data>
   <data name="SetTrace" xml:space="preserve">
-    <value>http://clouddelivery.azurewebsites.net/api/orders/settrace</value>
+    <value>api/orders/settrace</value>
   </data>
 </root>

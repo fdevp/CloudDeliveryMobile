@@ -4,6 +4,7 @@ using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Services;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -20,7 +21,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 
         public IMvxInteraction OrdersUpdateInteraction => _ordersUpdateInteraction;
 
-        public List<OrderListItem> PendingOrders
+        public List<Order> PendingOrders
         {
             get
             {
@@ -78,13 +79,31 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
+        public MvxAsyncCommand InitSideView
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    if (this.sideViewInitialised)
+                        return;
+
+                    this.sideViewInitialised = true;
+                    await this.navigationService.Navigate(this.SideView);
+                });
+
+            }
+        }
+
+        public CarrierSideViewViewModel SideView { get; set; }
+
         public MvxCommand<int> ShowOrderDetails
         {
             get
             {
                 return new MvxCommand<int>(id =>
                 {
-                    this.navigationService.Navigate<CarrierFloatingOrderDetailsViewModel,int>(id);
+                    this.navigationService.Navigate<CarrierFloatingOrderDetailsViewModel, int>(id);
                 });
             }
         }
@@ -94,11 +113,14 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             this.deviceProvider = deviceProvider;
             this.navigationService = navigationService;
             this.ordersService = ordersService;
+
+            this.SideView = Mvx.IocConstruct<CarrierSideViewViewModel>();
         }
 
         public async override void Start()
         {
             base.Start();
+            //pending orders
             this.ordersService.PendingOrdersUpdated += this.SendInteraction;
             await this.ordersService.GetPendingOrders();
         }
@@ -109,6 +131,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
         }
 
         private float? baseZoom;
+        private bool sideViewInitialised = false;
         private GeoPosition basePosition;
         private GeoPosition currentPosition = new GeoPosition();
 
