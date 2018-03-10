@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CloudDeliveryMobile.Models
 {
@@ -11,7 +7,7 @@ namespace CloudDeliveryMobile.Models
         public double lat { get; set; }
         public double lng { get; set; }
 
-        public Dictionary<string,string> toDictionary()
+        public Dictionary<string,string> ToDictionary()
         {
             var dict = new Dictionary<string, string>();
             dict.Add("lat", this.lat.ToString());

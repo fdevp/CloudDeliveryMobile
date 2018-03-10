@@ -1,22 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  
-  
-  <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
-           android:id="@+id/edit_route_points_list"
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100"
+    app:MvxBind="Visible !InProgress">
+
+    <LinearLayout
+        android:background="@drawable/edit_route_border_bottom"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="45"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/edit_route_border_bottom_right">
+
+        <ImageView
+          android:layout_width="45dp"
           android:layout_height="match_parent"
+          android:src="@drawable/marker"/>
+        <TextView
           android:layout_width="match_parent"
-          android:background="#efefef"
-          app:MvxBind="ItemsSource Model.EditPoints; Visible !InProgress"
-           
-        />
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:textSize="30dp"
+          app:MvxBind="Text Points.Count"/>
+
+      </LinearLayout>
+
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/edit_route_border_bottom_right">
+
+        <ImageView
+          android:layout_width="45dp"
+          android:layout_height="match_parent"
+          android:src="@drawable/salepoint_marker"/>
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:textSize="30dp"
+          app:MvxBind="Text SalepointsCount"/>
+
+      </LinearLayout>
+
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:layout_weight="1">
+
+        <ImageView
+          android:layout_width="45dp"
+          android:layout_height="match_parent"
+          android:src="@drawable/endpoint"/>
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:textSize="30dp"
+          app:MvxBind="Text EndpointsCount"/>
+
+      </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+             android:id="@+id/edit_route_points_list"
+             android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:background="#eee"
+             android:layout_weight="11"
+             app:MvxBind="ItemsSource Points"/>
+
+    <LinearLayout
+        android:layout_below="@id/edit_route_points_list"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="#eee"
+        android:layout_weight="44">
+
+      <Button
+          android:id="@+id/float_details_accept_order"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="8dp"
+          android:text="Utwórz trasę"
+          android:textColor="#fff"
+          android:background="@drawable/ripple_primary_color"
+          app:MvxBind="Click AcceptRoute"/>
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+
 
   <include layout="@layout/main_inprogress"/>
 
-
-</LinearLayout>
+</RelativeLayout>

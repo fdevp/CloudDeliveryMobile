@@ -1,31 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Android.App;
-using Android.Content;
 using Android.Gms.Location;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
-using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using CloudDeliveryMobile.Android.Components;
 using CloudDeliveryMobile.Android.Components.Converters;
 using CloudDeliveryMobile.Android.Components.Geolocation;
-using CloudDeliveryMobile.Android.Fragments.Carrier.SideView;
 using CloudDeliveryMobile.ViewModels;
 using CloudDeliveryMobile.ViewModels.Carrier;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Core.ViewModels;
-using MvvmCross.Droid;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Views.Attributes;
-using MvvmCross.Platform.Core;
 using static Android.Gms.Maps.GoogleMap;
 
 namespace CloudDeliveryMobile.Android.Fragments.Carrier
@@ -71,7 +63,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
 
             return view;
         }
-
 
         //map
         public void OnMapReady(GoogleMap googleMap)
@@ -205,14 +196,14 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
             //remove outdated
             foreach (var item in salepointsMarkers)
             {
-                if (!this.ViewModel.PendingOrders.Any(x => x.SalepointId == item.Key))
+                if (this.ViewModel.PendingOrders.All(x => x.SalepointId != item.Key))
                 {
                     item.Value.Remove();
                     salepointsMarkers.Remove(item.Key);
                 }
             }
 
-            //add new orders
+            //add new salepoint markers
             foreach (var item in this.ViewModel.PendingOrders)
             {
                 if (salepointsMarkers.ContainsKey(item.SalepointId))
@@ -229,6 +220,8 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
 
                 salepointsMarkers.Add(item.SalepointId, marker);
             }
+
+
         }
 
         //orders markers

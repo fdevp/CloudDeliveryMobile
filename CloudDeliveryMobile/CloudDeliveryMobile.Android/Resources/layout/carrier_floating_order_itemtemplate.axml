@@ -67,7 +67,7 @@
       <ImageView
           android:layout_width="15dp"
           android:layout_height="15dp"
-          android:src="@drawable/salepoint_icon"/>
+          android:src="@drawable/salepoint_bw"/>
 
       <TextView
           android:layout_width="match_parent"
@@ -95,7 +95,7 @@
           android:id="@+id/endpoint_image"
           android:layout_width="15dp"
           android:layout_height="15dp"
-          android:src="@drawable/endpoint_marker"/>
+          android:src="@drawable/endpoint_bw"/>
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"

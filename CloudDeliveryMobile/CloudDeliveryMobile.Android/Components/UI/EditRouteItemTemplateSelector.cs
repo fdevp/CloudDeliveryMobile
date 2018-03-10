@@ -1,29 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+﻿using System.Collections.Generic;
 using CloudDeliveryMobile.Models.Enums;
-using CloudDeliveryMobile.Models.Routes;
+using CloudDeliveryMobile.Models.Routes.Edit;
 using MvvmCross.Droid.Support.V7.RecyclerView.ItemTemplates;
 
 namespace CloudDeliveryMobile.Android.Components.UI
 {
     public class EditRouteItemTemplateSelector : IMvxTemplateSelector
     {
-
         public EditRouteItemTemplateSelector()
         {
-            this.listItemLayout = new Dictionary<int, int>()
+            this.listItemLayout = new Dictionary<RoutePointType, int>()
             {
-                { (int)RoutePointType.SalePoint, Resource.Layout.carrier_edit_salepoint_listitem },
-                { (int)RoutePointType.EndPoint, Resource.Layout.carrier_edit_endpoint_listitem }
+                { RoutePointType.SalePoint, Resource.Layout.route_edit_salepoint_listitem},
+                { RoutePointType.EndPoint, Resource.Layout.route_edit_endpoint_listitem }
             };
         }
 
@@ -34,10 +23,10 @@ namespace CloudDeliveryMobile.Android.Components.UI
 
         public int GetItemViewType(object forItemObject)
         {
-            var point = (RoutePoint)forItemObject;
-            return this.listItemLayout[(int)point.Type];
+            var point = (RoutePointEditModel)forItemObject;
+            return this.listItemLayout[point.Type];
         }
 
-        private readonly Dictionary<int, int> listItemLayout;
+        private readonly Dictionary<RoutePointType, int> listItemLayout;
     }
 }

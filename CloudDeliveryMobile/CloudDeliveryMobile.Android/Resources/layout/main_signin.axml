@@ -75,7 +75,7 @@
        android:text="ZALOGUJ SIĘ"
        android:textColor="#ffffff"
        android:clickable="true"
-       android:background="@drawable/shape_loginbutton"
+       android:background="@drawable/ripple_loginbutton"
        app:MvxBind="Visible !InProgress; Click SignInCommand"/>
 
   </LinearLayout>

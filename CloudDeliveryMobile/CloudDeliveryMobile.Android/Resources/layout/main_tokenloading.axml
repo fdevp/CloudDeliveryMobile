@@ -7,30 +7,11 @@
      android:layout_height="match_parent"
      android:background="#fff">
 
-  <ImageView
-    android:id="@+id/main_signin_token_logo"
-    android:src="@drawable/rocket"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_marginTop="150dp"
-    android:layout_centerHorizontal="true"
-    android:layout_gravity="center" />
-  <ImageView
-    android:src="@drawable/name_icon"
-    android:layout_width="200dp"
-    android:layout_height="50dp"
-    android:layout_marginTop="0dp"
-    android:layout_below="@id/main_signin_token_logo"
-    android:layout_centerHorizontal="true"
-    android:layout_gravity="center" />
-
   <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="70dp"
-            android:layout_below="@id/main_signin_token_logo"
-            app:lottie_fileName="lofftie_loading.json"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:lottie_fileName="truck_running.json"
             app:lottie_loop="true"
             app:lottie_autoPlay="true"
             android:layout_centerInParent="true"

@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
+﻿using Android.Views;
 using Android.Views.Animations;
-using Android.Widget;
 
 namespace CloudDeliveryMobile.Android.Components.UI
 {
@@ -27,10 +17,14 @@ namespace CloudDeliveryMobile.Android.Components.UI
         {
             View view = this.movingView ?? v;
 
+            bool continueGesture = false;
+
             switch (e.Action)
             {
                 case MotionEventActions.Down:
                     this.lastPosX = e.GetX();
+                    continueGesture = true;
+
                     break;
                 case MotionEventActions.Move:
                     float currentPosition = e.GetX();
@@ -52,6 +46,8 @@ namespace CloudDeliveryMobile.Android.Components.UI
                         transX = maxTranslation;
                     }
                     view.TranslationX = transX;
+
+                    continueGesture = true;
                     break;
                 case MotionEventActions.Up:
                     
@@ -67,7 +63,7 @@ namespace CloudDeliveryMobile.Android.Components.UI
                     return v.OnTouchEvent(e);
             }
 
-            return true;
+            return continueGesture;
         }
 
 

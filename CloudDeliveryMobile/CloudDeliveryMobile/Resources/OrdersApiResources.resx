@@ -120,6 +120,9 @@
   <data name="Accept" xml:space="preserve">
     <value>api/orders/accept</value>
   </data>
+  <data name="AcceptedOrders" xml:space="preserve">
+    <value>api/orders/AcceptedList</value>
+  </data>
   <data name="ApproximateTrace" xml:space="preserve">
     <value>api/orders/CheckDistanceTime</value>
   </data>

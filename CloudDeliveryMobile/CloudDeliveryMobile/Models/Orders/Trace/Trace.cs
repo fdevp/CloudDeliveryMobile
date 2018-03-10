@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudDeliveryMobile.Models.Orders
+﻿namespace CloudDeliveryMobile.Models.Orders
 {
     /// <summary>
     /// Google Directions JSON structure

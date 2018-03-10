@@ -34,8 +34,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Converters\PendingRoutePointVMValueConverter.cs" />
+    <Compile Include="Converters\RouteSPRemoveButtonValueConverter.cs" />
+    <Compile Include="Converters\SalepointAddressValueConverter.cs" />
     <Compile Include="Converters\DestinationStringValueConverter.cs" />
     <Compile Include="Converters\PriorityStringValueConverter.cs" />
+    <Compile Include="Converters\SalepointOrdersCountValueConverter.cs" />
     <Compile Include="Converters\TimeStringValueConverter.cs" />
     <Compile Include="Helpers\Exceptions\HttpUnprocessableEntityException.cs" />
     <Compile Include="Helpers\Exceptions\InvalidTokenException.cs" />
@@ -46,14 +50,17 @@
     <Compile Include="Models\Enums\RouteStatus.cs" />
     <Compile Include="Models\GeoPosition.cs" />
     <Compile Include="Models\Orders\Trace\ApproximateTrace.cs" />
-    <Compile Include="Models\Orders\OrderMapItem.cs" />
+    <Compile Include="Models\Orders\Order.cs" />
     <Compile Include="Models\Orders\OrderDetails.cs" />
     <Compile Include="Models\Orders\Trace\DurationDistance.cs" />
     <Compile Include="Models\Orders\Trace\Trace.cs" />
+    <Compile Include="Models\Routes\Edit\RoutePointEditModel.cs" />
     <Compile Include="Models\Routes\RouteDetails.cs" />
-    <Compile Include="Models\Routes\RouteEditModel.cs" />
+    <Compile Include="Models\Routes\Edit\RouteEditModel.cs" />
     <Compile Include="Models\Routes\RouteListItem.cs" />
     <Compile Include="Models\Routes\RoutePoint.cs" />
+    <Compile Include="Models\Routes\Edit\RouteMoveEditPoint.cs" />
+    <Compile Include="Models\Routes\RoutePointActiveModel.cs" />
     <Compile Include="Providers\IDbConnectionFactory.cs" />
     <Compile Include="Providers\Implementations\DbConnectionFactory.cs" />
     <Compile Include="Resources\ConstantValues.Designer.cs">

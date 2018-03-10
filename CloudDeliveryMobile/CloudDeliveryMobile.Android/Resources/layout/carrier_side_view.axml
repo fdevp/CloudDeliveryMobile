@@ -26,21 +26,23 @@
     </RelativeLayout>
 
   </RelativeLayout>
-  
-    <RelativeLayout
+
+  <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_toRightOf="@id/side_view_touch_container"
       android:background="@drawable/side_view_style">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/side_view_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+      
+      
       <include layout="@layout/main_inprogress"/>
           
-    </LinearLayout>
+    </RelativeLayout>
 
 
   </RelativeLayout>

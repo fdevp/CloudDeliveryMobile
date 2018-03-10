@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Android.App;
-using Android.Content;
 using Android.Gms.Common.Apis;
 using Android.Gms.Location;
 using Android.Locations;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Plugin.Geolocator;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 
 namespace CloudDeliveryMobile.Android.Components
 {
@@ -23,11 +11,6 @@ namespace CloudDeliveryMobile.Android.Components
         public bool Running { get; private set; } = false;
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="interval">in miliseconds</param>
-        /// <param name="fastestinterval">in miliseconds</param>
         public GeolocationProvider(Activity activity)
         {
             this.activity = activity;

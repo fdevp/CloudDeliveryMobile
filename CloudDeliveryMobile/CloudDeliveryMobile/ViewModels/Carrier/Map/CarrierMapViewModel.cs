@@ -8,18 +8,20 @@ using MvvmCross.Platform;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace CloudDeliveryMobile.ViewModels.Carrier
 {
     public class CarrierMapViewModel : BaseViewModel
     {
+        //pending orders
         private MvxInteraction _ordersUpdateInteraction = new MvxInteraction();
 
         public IMvxInteraction OrdersUpdateInteraction => _ordersUpdateInteraction;
+
+        private void SendInteraction(object sender, EventArgs e)
+        {
+            this._ordersUpdateInteraction.Raise();
+        }
 
         public List<Order> PendingOrders
         {
@@ -29,6 +31,31 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
+        public MvxCommand ShowFloatingOrders
+        {
+            get
+            {
+                return new MvxCommand(() =>
+                {
+                    this._ordersUpdateInteraction.Raise();
+                    this.navigationService.Navigate<CarrierFloatingOrdersViewModel>();
+                });
+            }
+        }
+
+        public MvxCommand<int> ShowOrderDetails
+        {
+            get
+            {
+                return new MvxCommand<int>(id =>
+                {
+                    this.navigationService.Navigate<CarrierFloatingOrderDetailsViewModel, int>(id);
+                });
+            }
+        }
+
+
+        //gmaps
         public GeoPosition CurrentPosition
         {
             get
@@ -67,18 +94,8 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        public MvxCommand ShowFloatingOrders
-        {
-            get
-            {
-                return new MvxCommand(() =>
-                {
-                    this._ordersUpdateInteraction.Raise();
-                    this.navigationService.Navigate<CarrierFloatingOrdersViewModel>();
-                });
-            }
-        }
 
+        //side view
         public MvxAsyncCommand InitSideView
         {
             get
@@ -97,39 +114,30 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 
         public CarrierSideViewViewModel SideView { get; set; }
 
-        public MvxCommand<int> ShowOrderDetails
-        {
-            get
-            {
-                return new MvxCommand<int>(id =>
-                {
-                    this.navigationService.Navigate<CarrierFloatingOrderDetailsViewModel, int>(id);
-                });
-            }
-        }
-
         public CarrierMapViewModel(IDeviceProvider deviceProvider, IMvxNavigationService navigationService, IOrdersService ordersService)
         {
             this.deviceProvider = deviceProvider;
             this.navigationService = navigationService;
             this.ordersService = ordersService;
 
+            this.ordersService.PendingOrdersUpdated += this.SendInteraction;
             this.SideView = Mvx.IocConstruct<CarrierSideViewViewModel>();
         }
 
         public async override void Start()
         {
+            if (initialised)
+                return;
+
             base.Start();
+            
             //pending orders
-            this.ordersService.PendingOrdersUpdated += this.SendInteraction;
             await this.ordersService.GetPendingOrders();
+            initialised = true;
         }
 
-        private void SendInteraction(object sender, EventArgs e)
-        {
-            this._ordersUpdateInteraction.Raise();
-        }
 
+        private bool initialised = false;
         private float? baseZoom;
         private bool sideViewInitialised = false;
         private GeoPosition basePosition;

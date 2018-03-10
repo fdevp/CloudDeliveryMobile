@@ -4,11 +4,7 @@ using CloudDeliveryMobile.Resources;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace CloudDeliveryMobile.ViewModels
 {
@@ -96,7 +92,7 @@ namespace CloudDeliveryMobile.ViewModels
             this.InProgress = false;
         }
 
-        private LoginModel model = new LoginModel();
+        private LoginModel model = new LoginModel { Username="kierowca1", Password="Admin1!" };
         private ISessionProvider sessionProvider;
         private IStorageProvider storageProvider;
         private IMvxNavigationService navigationService;

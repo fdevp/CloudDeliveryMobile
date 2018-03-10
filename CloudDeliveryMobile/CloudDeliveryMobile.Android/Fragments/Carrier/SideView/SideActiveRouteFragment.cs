@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
+﻿using Android.OS;
 using Android.Views;
-using Android.Widget;
 using CloudDeliveryMobile.Android.Components.UI;
-using CloudDeliveryMobile.ViewModels.Carrier;
 using CloudDeliveryMobile.ViewModels.Carrier.SideView;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Droid.Support.V4;
@@ -28,8 +18,8 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.SideView
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
             View view = this.BindingInflate(FragmentId, null);
 
-            var pointsList = view.FindViewById<MvxRecyclerView>(Resource.Id.active_route_points_list);
-            pointsList.ItemTemplateSelector = new ActiveRouteItemTemplateSelector();
+            /*var pointsList = view.FindViewById<MvxRecyclerView>(Resource.Id.active_route_points_list);
+            pointsList.ItemTemplateSelector = new ActiveRouteItemTemplateSelector();*/
 
             return view;
         }

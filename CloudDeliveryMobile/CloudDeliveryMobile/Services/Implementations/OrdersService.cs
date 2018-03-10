@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using CloudDeliveryMobile.Models;
-using CloudDeliveryMobile.Models.Enums;
 using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Resources;
@@ -26,7 +22,7 @@ namespace CloudDeliveryMobile.Services.Implementations
         public List<Order> PendingOrders { get; private set; }
 
         public List<Order> AcceptedOrders { get; private set; }
-
+        
         public async Task Accept(Order order)
         {
             string resource = string.Concat(OrdersApiResources.Accept, "/", order.Id);
@@ -42,6 +38,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             if (this.PendingOrdersUpdated != null)
                 this.PendingOrdersUpdated.Invoke(this, null);
         }
+      
 
         public async Task Delivered(int orderId)
         {
@@ -57,10 +54,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task<List<Order>> GetAcceptedOrders()
         {
-            Dictionary<string, string> filters = new Dictionary<string, string>();
-            filters.Add("Status", OrderStatus.Accepted.ToString());
-
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.List), filters);
+            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.AcceptedOrders));
             this.AcceptedOrders = JsonConvert.DeserializeObject<List<Order>>(response);
 
             if (this.AcceptedOrdersUpdated != null)
@@ -73,7 +67,7 @@ namespace CloudDeliveryMobile.Services.Implementations
         {
 
             string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.PendingOrders));
-            this.PendingOrders = JsonConvert.DeserializeObject<List<Order>>(response, new JsonSerializerSettings { FloatParseHandling = FloatParseHandling.Double });
+            this.PendingOrders = JsonConvert.DeserializeObject<List<Order>>(response);
 
             if (this.PendingOrdersUpdated != null)
                 this.PendingOrdersUpdated.Invoke(this, null);

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PCLStorage;
+﻿using PCLStorage;
 using Plugin.DeviceInfo;
 namespace CloudDeliveryMobile.Providers.Implementations
 {

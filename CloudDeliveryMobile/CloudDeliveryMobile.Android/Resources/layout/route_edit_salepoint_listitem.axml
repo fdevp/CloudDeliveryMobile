@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_width="match_parent">
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:weightSum="100">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_weight="30">
+
+      <ImageView
+          android:id="@+id/edit_point_item_image"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:layout_marginRight="10dp"
+          android:layout_centerVertical="true"
+          android:src="@drawable/salepoint_bw"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_toRightOf="@id/edit_point_item_image"
+                        >
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:MvxBind='Text Order.SalepointName'/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="3dp"
+            app:MvxBind="Text ., Converter=SalepointAddress"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="3dp"
+            app:MvxBind="Text SalepointOrdersCount(ViewModelWrapper.Points, Order.SalepointId)"/>
+      </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="70">
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:weightSum="2">
+          <LinearLayout
+          android:layout_height="match_parent"
+          android:layout_width="match_parent"
+          android:layout_weight="1"
+            >
+
+            <Button
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@drawable/editpoint_element_border"
+             android:text="×"
+             android:textSize="35dp"
+             android:gravity="center"
+             android:textColor="#aaa"
+             app:MvxBind="Click RemoveSalePointRoutePoint;Visible RouteSPRemoveButton(ViewModelWrapper.Points,Order.SalepointId)"/>
+
+          </LinearLayout>
+         
+
+          <Button
+              android:id="@+id/edit_point_handle"
+              android:background="@drawable/editpoint_element_border"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="≡"
+              android:textSize="35dp"
+              android:gravity="center"
+              android:layout_weight="1"
+              android:textColor="#aaa"
+                                />
+        </LinearLayout>
+      </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+
+  </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -57,7 +57,6 @@
     <Reference Include="Lottie, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Com.Airbnb.Android.Lottie.2.5.0\lib\MonoAndroid41\Lottie.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android.Export" />
     <Reference Include="MvvmCross.Binding, Version=5.6.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Binding.5.6.3\lib\MonoAndroid\MvvmCross.Binding.dll</HintPath>
@@ -145,8 +144,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
     <Reference Include="Xamarin.Android.Arch.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -233,8 +230,11 @@
     <Compile Include="Components\Map\MarkerTag.cs" />
     <Compile Include="Components\Map\MarkerType.cs" />
     <Compile Include="Components\Map\PolylineDecoder.cs" />
+    <Compile Include="Components\UI\DraggableAdapter\DraggableRecyclerAdapter.cs" />
+    <Compile Include="Components\UI\DraggableAdapter\EditPointViewHolder.cs" />
+    <Compile Include="Components\UI\DraggableAdapter\IItemDragListener.cs" />
+    <Compile Include="Components\UI\DraggableAdapter\RecyclerItemDragCallback.cs" />
     <Compile Include="Components\UI\EditRouteItemTemplateSelector.cs" />
-    <Compile Include="Components\UI\ActiveRouteItemTemplateSelector.cs" />
     <Compile Include="Components\UI\SideViewTouchListener.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierFloatingOrderDetails.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierFloatingOrdersFragment.cs" />
@@ -302,16 +302,16 @@
     <AndroidResource Include="Resources\layout\carrier_side_route_edit.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\carrier_active_salepoint_listitem.axml">
+    <AndroidResource Include="Resources\layout\route_active_point_body_listitem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\carrier_active_endpoint_listitem.axml">
+    <AndroidResource Include="Resources\layout\route_active_point_header_listitem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\carrier_edit_salepoint_listitem.axml">
+    <AndroidResource Include="Resources\layout\route_edit_salepoint_listitem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\carrier_edit_endpoint_listitem.axml">
+    <AndroidResource Include="Resources\layout\route_edit_endpoint_listitem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -384,19 +384,37 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_person_pin_circle_grey_500_48dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_person_pin_circle_grey_500_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_person_pin_circle_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\endpoint_marker.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\salepoint_icon.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\salepoint_marker.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\endpoint_marker.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\salepoint_icon.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\salepoint_marker.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\endpoint_marker.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\salepoint_icon.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\salepoint_marker.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\endpoint_marker.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\salepoint_icon.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\salepoint_marker.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\endpoint.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\endpoint_bw.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\endpoint_marker.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\endpoint.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\endpoint_bw.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\endpoint_marker.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\salepoint_bw.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\salepoint_marker.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\endpoint.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\endpoint_bw.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\endpoint_marker.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\salepoint_bw.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\salepoint_marker.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\endpoint.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\endpoint_bw.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\endpoint_marker.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\salepoint_bw.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\salepoint_marker.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\endpoint.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\endpoint_bw.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\endpoint_marker.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\salepoint_bw.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\salepoint_marker.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\marker.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\marker_bw.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\marker.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\marker_bw.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\marker.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\marker_bw.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\marker.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\marker_bw.png" />
     <Content Include="Resources\drawable-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\values\styles_splash.xml">
       <SubType>Designer</SubType>
@@ -425,8 +443,6 @@
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_access_time_grey_500_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_person_pin_circle_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\salepoint_icon.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\salepoint_marker.png" />
     <AndroidResource Include="Resources\drawable\shape_triangle.xml" />
     <AndroidResource Include="Resources\drawable\shape_dotted_left_border.xml" />
     <AndroidResource Include="Resources\drawable\animaton_slide_in_up.xml" />
@@ -434,6 +450,17 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\side_view_style.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\salepoint_bw.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\salepoint_marker.png" />
+    <AndroidResource Include="Resources\drawable\editpoint_element_border.xml" />
+    <AndroidResource Include="Resources\drawable\editpoint_separator_bordertop.xml" />
+    <AndroidResource Include="Resources\drawable\edit_route_border_bottom.xml" />
+    <AndroidResource Include="Resources\drawable\edit_route_border_bottom_right.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\marker.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\marker_bw.png" />
+    <AndroidResource Include="Resources\drawable\ripple_primary_color.xml" />
+    <AndroidResource Include="Resources\drawable\ripple_loginbutton.xml" />
+    <AndroidResource Include="Resources\drawable\shape_primary_button.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

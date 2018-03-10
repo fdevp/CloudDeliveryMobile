@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
+﻿namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
 {
     public class CarrierSideTakeOrdersViewModel : BaseViewModel
     {

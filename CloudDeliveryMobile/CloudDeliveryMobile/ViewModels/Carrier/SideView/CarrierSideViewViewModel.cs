@@ -1,15 +1,10 @@
 ﻿using CloudDeliveryMobile.Helpers.Exceptions;
-using CloudDeliveryMobile.Models.Routes;
-using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Services;
 using CloudDeliveryMobile.ViewModels.Carrier.SideView;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Platform;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CloudDeliveryMobile.ViewModels.Carrier
@@ -21,7 +16,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
         public CarrierSideTakeOrdersViewModel takeOrdersVM { get; set; }
 
         public CarrierSideActiveRouteViewModel activeRouteVM { get; set; }
-
 
         public CarrierSideViewViewModel(IRoutesService routesService, IMvxNavigationService navigationService)
         {
@@ -37,16 +31,13 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 
         private async void onActiveRouteUpdated(object sender, EventArgs e)
         {
+            BaseViewModel vmToLoad = this.routesService.ActiveRoute != null ? this.activeRouteVM : (BaseViewModel)this.routeEditVM;
+            Type currentChildType = this.currentChildViewModel?.GetType();
 
-            if (this.routesService.ActiveRoute == null && (activeChildViewModel == null || activeChildViewModel.GetType() != typeof(CarrierSideRouteEditViewModel)))
+            if (currentChildType != vmToLoad.GetType())
             {
-                await this.navigationService.Close(this.activeChildViewModel);
-                await this.navigationService.Navigate(this.routeEditVM);
-            }
-            else if (this.routesService.ActiveRoute != null && (activeChildViewModel == null || activeChildViewModel.GetType() != typeof(CarrierSideActiveRouteViewModel)))
-            {
-                await this.navigationService.Close(this.activeChildViewModel);
-                await this.navigationService.Navigate(this.activeRouteVM);
+                await this.navigationService.Navigate(vmToLoad); 
+                this.currentChildViewModel = vmToLoad;
             }
         }
 
@@ -71,7 +62,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
             catch (HttpUnprocessableEntityException e) // no active routes
             {
-                this.activeChildViewModel = this.routeEditVM;
+                this.currentChildViewModel = this.routeEditVM;
                 await this.navigationService.Navigate(this.routeEditVM);
             }
             catch (HttpRequestException e) //no connection
@@ -86,7 +77,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
         }
 
         public bool initialised = false;
-        private BaseViewModel activeChildViewModel;
+        private BaseViewModel currentChildViewModel;
 
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;

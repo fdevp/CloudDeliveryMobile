@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using CloudDeliveryMobile.Models.Routes;
+using CloudDeliveryMobile.Models.Routes.Edit;
 using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Resources;
 using Newtonsoft.Json;
@@ -31,7 +30,8 @@ namespace CloudDeliveryMobile.Services.Implementations
             return this.ActiveRoute;
         }
 
-        public async Task<RouteDetails> Add(RouteEditModel model)
+        
+        public async Task<RouteDetails> Add(List<RoutePointEditModel> model)
         {
             string response = await this.httpProvider.PostAsync(httpProvider.AbsoluteUri(RoutesApiResources.Add), model);
             this.ActiveRoute = JsonConvert.DeserializeObject<RouteDetails>(response);
@@ -39,6 +39,8 @@ namespace CloudDeliveryMobile.Services.Implementations
                 this.ActiveRouteUpdated.Invoke(this, null);
             return this.ActiveRoute;
         }
+        
+
 
         public async Task<RouteDetails> Details(int routeId)
         {
