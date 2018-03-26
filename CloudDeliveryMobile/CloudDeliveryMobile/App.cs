@@ -1,4 +1,5 @@
-﻿using CloudDeliveryMobile.Providers;
+﻿using Acr.UserDialogs;
+using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Providers.Implementations;
 using CloudDeliveryMobile.Resources;
 using CloudDeliveryMobile.Services;
@@ -21,6 +22,7 @@ namespace CloudDeliveryMobile
             var httpProvider = new HttpProvider();
             Mvx.RegisterSingleton<IHttpProvider>(httpProvider);
 
+            Mvx.RegisterSingleton<IUserDialogs>(UserDialogs.Instance);
 
             //db
             string externalDirPath = deviceProvider.DataPath();
@@ -40,7 +42,7 @@ namespace CloudDeliveryMobile
             var routesService = new RoutesService(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<IStorageProvider>());
             Mvx.RegisterSingleton<IRoutesService>(routesService);
 
-            RegisterNavigationServiceAppStart<TokenSignInViewModel>();
+            RegisterNavigationServiceAppStart<SignInViewModel>();
         }
     }
 }

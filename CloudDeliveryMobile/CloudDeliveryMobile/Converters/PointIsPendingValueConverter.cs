@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace CloudDeliveryMobile.Converters
 {
-    public class PendingRoutePointValueConverter : IMvxValueConverter
+    public class PointIsPendingValueConverter : IMvxValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            RoutePointActiveModel pointVM = (RoutePointActiveModel) value;
-
-            return !pointVM.Active && pointVM.Point.PassedTime.HasValue;
+            var point = (RoutePoint)value;
+            bool active = (bool)parameter;
+            return !active && !point.PassedTime.HasValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

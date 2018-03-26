@@ -1,82 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:orientation="vertical"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="#fff">
-
-  <ImageView
-    android:src="@drawable/rocket"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_marginTop="100dp"
-    android:layout_gravity="center" />
-
-  <ImageView
-    android:src="@drawable/name_icon"
-    android:layout_width="200dp"
-    android:layout_height="50dp"
-    android:layout_gravity="center" />
-
+<FrameLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:id="@+id/main_signin_layout">
+  
   <LinearLayout
-    android:orientation="vertical"
+    android:background="#fff"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="60dp">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:MvxBind="Visible !TokenInProgress">
 
-    <android.support.design.widget.TextInputLayout
-       android:layout_width="fill_parent"
-       android:layout_height="wrap_content"
-       android:theme="@style/Login.Input">
 
-      <android.support.v7.widget.AppCompatEditText
-          style="@style/Login.ElementsLayout"
-          android:hint="Login"
-          android:inputType="text"
-          app:MvxBind="Text UserName;Enabled !InProgress"/>
-    </android.support.design.widget.TextInputLayout>
+    <ImageView
+      android:src="@drawable/rocket"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:layout_marginTop="100dp"
+      android:layout_gravity="center" />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Login.Input"
-        android:layout_marginTop="20dp">
+    <ImageView
+      android:src="@drawable/name_icon"
+      android:layout_width="200dp"
+      android:layout_height="50dp"
+      android:layout_gravity="center" />
 
-      <android.support.v7.widget.AppCompatEditText
-          style="@style/Login.ElementsLayout"
-          android:hint="Hasło"
-          android:inputType="textPassword"
-          app:MvxBind="Text Password;Enabled !InProgress"/>
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="60dp">
 
-    </android.support.design.widget.TextInputLayout>
+      <android.support.design.widget.TextInputLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:theme="@style/Login.Input">
+
+        <android.support.v7.widget.AppCompatEditText
+            style="@style/Login.ElementsLayout"
+            android:hint="Login"
+            android:inputType="text"
+            app:MvxBind="Text UserName;Enabled !InProgress"/>
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:theme="@style/Login.Input"
+          android:layout_marginTop="20dp">
+
+        <android.support.v7.widget.AppCompatEditText
+            style="@style/Login.ElementsLayout"
+            android:hint="Hasło"
+            android:inputType="textPassword"
+            app:MvxBind="Text Password;Enabled !InProgress"/>
+
+      </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp">
+
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/animation_view"
+          android:layout_width="80dp"
+          android:layout_height="80dp"
+          app:lottie_fileName="truck_running.json"
+          app:lottie_loop="true"
+          app:lottie_autoPlay="true"
+          android:layout_gravity="center_horizontal|center_vertical"
+          app:MvxBind="Visible InProgress"/>
+
+      <Button
+         style="@style/Login.ElementsLayout"
+         android:text="ZALOGUJ SIĘ"
+         android:textColor="#ffffff"
+         android:clickable="true"
+         android:background="@drawable/ripple_primary_color_rounded"
+         app:MvxBind="Visible !InProgress; Click SignInCommand"/>
+
+    </LinearLayout>
 
   </LinearLayout>
 
-  <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="20dp">
+  <RelativeLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="#fff"
+     app:MvxBind="Visible TokenInProgress">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:lottie_fileName="lofftie_loading.json"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true"
-        android:layout_gravity="center_horizontal|center_vertical"
-        app:MvxBind="Visible InProgress"/>
+              android:id="@+id/animation_view"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              app:lottie_fileName="truck_running.json"
+              app:lottie_loop="true"
+              app:lottie_autoPlay="true"
+              android:layout_centerInParent="true"
+              android:layout_gravity="center"/>
 
-    <Button
-       style="@style/Login.ElementsLayout"
-       android:text="ZALOGUJ SIĘ"
-       android:textColor="#ffffff"
-       android:clickable="true"
-       android:background="@drawable/ripple_loginbutton"
-       app:MvxBind="Visible !InProgress; Click SignInCommand"/>
-
-  </LinearLayout>
-</LinearLayout>
+  </RelativeLayout>
+  
+</FrameLayout>

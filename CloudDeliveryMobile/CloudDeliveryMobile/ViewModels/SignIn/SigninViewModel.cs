@@ -35,6 +35,8 @@ namespace CloudDeliveryMobile.ViewModels
             }
         }
 
+        public bool TokenInProgress { get; set; } = false;
+
         public SignInViewModel(ISessionProvider sessionProvider, IStorageProvider storageProvider, IMvxNavigationService navigationService)
         {
             this.sessionProvider = sessionProvider;
@@ -46,22 +48,45 @@ namespace CloudDeliveryMobile.ViewModels
         {
             await this.sessionProvider.SignIn(this.model).ContinueWith(async t =>
             {
+                this.Password = string.Empty;
+                this.InProgress = false;
+
                 if (t.Exception != null)
                 {
-                    this.clearProgress();
                     return;
                 }
 
                 await this.GoToRoot().ContinueWith(async x =>
                 {
-                    this.clearProgress();
                     await this.navigationService.Close(this);
                 });
             });
         }
 
-        public override void Start()
+        public override async void Start()
         {
+            //try sign in by token
+            this.TokenInProgress = true;
+            await this.sessionProvider.CheckToken().ContinueWith(async t =>
+            {
+                //sign in by token failed
+                if (t.Exception != null)
+                {
+                    this.TokenInProgress = false;
+                    return;
+                }
+
+
+                //sign in by token success
+                await this.GoToRoot().ContinueWith(async x =>
+                {
+                    await this.navigationService.Close(this);
+                    return;
+                });
+            });
+
+
+            //try get latest username
             try
             {
                 this.model.Username = this.storageProvider.Select(DataKeys.LastUsername);
@@ -70,7 +95,6 @@ namespace CloudDeliveryMobile.ViewModels
             {
 
             }
-
         }
 
         private async Task GoToRoot()
@@ -86,13 +110,7 @@ namespace CloudDeliveryMobile.ViewModels
             }
         }
 
-        private void clearProgress()
-        {
-            this.Password = string.Empty;
-            this.InProgress = false;
-        }
-
-        private LoginModel model = new LoginModel { Username="kierowca1", Password="Admin1!" };
+        private LoginModel model = new LoginModel { Username = "carrierkierowca", Password = "Admin1!" };
         private ISessionProvider sessionProvider;
         private IStorageProvider storageProvider;
         private IMvxNavigationService navigationService;

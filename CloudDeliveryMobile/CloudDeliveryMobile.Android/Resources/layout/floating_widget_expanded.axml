@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/floating_widget_layout_expanded"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+  android:visibility="gone"
+      >
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:background="@drawable/floating_widget_rouded_corners"
+      android:layout_marginLeft="30dp"
+      android:padding="5dp">
+
+    <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+      <TextView
+          android:id="@+id/widget_current_index"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        android:minHeight="65dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="100">
+
+
+          <LinearLayout
+             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             android:layout_weight="45">
+            <ImageButton
+                android:id="@+id/widget_previous_point_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_circle"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_arrow_back_grey_600_48dp"
+                android:scaleType="fitCenter"/>
+
+          </LinearLayout>
+
+
+
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="10"
+              android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+              <TextView
+                android:id="@+id/widget_point_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textColor="#f26c4f"/>
+
+              <ImageView
+                  android:id="@+id/widget_point_type_icon"
+                  android:layout_toLeftOf="@id/widget_point_type"
+                  android:layout_width="20dp"
+                  android:layout_height="20dp"
+                  android:layout_centerVertical="true"
+                  android:src="@drawable/marker"/>
+
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/widget_point_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:gravity="center"/>
+
+          </LinearLayout>
+
+          <LinearLayout
+             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             android:layout_weight="45">
+
+            <ImageButton
+                android:id="@+id/widget_next_point_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_circle"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_arrow_forward_grey_600_48dp"
+                android:scaleType="fitCenter"/>
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:gravity="center"
+          android:layout_height="40dp"
+          android:layout_marginTop="3dp"
+          android:weightSum="3">
+
+
+        <LinearLayout
+          android:id="@+id/widget_passed_time_container"
+          android:layout_height="match_parent"  
+          android:layout_width="wrap_content"
+          android:layout_weight="3">
+                
+        <TextView
+            android:id="@+id/widget_passed_time_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:gravity="center"
+                        />
+        
+          </LinearLayout>
+          
+        <LinearLayout
+          android:layout_height="match_parent"
+          android:layout_width="wrap_content"
+          android:layout_weight="1">
+
+          <Button
+          android:id="@+id/widget_finish_order_button"
+          android:layout_margin="3dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@drawable/ripple_gray_color_rounded"
+          android:text="DOWÓZ"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+          android:layout_height="match_parent"
+          android:layout_width="wrap_content"
+          android:layout_weight="1">
+
+          <Button
+              android:id="@+id/widget_show_app_button"
+              android:layout_margin="3dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/ripple_gray_color_rounded"
+              android:text="Lista"/>
+        </LinearLayout>
+
+        <LinearLayout
+  android:layout_height="match_parent"
+  android:layout_width="wrap_content"
+  android:layout_weight="1">
+
+          <Button
+        android:id="@+id/widget_set_gmaps_button"
+          android:layout_margin="3dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@drawable/ripple_gray_color_rounded"
+          android:text="Nawiguj"/>
+        </LinearLayout>
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+  </LinearLayout>
+
+
+  <RelativeLayout
+      android:id="@+id/widget_collapse_button"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:padding="10dp"
+      android:layout_centerVertical="true"
+      android:background="@drawable/shape_circle">
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/rocket" />
+
+  </RelativeLayout>
+
+
+</RelativeLayout>

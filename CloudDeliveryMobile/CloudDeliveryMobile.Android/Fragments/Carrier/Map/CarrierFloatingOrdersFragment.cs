@@ -12,7 +12,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.Map
     {
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
             View view = this.BindingInflate(FragmentId, null);
 

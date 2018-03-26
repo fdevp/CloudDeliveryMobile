@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
-using CloudDeliveryMobile.Models.Routes.Edit;
+﻿using CloudDeliveryMobile.Models.Enums;
+using System.Collections.Generic;
 
 namespace CloudDeliveryMobile.Models.Routes
 {
     public class RouteEditModel
     {
-        public List<RoutePoint> Points { get; set; } = new List<RoutePoint>();
+        public int OrderId { get; set; }
 
-        public GeoPosition StartPosition { get; set; }
+        public int Index { get; set; }
+
+        public RoutePointType Type { get; set; }
     }
 }

@@ -9,14 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using CloudDeliveryMobile.Models.Routes.Edit;
 using CloudDeliveryMobile.Models;
 
 namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
 {
     public class CarrierSideRouteEditViewModel : BaseViewModel
     {
-        public MvxObservableCollection<RoutePointEditModel> Points { get; set; } = new MvxObservableCollection<RoutePointEditModel>();
+        public MvxObservableCollection<RoutePointEditListItem> Points { get; set; } = new MvxObservableCollection<RoutePointEditListItem>();
 
         public int SalepointsCount => Points.Where(x => x.Type == RoutePointType.SalePoint).Count();
 
@@ -33,11 +32,11 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             }
         }
 
-        public IMvxCommand<RoutePointEditModel> RemoveSalePointRoutePoint
+        public IMvxCommand<RoutePointEditListItem> RemoveSalePointRoutePoint
         {
             get
             {
-                return new MvxCommand<RoutePointEditModel>(routePoint =>
+                return new MvxCommand<RoutePointEditListItem>(routePoint =>
                 {
                     Points.Remove(routePoint);
                     RaiseAllPropertiesChanged();
@@ -45,13 +44,13 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             }
         }
 
-        public IMvxCommand<RoutePointEditModel> AddSalePointRoutePoint
+        public IMvxCommand<RoutePointEditListItem> AddSalePointRoutePoint
         {
             get
             {
-                return new MvxCommand<RoutePointEditModel>(routePoint =>
+                return new MvxCommand<RoutePointEditListItem>(routePoint =>
                 {
-                    RoutePointEditModel salepoint = new RoutePointEditModel(this);
+                    RoutePointEditListItem salepoint = new RoutePointEditListItem(this);
                     salepoint.Type = RoutePointType.SalePoint;
                     salepoint.OrderId = routePoint.OrderId;
                     salepoint.Order = routePoint.Order;
@@ -71,7 +70,20 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
                 return new MvxAsyncCommand(async () =>
                {
                    this.InProgress = true;
-                   await this.routesService.Add(this.Points.ToList());
+                   List<RouteEditModel> newRoute = new List<RouteEditModel>();
+
+                   int index = 0;
+                   foreach (RoutePointEditListItem point in Points)
+                   {
+                        newRoute.Add(new RouteEditModel
+                        {
+                            OrderId = point.OrderId,
+                            Type = point.Type,
+                            Index = index++
+                       });
+                   }
+
+                   await this.routesService.Add(newRoute);
                    this.InProgress = false;
                });
             }
@@ -110,13 +122,12 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             }
         }
 
-
         private void updatePoints(object sender, EventArgs e)
         {
 
             if (this.ordersService.AcceptedOrders == null)          //points have been cleared
             {
-                this.Points = new MvxObservableCollection<RoutePointEditModel>();
+                this.Points = new MvxObservableCollection<RoutePointEditListItem>();
                 RaiseAllPropertiesChanged();
                 return;
             }
@@ -133,23 +144,20 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
         private void setPoints(Order order)
         {
 
-            RoutePointEditModel salepoint = new RoutePointEditModel(this);
+            RoutePointEditListItem salepoint = new RoutePointEditListItem(this);
             salepoint.Type = RoutePointType.SalePoint;
             salepoint.OrderId = order.Id;
             salepoint.Order = order;
 
             this.Points.Add(salepoint);
 
-            RoutePointEditModel endpoint = new RoutePointEditModel(this);
+            RoutePointEditListItem endpoint = new RoutePointEditListItem(this);
             endpoint.Type = RoutePointType.EndPoint;
             endpoint.OrderId = order.Id;
             endpoint.Order = order;
 
             this.Points.Add(endpoint);
         }
-
-
-
 
         private bool initialised = false;
         private IMvxNavigationService navigationService;

@@ -31,9 +31,11 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
 
         private ImageButton geoLocButton;
 
-        private Dictionary<int, Marker> salepointsMarkers = new Dictionary<int, Marker>();
+
         private int? activeSalepointId;
+        private Dictionary<int, Marker> salepointsMarkers = new Dictionary<int, Marker>();
         private List<Marker> ordersMarkers = new List<Marker>();
+
 
         private bool setSPMarkersAfterMapInit = false;
 
@@ -116,7 +118,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
 
             UpdateCurrentPosition();
         }
-
 
         public void MarkerClickEvent(object sender, MarkerClickEventArgs e)
         {

@@ -22,8 +22,8 @@ namespace CloudDeliveryMobile.Services
 
         Task Accept(Order order);
 
-        Task Pickup(int orderId);
+        Task Pickup(OrderRouteDetails order);
 
-        Task Delivered(int orderId);
+        Task Delivered(OrderRouteDetails order);
     }
 }

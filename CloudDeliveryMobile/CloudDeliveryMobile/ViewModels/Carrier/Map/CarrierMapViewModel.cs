@@ -49,7 +49,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             {
                 return new MvxCommand<int>(id =>
                 {
-                    this.navigationService.Navigate<CarrierFloatingOrderDetailsViewModel, int>(id);
+                    var asd = this.navigationService.Navigate<CarrierFloatingOrderDetailsViewModel, int>(id);
                 });
             }
         }
@@ -142,6 +142,9 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
         private bool sideViewInitialised = false;
         private GeoPosition basePosition;
         private GeoPosition currentPosition = new GeoPosition();
+
+        private BaseViewModel activeFloatingView;
+
 
         private IDeviceProvider deviceProvider;
         private IMvxNavigationService navigationService;

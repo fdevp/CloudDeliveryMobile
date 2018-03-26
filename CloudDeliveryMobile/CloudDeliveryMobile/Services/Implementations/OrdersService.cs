@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CloudDeliveryMobile.Models.Enums;
 using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Resources;
@@ -39,17 +40,20 @@ namespace CloudDeliveryMobile.Services.Implementations
                 this.PendingOrdersUpdated.Invoke(this, null);
         }
       
-
-        public async Task Delivered(int orderId)
+        public async Task Delivered(OrderRouteDetails order)
         {
-            string resource = string.Concat(OrdersApiResources.Delivered, "/", orderId);
+            string resource = string.Concat(OrdersApiResources.Delivered, "/", order.Id);
             await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
+            order.DeliveredTime = DateTime.Now;
+            order.Status = OrderStatus.Delivered;
         }
 
-        public async Task Pickup(int orderId)
+        public async Task Pickup(OrderRouteDetails order)
         {
-            string resource = string.Concat(OrdersApiResources.Pickup, "/", orderId);
+            string resource = string.Concat(OrdersApiResources.Pickup, "/", order.Id);
             await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
+            order.PickUpTime = DateTime.Now;
+            order.Status = OrderStatus.InDelivery;
         }
 
         public async Task<List<Order>> GetAcceptedOrders()

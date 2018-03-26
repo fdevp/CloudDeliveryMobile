@@ -1,29 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:weightSum="100"
+      app:MvxBind="Visible !InProgress">
 
-  <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="active routes"/>
- <!--<MvxExpandableListView
-   android:id="@+id/active_route_points_list"
-         android:layout_height="match_parent"
-         android:layout_width="match_parent"
-         android:background="#efefef"
-         app:GroupItemTemplate="@layout/route_active_point_header_listitem"
-         app:MvxItemTemplate="@layout/route_active_point_body_listitem"
-         app:MvxBind="ItemsSource Route.Points; Visible !InProgress">
-   
- </MvxExpandableListView>-->
-  
-  <!--<MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
-          android:id="@+id/active_route_points_list"
-         android:layout_height="match_parent"
-         android:layout_width="match_parent"
-         android:background="#efefef"
-         app:MvxBind="ItemsSource Route.Points; Visible !InProgress"
-        />-->
+    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+              android:id="@+id/active_route_points_list"
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="#eee"
+              android:layout_weight="12"
+              app:MvxBind="ItemsSource Points"/>
 
-</LinearLayout>
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:background="#eee"
+            android:layout_width="match_parent"
+            android:layout_weight="88">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:weightSum="2">
+
+        <!-- finishing route in progress -->
+        <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          app:MvxBind="Visible FinishingInProgress">
+          <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <Button
+        android:id="@+id/active_route_minimize"
+          android:layout_height="match_parent"
+          android:layout_width="match_parent"
+          android:layout_weight="1"
+          android:text="Minimalizuj"
+          app:MvxBind="Visible !AllPointsPassed"/>
+
+        <Button
+          android:id="@+id/active_route_minimize"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="Zakończ"
+            android:background="@drawable/ripple_primary_color"
+            android:textColor="#fff"
+            app:MvxBind="Visible FinishButtonVisible; Click FinishRoute"/>
+
+        <Button
+            android:id="@+id/active_route_start_navigation"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="Nawigacja"
+            app:MvxBind="Visible !AllPointsPassed"/>
+
+      </LinearLayout>
+    </LinearLayout>
+
+  </LinearLayout>
+
+
+
+
+
+
+
+  <include layout="@layout/main_inprogress"/>
+
+
+</RelativeLayout>

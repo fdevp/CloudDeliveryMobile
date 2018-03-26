@@ -10,23 +10,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
     {
         public Order Order { get; set; }
 
-        public string EndPointText
-        {
-            get
-            {
-                return string.Concat("Punkt dostawy \n", this.Order.DestinationCity, ", ", this.Order.DestinationAddress);
-            }
-        }
-
-        public string SalepointText
-        {
-            get
-            {
-                return string.Concat(this.Order.SalepointName, "\n", this.Order.SalepointCity, ", ", this.Order.SalepointAddress);
-            }
-        }
-
-
         public MvxAsyncCommand AcceptOrder
         {
             get

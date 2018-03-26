@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CloudDeliveryMobile.Models.Enums;
-using CloudDeliveryMobile.Models.Routes.Edit;
+using CloudDeliveryMobile.ViewModels.Carrier;
 using MvvmCross.Droid.Support.V7.RecyclerView.ItemTemplates;
 
 namespace CloudDeliveryMobile.Android.Components.UI
@@ -23,7 +23,7 @@ namespace CloudDeliveryMobile.Android.Components.UI
 
         public int GetItemViewType(object forItemObject)
         {
-            var point = (RoutePointEditModel)forItemObject;
+            var point = (RoutePointEditListItem)forItemObject;
             return this.listItemLayout[point.Type];
         }
 

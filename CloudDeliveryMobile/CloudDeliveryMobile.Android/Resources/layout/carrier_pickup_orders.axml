@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#aa000000">
+  
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="15dp"
+      android:background="@drawable/floating_element_style"
+      android:orientation="vertical">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/floating_element_header_style">
+
+      <TextView
+          android:id="@+id/order_pickup_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:textSize="20dp"
+          android:text="Odbiór"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/order_pickup_title"
+          android:layout_centerHorizontal="true"
+          android:layout_marginBottom="5dp"
+          app:MvxBind="Text SalepointName" />
+
+
+      <ImageButton
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:background="#00ffffff"
+          android:layout_alignParentRight="true"
+          android:scaleType="fitCenter"
+          android:layout_marginRight="5dp"
+          android:src="@drawable/ic_clear_grey_500_48dp"
+          app:MvxBind="Click CloseFragment"/>
+
+    </RelativeLayout>
+
+    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+       android:layout_height="wrap_content"
+       android:layout_width="match_parent"
+       app:MvxBind="ItemsSource AcceptedOrders"
+       app:MvxItemTemplate="@layout/carrier_pickup_orders_listitem"
+        />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            app:MvxBind="Visible AcceptedOrders.Count==0">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="19dp"
+          android:text="Brak zamówień do odebrania."/>
+    </LinearLayout>
+    
+
+  </LinearLayout>
+
+ 
+  
+</LinearLayout>

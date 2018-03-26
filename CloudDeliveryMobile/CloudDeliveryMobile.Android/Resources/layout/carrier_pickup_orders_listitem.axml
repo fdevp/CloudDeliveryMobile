@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:weightSum="100">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="25"
+      android:layout_margin="10dp"
+                >
+
+    <TextView
+        android:id="@+id/order_pickup_endpoint_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        app:MvxBind="Text Order.DestinationAddress"
+                    />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_pickup_endpoint_address"
+        app:MvxBind="Text Order.DestinationCity"
+                    />
+
+  </RelativeLayout>
+
+
+  <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_weight="75">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        app:MvxBind="Visible PickedUp"
+        android:src="@drawable/ic_done_grey_600_48dp"
+      />
+    
+    <ProgressBar
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        app:MvxBind="Visible InProgress"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="odbiór"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_rounded_empty_button"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/primaryColor"
+        app:MvxBind="Visible ShowPickUpButton; Click PickUp"/>
+
+  </RelativeLayout>
+
+</LinearLayout>

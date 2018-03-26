@@ -54,6 +54,18 @@
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Acr.Support.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Acr.Support.2.1.0\lib\MonoAndroid10\Acr.Support.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Acr.UserDialogs.6.5.1\lib\MonoAndroid10\Acr.UserDialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.UserDialogs.Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Acr.UserDialogs.6.5.1\lib\MonoAndroid10\Acr.UserDialogs.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="AndHUD, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AndHUD.1.2.0\lib\MonoAndroid\AndHUD.dll</HintPath>
+    </Reference>
     <Reference Include="Lottie, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Com.Airbnb.Android.Lottie.2.5.0\lib\MonoAndroid41\Lottie.dll</HintPath>
     </Reference>
@@ -97,6 +109,12 @@
     <Reference Include="MvvmCross.Plugins.Json, Version=5.6.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Plugin.Json.5.6.3\lib\MonoAndroid\MvvmCross.Plugins.Json.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmCross.Plugins.PhoneCall, Version=5.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.PhoneCall.5.6.3\lib\MonoAndroid\MvvmCross.Plugins.PhoneCall.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Plugins.PhoneCall.Droid, Version=5.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.PhoneCall.5.6.3\lib\MonoAndroid\MvvmCross.Plugins.PhoneCall.Droid.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -124,6 +142,9 @@
     <Reference Include="Refractored.GifImageView, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Refractored.GifImageView.2.0.0\lib\monoandroid\Refractored.GifImageView.dll</HintPath>
     </Reference>
+    <Reference Include="Splat, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Splat.2.0.0\lib\MonoAndroid403\Splat.dll</HintPath>
+    </Reference>
     <Reference Include="SQLite-net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\sqlite-net-pcl.1.4.118\lib\netstandard1.1\SQLite-net.dll</HintPath>
     </Reference>
@@ -146,6 +167,7 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
+    <Reference Include="System.Xml" />
     <Reference Include="Xamarin.Android.Arch.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Android.Arch.Core.Common.1.0.0\lib\MonoAndroid80\Xamarin.Android.Arch.Core.Common.dll</HintPath>
     </Reference>
@@ -217,25 +239,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\RootCarrierActivity.cs" />
+    <Compile Include="Activities\CarrierRootActivity.cs" />
     <Compile Include="Activities\SigninActivity.cs" />
-    <Compile Include="Activities\RootSalePointActivity.cs" />
+    <Compile Include="Activities\SalePointRootActivity.cs" />
     <Compile Include="Activities\SplashScreenActivity.cs" />
-    <Compile Include="Activities\TokenLoadingActivity.cs" />
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\PhoneCallPluginBootstrap.cs" />
     <Compile Include="Components\Converters\GeoPositionToLatLngConverter.cs" />
     <Compile Include="Components\DebugTrace.cs" />
+    <Compile Include="Components\FloatingWidget\FloatingWidgetBinder.cs" />
+    <Compile Include="Components\FloatingWidget\FloatingWidgetConnection.cs" />
+    <Compile Include="Components\FloatingWidget\FloatingWidgetTouchListener.cs" />
+    <Compile Include="Components\FloatingWidget\FloatingWidgetExpandedController.cs" />
+    <Compile Include="Components\FloatingWidget\IFloatingWidgetActivity.cs" />
     <Compile Include="Components\Geolocation\GeolocationProvider.cs" />
     <Compile Include="Components\Geolocation\CurrentPositionCallback.cs" />
+    <Compile Include="Components\Map\GmapsIntentsProvider.cs" />
     <Compile Include="Components\Map\MarkerTag.cs" />
     <Compile Include="Components\Map\MarkerType.cs" />
     <Compile Include="Components\Map\PolylineDecoder.cs" />
+    <Compile Include="Components\UI\ActiveRouteItemTemplateSelector.cs" />
     <Compile Include="Components\UI\DraggableAdapter\DraggableRecyclerAdapter.cs" />
     <Compile Include="Components\UI\DraggableAdapter\EditPointViewHolder.cs" />
     <Compile Include="Components\UI\DraggableAdapter\IItemDragListener.cs" />
     <Compile Include="Components\UI\DraggableAdapter\RecyclerItemDragCallback.cs" />
     <Compile Include="Components\UI\EditRouteItemTemplateSelector.cs" />
     <Compile Include="Components\UI\SideViewTouchListener.cs" />
+    <Compile Include="Fragments\Carrier\CarrierPickupOrdersFragment.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierFloatingOrderDetails.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierFloatingOrdersFragment.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierMapFragment.cs" />
@@ -249,6 +279,7 @@
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Components\FloatingWidget\FloatingWidgetService.cs" />
     <Compile Include="Setup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +303,6 @@
     <AndroidResource Include="Resources\layout\salepoint_root.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\main_tokenloading.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\main_root.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -290,7 +318,7 @@
     <AndroidResource Include="Resources\layout\main_inprogress.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\carrier_floating_order_itemtemplate.axml">
+    <AndroidResource Include="Resources\layout\carrier_floating_order_listitem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\carrier_side_view.axml">
@@ -302,16 +330,31 @@
     <AndroidResource Include="Resources\layout\carrier_side_route_edit.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\route_active_point_body_listitem.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\route_active_point_header_listitem.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\route_edit_salepoint_listitem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\route_edit_endpoint_listitem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\route_active_endpoint_listitem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\route_active_salepoint_listitem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\floating_widget.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\floating_widget_collapsed.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\floating_widget_expanded.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\carrier_pickup_orders.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\carrier_pickup_orders_listitem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -415,6 +458,18 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\marker_bw.png" />
     <AndroidResource Include="Resources\drawable-hdpi\marker.png" />
     <AndroidResource Include="Resources\drawable-hdpi\marker_bw.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_back_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_back_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_back_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_back_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_forward_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_forward_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_forward_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_forward_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_done_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_done_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_done_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_done_grey_600_48dp.png" />
     <Content Include="Resources\drawable-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\values\styles_splash.xml">
       <SubType>Designer</SubType>
@@ -423,7 +478,7 @@
     <AndroidResource Include="Resources\values\styles_login.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\shape_loginbutton.xml" />
+    <AndroidResource Include="Resources\drawable\shape_rounded_primary_button.xml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_person_orange_A400_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_person_grey_400_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_lock_grey_400_48dp.png" />
@@ -458,9 +513,24 @@
     <AndroidResource Include="Resources\drawable\edit_route_border_bottom_right.xml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\marker.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\marker_bw.png" />
-    <AndroidResource Include="Resources\drawable\ripple_primary_color.xml" />
-    <AndroidResource Include="Resources\drawable\ripple_loginbutton.xml" />
+    <AndroidResource Include="Resources\drawable\ripple_primary_color.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ripple_primary_color_rounded.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\shape_primary_button.xml" />
+    <AndroidResource Include="Resources\drawable\floating_widget_rouded_corners.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_back_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_forward_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable\animation_fade_in.xml" />
+    <AndroidResource Include="Resources\drawable\animation_fade_out.xml" />
+    <AndroidResource Include="Resources\drawable\ripple_gray_color_rounded.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\shape_rounded_gray_button.xml" />
+    <AndroidResource Include="Resources\drawable\shape_rounded_empty_button.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_done_grey_600_48dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

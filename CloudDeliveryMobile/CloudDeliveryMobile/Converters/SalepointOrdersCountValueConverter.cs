@@ -1,5 +1,5 @@
 ﻿using CloudDeliveryMobile.Models.Enums;
-using CloudDeliveryMobile.Models.Routes.Edit;
+using CloudDeliveryMobile.ViewModels.Carrier;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform.Converters;
 using System;
@@ -19,7 +19,7 @@ namespace CloudDeliveryMobile.Converters
             try
             {
                 int salepointId = (int)parameter;
-                var points = (MvxObservableCollection<RoutePointEditModel>)value;
+                var points = (MvxObservableCollection<RoutePointEditListItem>)value;
                 int ordersCount = points.Count(x => x.Order.SalepointId == salepointId && x.Type == RoutePointType.EndPoint);
                 return string.Concat("Zamówień: ", ordersCount);
             }catch(Exception e)

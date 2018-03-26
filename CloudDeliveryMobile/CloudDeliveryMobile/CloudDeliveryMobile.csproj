@@ -34,10 +34,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Converters\PendingRoutePointVMValueConverter.cs" />
+    <Compile Include="Converters\NullVisibilityValueConverter.cs" />
+    <Compile Include="Converters\TogglePointValueConverter.cs" />
+    <Compile Include="Converters\PriceTextValueConverter.cs" />
+    <Compile Include="Converters\PointIsPendingValueConverter.cs" />
+    <Compile Include="Converters\PointIsPassedValueConverter.cs" />
     <Compile Include="Converters\RouteSPRemoveButtonValueConverter.cs" />
     <Compile Include="Converters\SalepointAddressValueConverter.cs" />
-    <Compile Include="Converters\DestinationStringValueConverter.cs" />
+    <Compile Include="Converters\DestinationAddressValueConverter.cs" />
     <Compile Include="Converters\PriorityStringValueConverter.cs" />
     <Compile Include="Converters\SalepointOrdersCountValueConverter.cs" />
     <Compile Include="Converters\TimeStringValueConverter.cs" />
@@ -49,18 +53,20 @@
     <Compile Include="Models\Enums\RoutePointType.cs" />
     <Compile Include="Models\Enums\RouteStatus.cs" />
     <Compile Include="Models\GeoPosition.cs" />
+    <Compile Include="Models\Orders\OrderRouteDetails.cs" />
+    <Compile Include="ViewModels\Carrier\ListViewModels\RoutePointOrderPickupModel.cs" />
     <Compile Include="Models\Orders\Trace\ApproximateTrace.cs" />
     <Compile Include="Models\Orders\Order.cs" />
     <Compile Include="Models\Orders\OrderDetails.cs" />
     <Compile Include="Models\Orders\Trace\DurationDistance.cs" />
     <Compile Include="Models\Orders\Trace\Trace.cs" />
-    <Compile Include="Models\Routes\Edit\RoutePointEditModel.cs" />
+    <Compile Include="Models\Routes\Edit\RoutePointEditListItem.cs" />
     <Compile Include="Models\Routes\RouteDetails.cs" />
     <Compile Include="Models\Routes\Edit\RouteEditModel.cs" />
-    <Compile Include="Models\Routes\RouteListItem.cs" />
+    <Compile Include="Models\Routes\ListModels\RouteListItem.cs" />
     <Compile Include="Models\Routes\RoutePoint.cs" />
     <Compile Include="Models\Routes\Edit\RouteMoveEditPoint.cs" />
-    <Compile Include="Models\Routes\RoutePointActiveModel.cs" />
+    <Compile Include="ViewModels\Carrier\ListViewModels\RoutePointActiveListViewModel.cs" />
     <Compile Include="Providers\IDbConnectionFactory.cs" />
     <Compile Include="Providers\Implementations\DbConnectionFactory.cs" />
     <Compile Include="Resources\ConstantValues.Designer.cs">
@@ -111,6 +117,7 @@
     <Compile Include="Services\IOrdersService.cs" />
     <Compile Include="Services\IRoutesService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Carrier\CarrierPickupOrdersViewModel.cs" />
     <Compile Include="ViewModels\Carrier\Map\CarrierFloatingOrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Carrier\Map\CarrierFloatingOrdersViewModel.cs" />
     <Compile Include="ViewModels\Carrier\Map\CarrierMapViewModel.cs" />
@@ -119,14 +126,18 @@
     <Compile Include="ViewModels\Carrier\SideView\CarrierSideActiveRouteViewModel.cs" />
     <Compile Include="ViewModels\Carrier\SideView\CarrierSideRouteEditViewModel.cs" />
     <Compile Include="ViewModels\Carrier\SideView\CarrierSideViewViewModel.cs" />
-    <Compile Include="ViewModels\Carrier\SideView\CarrierSideTakeOrdersViewModel.cs" />
     <Compile Include="ViewModels\InProgressViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\RootSalePointViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SignIn\SigninViewModel.cs" />
-    <Compile Include="ViewModels\SignIn\TokenSignInViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Acr.UserDialogs.6.5.1\lib\netstandard1.1\Acr.UserDialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.UserDialogs.Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Acr.UserDialogs.6.5.1\lib\netstandard1.1\Acr.UserDialogs.Interface.dll</HintPath>
+    </Reference>
     <Reference Include="MvvmCross.Binding, Version=5.6.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Binding.5.6.3\lib\portable-net45+win+wpa81+wp80\MvvmCross.Binding.dll</HintPath>
     </Reference>
@@ -148,6 +159,9 @@
     <Reference Include="MvvmCross.Plugins.Location, Version=5.6.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Plugin.Location.5.6.3\lib\portable-net45+win+wpa81+wp80\MvvmCross.Plugins.Location.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmCross.Plugins.PhoneCall, Version=5.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.PhoneCall.5.6.3\lib\portable-net45+win+wpa81+wp80\MvvmCross.Plugins.PhoneCall.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -162,6 +176,9 @@
     </Reference>
     <Reference Include="Plugin.DeviceInfo.Abstractions, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xam.Plugin.DeviceInfo.3.1.0\lib\netstandard1.0\Plugin.DeviceInfo.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Splat.2.0.0\lib\netstandard1.1\Splat.dll</HintPath>
     </Reference>
     <Reference Include="SQLite-net, Version=1.4.118.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\sqlite-net-pcl.1.4.118\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLite-net.dll</HintPath>

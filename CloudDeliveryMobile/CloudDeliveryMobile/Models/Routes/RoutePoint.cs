@@ -6,6 +6,8 @@ namespace CloudDeliveryMobile.Models.Routes
 {
     public class RoutePoint
     {
+        public int Id { get; set; }
+
         public int Index { get; set; }
 
         public RoutePointType Type { get; set; }
@@ -14,6 +16,6 @@ namespace CloudDeliveryMobile.Models.Routes
 
         public DateTime? PassedTime { get; set; }
 
-        public Order Order { get; set; }
+        public OrderRouteDetails Order { get; set; }
     }
 }

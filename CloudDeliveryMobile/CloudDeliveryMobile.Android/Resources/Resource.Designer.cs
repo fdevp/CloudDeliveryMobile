@@ -26,6 +26,43 @@ namespace CloudDeliveryMobile.Android
 		
 		public static void UpdateIdValues()
 		{
+			global::AndroidHUD.Resource.Attribute.ahBarColor = global::CloudDeliveryMobile.Android.Resource.Attribute.ahBarColor;
+			global::AndroidHUD.Resource.Attribute.ahBarLength = global::CloudDeliveryMobile.Android.Resource.Attribute.ahBarLength;
+			global::AndroidHUD.Resource.Attribute.ahBarWidth = global::CloudDeliveryMobile.Android.Resource.Attribute.ahBarWidth;
+			global::AndroidHUD.Resource.Attribute.ahCircleColor = global::CloudDeliveryMobile.Android.Resource.Attribute.ahCircleColor;
+			global::AndroidHUD.Resource.Attribute.ahDelayMillis = global::CloudDeliveryMobile.Android.Resource.Attribute.ahDelayMillis;
+			global::AndroidHUD.Resource.Attribute.ahRadius = global::CloudDeliveryMobile.Android.Resource.Attribute.ahRadius;
+			global::AndroidHUD.Resource.Attribute.ahRimColor = global::CloudDeliveryMobile.Android.Resource.Attribute.ahRimColor;
+			global::AndroidHUD.Resource.Attribute.ahRimWidth = global::CloudDeliveryMobile.Android.Resource.Attribute.ahRimWidth;
+			global::AndroidHUD.Resource.Attribute.ahSpinSpeed = global::CloudDeliveryMobile.Android.Resource.Attribute.ahSpinSpeed;
+			global::AndroidHUD.Resource.Attribute.ahText = global::CloudDeliveryMobile.Android.Resource.Attribute.ahText;
+			global::AndroidHUD.Resource.Attribute.ahTextColor = global::CloudDeliveryMobile.Android.Resource.Attribute.ahTextColor;
+			global::AndroidHUD.Resource.Attribute.ahTextSize = global::CloudDeliveryMobile.Android.Resource.Attribute.ahTextSize;
+			global::AndroidHUD.Resource.Drawable.ic_errorstatus = global::CloudDeliveryMobile.Android.Resource.Drawable.ic_errorstatus;
+			global::AndroidHUD.Resource.Drawable.ic_successstatus = global::CloudDeliveryMobile.Android.Resource.Drawable.ic_successstatus;
+			global::AndroidHUD.Resource.Drawable.roundedbg = global::CloudDeliveryMobile.Android.Resource.Drawable.roundedbg;
+			global::AndroidHUD.Resource.Drawable.roundedbgdark = global::CloudDeliveryMobile.Android.Resource.Drawable.roundedbgdark;
+			global::AndroidHUD.Resource.Id.loadingImage = global::CloudDeliveryMobile.Android.Resource.Id.loadingImage;
+			global::AndroidHUD.Resource.Id.loadingProgressBar = global::CloudDeliveryMobile.Android.Resource.Id.loadingProgressBar;
+			global::AndroidHUD.Resource.Id.loadingProgressWheel = global::CloudDeliveryMobile.Android.Resource.Id.loadingProgressWheel;
+			global::AndroidHUD.Resource.Id.textViewStatus = global::CloudDeliveryMobile.Android.Resource.Id.textViewStatus;
+			global::AndroidHUD.Resource.Layout.loading = global::CloudDeliveryMobile.Android.Resource.Layout.loading;
+			global::AndroidHUD.Resource.Layout.loadingimage = global::CloudDeliveryMobile.Android.Resource.Layout.loadingimage;
+			global::AndroidHUD.Resource.Layout.loadingprogress = global::CloudDeliveryMobile.Android.Resource.Layout.loadingprogress;
+			global::AndroidHUD.Resource.String.library_name = global::CloudDeliveryMobile.Android.Resource.String.library_name;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahBarColor = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahBarColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahBarLength = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahBarLength;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahBarWidth = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahBarWidth;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahCircleColor = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahCircleColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahDelayMillis = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahDelayMillis;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahRadius = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahRadius;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahRimColor = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahRimColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahRimWidth = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahRimWidth;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahSpinSpeed = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahSpinSpeed;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahText = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahText;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextColor = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahTextColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextSize = global::CloudDeliveryMobile.Android.Resource.Styleable.ProgressWheel_ahTextSize;
 			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxBind = global::CloudDeliveryMobile.Android.Resource.Attribute.MvxBind;
 			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxDropDownItemTemplate = global::CloudDeliveryMobile.Android.Resource.Attribute.MvxDropDownItemTemplate;
 			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxGroupItemTemplate = global::CloudDeliveryMobile.Android.Resource.Attribute.MvxGroupItemTemplate;
@@ -3741,6 +3778,7 @@ namespace CloudDeliveryMobile.Android
 			global::MvvmCross.Droid.Support.V7.RecyclerView.Resource.Styleable.RecyclerView_stackFromEnd = global::CloudDeliveryMobile.Android.Resource.Styleable.RecyclerView_stackFromEnd;
 			global::PCLStorage.Resource.String.ApplicationName = global::CloudDeliveryMobile.Android.Resource.String.ApplicationName;
 			global::PCLStorage.Resource.String.Hello = global::CloudDeliveryMobile.Android.Resource.String.Hello;
+			global::Splat.Resource.String.library_name = global::CloudDeliveryMobile.Android.Resource.String.library_name;
 		}
 		
 		public partial class Animation
@@ -3948,6 +3986,42 @@ namespace CloudDeliveryMobile.Android
 			
 			// aapt resource value: 0x7f01009d
 			public const int activityChooserViewStyle = 2130772125;
+			
+			// aapt resource value: 0x7f010199
+			public const int ahBarColor = 2130772377;
+			
+			// aapt resource value: 0x7f0101a1
+			public const int ahBarLength = 2130772385;
+			
+			// aapt resource value: 0x7f0101a0
+			public const int ahBarWidth = 2130772384;
+			
+			// aapt resource value: 0x7f01019e
+			public const int ahCircleColor = 2130772382;
+			
+			// aapt resource value: 0x7f01019d
+			public const int ahDelayMillis = 2130772381;
+			
+			// aapt resource value: 0x7f01019f
+			public const int ahRadius = 2130772383;
+			
+			// aapt resource value: 0x7f01019a
+			public const int ahRimColor = 2130772378;
+			
+			// aapt resource value: 0x7f01019b
+			public const int ahRimWidth = 2130772379;
+			
+			// aapt resource value: 0x7f01019c
+			public const int ahSpinSpeed = 2130772380;
+			
+			// aapt resource value: 0x7f010196
+			public const int ahText = 2130772374;
+			
+			// aapt resource value: 0x7f010197
+			public const int ahTextColor = 2130772375;
+			
+			// aapt resource value: 0x7f010198
+			public const int ahTextSize = 2130772376;
 			
 			// aapt resource value: 0x7f0100c2
 			public const int alertDialogButtonGroupStyle = 2130772162;
@@ -5082,44 +5156,44 @@ namespace CloudDeliveryMobile.Android
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f090058
-			public const int abc_background_cache_hint_selector_material_dark = 2131296344;
-			
-			// aapt resource value: 0x7f090059
-			public const int abc_background_cache_hint_selector_material_light = 2131296345;
-			
 			// aapt resource value: 0x7f09005a
-			public const int abc_btn_colored_borderless_text_material = 2131296346;
+			public const int abc_background_cache_hint_selector_material_dark = 2131296346;
 			
 			// aapt resource value: 0x7f09005b
-			public const int abc_btn_colored_text_material = 2131296347;
+			public const int abc_background_cache_hint_selector_material_light = 2131296347;
 			
 			// aapt resource value: 0x7f09005c
-			public const int abc_color_highlight_material = 2131296348;
+			public const int abc_btn_colored_borderless_text_material = 2131296348;
 			
 			// aapt resource value: 0x7f09005d
-			public const int abc_hint_foreground_material_dark = 2131296349;
+			public const int abc_btn_colored_text_material = 2131296349;
 			
 			// aapt resource value: 0x7f09005e
-			public const int abc_hint_foreground_material_light = 2131296350;
+			public const int abc_color_highlight_material = 2131296350;
+			
+			// aapt resource value: 0x7f09005f
+			public const int abc_hint_foreground_material_dark = 2131296351;
+			
+			// aapt resource value: 0x7f090060
+			public const int abc_hint_foreground_material_light = 2131296352;
 			
 			// aapt resource value: 0x7f09000c
 			public const int abc_input_method_navigation_guard = 2131296268;
 			
-			// aapt resource value: 0x7f09005f
-			public const int abc_primary_text_disable_only_material_dark = 2131296351;
-			
-			// aapt resource value: 0x7f090060
-			public const int abc_primary_text_disable_only_material_light = 2131296352;
-			
 			// aapt resource value: 0x7f090061
-			public const int abc_primary_text_material_dark = 2131296353;
+			public const int abc_primary_text_disable_only_material_dark = 2131296353;
 			
 			// aapt resource value: 0x7f090062
-			public const int abc_primary_text_material_light = 2131296354;
+			public const int abc_primary_text_disable_only_material_light = 2131296354;
 			
 			// aapt resource value: 0x7f090063
-			public const int abc_search_url_text = 2131296355;
+			public const int abc_primary_text_material_dark = 2131296355;
+			
+			// aapt resource value: 0x7f090064
+			public const int abc_primary_text_material_light = 2131296356;
+			
+			// aapt resource value: 0x7f090065
+			public const int abc_search_url_text = 2131296357;
 			
 			// aapt resource value: 0x7f09000d
 			public const int abc_search_url_text_normal = 2131296269;
@@ -5130,29 +5204,29 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f09000f
 			public const int abc_search_url_text_selected = 2131296271;
 			
-			// aapt resource value: 0x7f090064
-			public const int abc_secondary_text_material_dark = 2131296356;
-			
-			// aapt resource value: 0x7f090065
-			public const int abc_secondary_text_material_light = 2131296357;
-			
 			// aapt resource value: 0x7f090066
-			public const int abc_tint_btn_checkable = 2131296358;
+			public const int abc_secondary_text_material_dark = 2131296358;
 			
 			// aapt resource value: 0x7f090067
-			public const int abc_tint_default = 2131296359;
+			public const int abc_secondary_text_material_light = 2131296359;
 			
 			// aapt resource value: 0x7f090068
-			public const int abc_tint_edittext = 2131296360;
+			public const int abc_tint_btn_checkable = 2131296360;
 			
 			// aapt resource value: 0x7f090069
-			public const int abc_tint_seek_thumb = 2131296361;
+			public const int abc_tint_default = 2131296361;
 			
 			// aapt resource value: 0x7f09006a
-			public const int abc_tint_spinner = 2131296362;
+			public const int abc_tint_edittext = 2131296362;
 			
 			// aapt resource value: 0x7f09006b
-			public const int abc_tint_switch_track = 2131296363;
+			public const int abc_tint_seek_thumb = 2131296363;
+			
+			// aapt resource value: 0x7f09006c
+			public const int abc_tint_spinner = 2131296364;
+			
+			// aapt resource value: 0x7f09006d
+			public const int abc_tint_switch_track = 2131296365;
 			
 			// aapt resource value: 0x7f090010
 			public const int accent_material_dark = 2131296272;
@@ -5171,6 +5245,9 @@ namespace CloudDeliveryMobile.Android
 			
 			// aapt resource value: 0x7f090015
 			public const int background_material_light = 2131296277;
+			
+			// aapt resource value: 0x7f090059
+			public const int blackColor = 2131296345;
 			
 			// aapt resource value: 0x7f090016
 			public const int bright_foreground_disabled_material_dark = 2131296278;
@@ -5208,8 +5285,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f09000b
 			public const int cardview_shadow_start_color = 2131296267;
 			
-			// aapt resource value: 0x7f09006c
-			public const int common_google_signin_btn_text_dark = 2131296364;
+			// aapt resource value: 0x7f09006e
+			public const int common_google_signin_btn_text_dark = 2131296366;
 			
 			// aapt resource value: 0x7f090000
 			public const int common_google_signin_btn_text_dark_default = 2131296256;
@@ -5223,8 +5300,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f090003
 			public const int common_google_signin_btn_text_dark_pressed = 2131296259;
 			
-			// aapt resource value: 0x7f09006d
-			public const int common_google_signin_btn_text_light = 2131296365;
+			// aapt resource value: 0x7f09006f
+			public const int common_google_signin_btn_text_light = 2131296367;
 			
 			// aapt resource value: 0x7f090004
 			public const int common_google_signin_btn_text_light_default = 2131296260;
@@ -5238,14 +5315,14 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f090007
 			public const int common_google_signin_btn_text_light_pressed = 2131296263;
 			
-			// aapt resource value: 0x7f09006e
-			public const int common_google_signin_btn_tint = 2131296366;
+			// aapt resource value: 0x7f090070
+			public const int common_google_signin_btn_tint = 2131296368;
 			
 			// aapt resource value: 0x7f090048
 			public const int design_bottom_navigation_shadow_color = 2131296328;
 			
-			// aapt resource value: 0x7f09006f
-			public const int design_error = 2131296367;
+			// aapt resource value: 0x7f090071
+			public const int design_error = 2131296369;
 			
 			// aapt resource value: 0x7f090049
 			public const int design_fab_shadow_end_color = 2131296329;
@@ -5271,8 +5348,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f090050
 			public const int design_snackbar_background_color = 2131296336;
 			
-			// aapt resource value: 0x7f090070
-			public const int design_tint_password_toggle = 2131296368;
+			// aapt resource value: 0x7f090072
+			public const int design_tint_password_toggle = 2131296370;
 			
 			// aapt resource value: 0x7f09001e
 			public const int dim_foreground_disabled_material_dark = 2131296286;
@@ -5294,6 +5371,9 @@ namespace CloudDeliveryMobile.Android
 			
 			// aapt resource value: 0x7f090024
 			public const int foreground_material_light = 2131296292;
+			
+			// aapt resource value: 0x7f090058
+			public const int grayColor = 2131296344;
 			
 			// aapt resource value: 0x7f090025
 			public const int highlighted_text_material_dark = 2131296293;
@@ -5406,11 +5486,11 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f090042
 			public const int switch_thumb_disabled_material_light = 2131296322;
 			
-			// aapt resource value: 0x7f090071
-			public const int switch_thumb_material_dark = 2131296369;
+			// aapt resource value: 0x7f090073
+			public const int switch_thumb_material_dark = 2131296371;
 			
-			// aapt resource value: 0x7f090072
-			public const int switch_thumb_material_light = 2131296370;
+			// aapt resource value: 0x7f090074
+			public const int switch_thumb_material_light = 2131296372;
 			
 			// aapt resource value: 0x7f090043
 			public const int switch_thumb_normal_material_dark = 2131296323;
@@ -6177,265 +6257,304 @@ namespace CloudDeliveryMobile.Android
 			public const int abc_vector_test = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int animation_slide_out_down = 2130837587;
+			public const int animation_fade_in = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int animaton_slide_in_up = 2130837588;
+			public const int animation_fade_out = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int avd_hide_password = 2130837589;
-			
-			// aapt resource value: 0x7f0200a4
-			public const int avd_hide_password_1 = 2130837668;
-			
-			// aapt resource value: 0x7f0200a5
-			public const int avd_hide_password_2 = 2130837669;
-			
-			// aapt resource value: 0x7f0200a6
-			public const int avd_hide_password_3 = 2130837670;
+			public const int animation_slide_out_down = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int avd_show_password = 2130837590;
-			
-			// aapt resource value: 0x7f0200a7
-			public const int avd_show_password_1 = 2130837671;
-			
-			// aapt resource value: 0x7f0200a8
-			public const int avd_show_password_2 = 2130837672;
-			
-			// aapt resource value: 0x7f0200a9
-			public const int avd_show_password_3 = 2130837673;
+			public const int animaton_slide_in_up = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int carrier_marker = 2130837591;
+			public const int avd_hide_password = 2130837591;
+			
+			// aapt resource value: 0x7f0200b1
+			public const int avd_hide_password_1 = 2130837681;
+			
+			// aapt resource value: 0x7f0200b2
+			public const int avd_hide_password_2 = 2130837682;
+			
+			// aapt resource value: 0x7f0200b3
+			public const int avd_hide_password_3 = 2130837683;
 			
 			// aapt resource value: 0x7f020058
-			public const int common_full_open_on_phone = 2130837592;
+			public const int avd_show_password = 2130837592;
+			
+			// aapt resource value: 0x7f0200b4
+			public const int avd_show_password_1 = 2130837684;
+			
+			// aapt resource value: 0x7f0200b5
+			public const int avd_show_password_2 = 2130837685;
+			
+			// aapt resource value: 0x7f0200b6
+			public const int avd_show_password_3 = 2130837686;
 			
 			// aapt resource value: 0x7f020059
-			public const int common_google_signin_btn_icon_dark = 2130837593;
+			public const int carrier_marker = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int common_google_signin_btn_icon_dark_focused = 2130837594;
+			public const int common_full_open_on_phone = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int common_google_signin_btn_icon_dark_normal = 2130837595;
+			public const int common_google_signin_btn_icon_dark = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int common_google_signin_btn_icon_dark_normal_background = 2130837596;
+			public const int common_google_signin_btn_icon_dark_focused = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int common_google_signin_btn_icon_disabled = 2130837597;
+			public const int common_google_signin_btn_icon_dark_normal = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int common_google_signin_btn_icon_light = 2130837598;
+			public const int common_google_signin_btn_icon_dark_normal_background = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int common_google_signin_btn_icon_light_focused = 2130837599;
+			public const int common_google_signin_btn_icon_disabled = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int common_google_signin_btn_icon_light_normal = 2130837600;
+			public const int common_google_signin_btn_icon_light = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int common_google_signin_btn_icon_light_normal_background = 2130837601;
+			public const int common_google_signin_btn_icon_light_focused = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int common_google_signin_btn_text_dark = 2130837602;
+			public const int common_google_signin_btn_icon_light_normal = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int common_google_signin_btn_text_dark_focused = 2130837603;
+			public const int common_google_signin_btn_icon_light_normal_background = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int common_google_signin_btn_text_dark_normal = 2130837604;
+			public const int common_google_signin_btn_text_dark = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int common_google_signin_btn_text_dark_normal_background = 2130837605;
+			public const int common_google_signin_btn_text_dark_focused = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int common_google_signin_btn_text_disabled = 2130837606;
+			public const int common_google_signin_btn_text_dark_normal = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int common_google_signin_btn_text_light = 2130837607;
+			public const int common_google_signin_btn_text_dark_normal_background = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int common_google_signin_btn_text_light_focused = 2130837608;
+			public const int common_google_signin_btn_text_disabled = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int common_google_signin_btn_text_light_normal = 2130837609;
+			public const int common_google_signin_btn_text_light = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int common_google_signin_btn_text_light_normal_background = 2130837610;
+			public const int common_google_signin_btn_text_light_focused = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int design_bottom_navigation_item_background = 2130837611;
+			public const int common_google_signin_btn_text_light_normal = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int design_fab_background = 2130837612;
+			public const int common_google_signin_btn_text_light_normal_background = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int design_ic_visibility = 2130837613;
+			public const int design_bottom_navigation_item_background = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int design_ic_visibility_off = 2130837614;
+			public const int design_fab_background = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int design_password_eye = 2130837615;
+			public const int design_ic_visibility = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int design_snackbar_background = 2130837616;
+			public const int design_ic_visibility_off = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int edit_route_border_bottom = 2130837617;
+			public const int design_password_eye = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int edit_route_border_bottom_right = 2130837618;
+			public const int design_snackbar_background = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int editpoint_element_border = 2130837619;
+			public const int edit_route_border_bottom = 2130837619;
 			
 			// aapt resource value: 0x7f020074
-			public const int editpoint_separator_bordertop = 2130837620;
+			public const int edit_route_border_bottom_right = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int endpoint = 2130837621;
+			public const int editpoint_element_border = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int endpoint_bw = 2130837622;
+			public const int editpoint_separator_bordertop = 2130837622;
 			
 			// aapt resource value: 0x7f020077
-			public const int endpoint_marker = 2130837623;
+			public const int endpoint = 2130837623;
 			
 			// aapt resource value: 0x7f020078
-			public const int floating_element_header_style = 2130837624;
+			public const int endpoint_bw = 2130837624;
 			
 			// aapt resource value: 0x7f020079
-			public const int floating_element_style = 2130837625;
+			public const int endpoint_marker = 2130837625;
 			
 			// aapt resource value: 0x7f02007a
-			public const int googleg_disabled_color_18 = 2130837626;
+			public const int floating_element_header_style = 2130837626;
 			
 			// aapt resource value: 0x7f02007b
-			public const int googleg_standard_color_18 = 2130837627;
+			public const int floating_element_style = 2130837627;
 			
 			// aapt resource value: 0x7f02007c
-			public const int ic_access_time_grey_500_48dp = 2130837628;
+			public const int floating_widget_rouded_corners = 2130837628;
 			
 			// aapt resource value: 0x7f02007d
-			public const int ic_autorenew_grey_500_48dp = 2130837629;
+			public const int googleg_disabled_color_18 = 2130837629;
 			
 			// aapt resource value: 0x7f02007e
-			public const int ic_clear_grey_500_48dp = 2130837630;
+			public const int googleg_standard_color_18 = 2130837630;
 			
 			// aapt resource value: 0x7f02007f
-			public const int ic_lock_grey_400_48dp = 2130837631;
+			public const int ic_access_time_grey_500_48dp = 2130837631;
 			
 			// aapt resource value: 0x7f020080
-			public const int ic_my_location_deep_orange_400_48dp = 2130837632;
+			public const int ic_arrow_back_grey_600_48dp = 2130837632;
 			
 			// aapt resource value: 0x7f020081
-			public const int ic_my_location_grey_700_48dp = 2130837633;
+			public const int ic_arrow_forward_grey_600_48dp = 2130837633;
 			
 			// aapt resource value: 0x7f020082
-			public const int ic_person_grey_400_48dp = 2130837634;
+			public const int ic_autorenew_grey_500_48dp = 2130837634;
 			
 			// aapt resource value: 0x7f020083
-			public const int ic_person_orange_A400_48dp = 2130837635;
+			public const int ic_clear_grey_500_48dp = 2130837635;
 			
 			// aapt resource value: 0x7f020084
-			public const int ic_person_pin_circle_grey_500_48dp = 2130837636;
+			public const int ic_done_grey_600_48dp = 2130837636;
 			
 			// aapt resource value: 0x7f020085
-			public const int icon = 2130837637;
+			public const int ic_errorstatus = 2130837637;
 			
 			// aapt resource value: 0x7f020086
-			public const int marker = 2130837638;
+			public const int ic_lock_grey_400_48dp = 2130837638;
 			
 			// aapt resource value: 0x7f020087
-			public const int marker_bw = 2130837639;
+			public const int ic_my_location_deep_orange_400_48dp = 2130837639;
 			
 			// aapt resource value: 0x7f020088
-			public const int name_icon = 2130837640;
+			public const int ic_my_location_grey_700_48dp = 2130837640;
 			
 			// aapt resource value: 0x7f020089
-			public const int navigation_empty_icon = 2130837641;
+			public const int ic_person_grey_400_48dp = 2130837641;
 			
 			// aapt resource value: 0x7f02008a
-			public const int notification_action_background = 2130837642;
+			public const int ic_person_orange_A400_48dp = 2130837642;
 			
 			// aapt resource value: 0x7f02008b
-			public const int notification_bg = 2130837643;
+			public const int ic_person_pin_circle_grey_500_48dp = 2130837643;
 			
 			// aapt resource value: 0x7f02008c
-			public const int notification_bg_low = 2130837644;
+			public const int ic_successstatus = 2130837644;
 			
 			// aapt resource value: 0x7f02008d
-			public const int notification_bg_low_normal = 2130837645;
+			public const int icon = 2130837645;
 			
 			// aapt resource value: 0x7f02008e
-			public const int notification_bg_low_pressed = 2130837646;
+			public const int marker = 2130837646;
 			
 			// aapt resource value: 0x7f02008f
-			public const int notification_bg_normal = 2130837647;
+			public const int marker_bw = 2130837647;
 			
 			// aapt resource value: 0x7f020090
-			public const int notification_bg_normal_pressed = 2130837648;
+			public const int name_icon = 2130837648;
 			
 			// aapt resource value: 0x7f020091
-			public const int notification_icon_background = 2130837649;
-			
-			// aapt resource value: 0x7f0200a2
-			public const int notification_template_icon_bg = 2130837666;
-			
-			// aapt resource value: 0x7f0200a3
-			public const int notification_template_icon_low_bg = 2130837667;
+			public const int navigation_empty_icon = 2130837649;
 			
 			// aapt resource value: 0x7f020092
-			public const int notification_tile_bg = 2130837650;
+			public const int notification_action_background = 2130837650;
 			
 			// aapt resource value: 0x7f020093
-			public const int notify_panel_notification_icon_bg = 2130837651;
+			public const int notification_bg = 2130837651;
 			
 			// aapt resource value: 0x7f020094
-			public const int ripple_loginbutton = 2130837652;
+			public const int notification_bg_low = 2130837652;
 			
 			// aapt resource value: 0x7f020095
-			public const int ripple_primary_color = 2130837653;
+			public const int notification_bg_low_normal = 2130837653;
 			
 			// aapt resource value: 0x7f020096
-			public const int rocket = 2130837654;
+			public const int notification_bg_low_pressed = 2130837654;
 			
 			// aapt resource value: 0x7f020097
-			public const int salepoint_bw = 2130837655;
+			public const int notification_bg_normal = 2130837655;
 			
 			// aapt resource value: 0x7f020098
-			public const int salepoint_marker = 2130837656;
+			public const int notification_bg_normal_pressed = 2130837656;
 			
 			// aapt resource value: 0x7f020099
-			public const int shape_circle = 2130837657;
+			public const int notification_icon_background = 2130837657;
+			
+			// aapt resource value: 0x7f0200af
+			public const int notification_template_icon_bg = 2130837679;
+			
+			// aapt resource value: 0x7f0200b0
+			public const int notification_template_icon_low_bg = 2130837680;
 			
 			// aapt resource value: 0x7f02009a
-			public const int shape_dotted_left_border = 2130837658;
+			public const int notification_tile_bg = 2130837658;
 			
 			// aapt resource value: 0x7f02009b
-			public const int shape_loginbutton = 2130837659;
+			public const int notify_panel_notification_icon_bg = 2130837659;
 			
 			// aapt resource value: 0x7f02009c
-			public const int shape_map_element = 2130837660;
+			public const int ripple_gray_color_rounded = 2130837660;
 			
 			// aapt resource value: 0x7f02009d
-			public const int shape_primary_button = 2130837661;
+			public const int ripple_primary_color = 2130837661;
 			
 			// aapt resource value: 0x7f02009e
-			public const int shape_triangle = 2130837662;
+			public const int ripple_primary_color_rounded = 2130837662;
 			
 			// aapt resource value: 0x7f02009f
-			public const int side_view_style = 2130837663;
+			public const int rocket = 2130837663;
 			
 			// aapt resource value: 0x7f0200a0
-			public const int tooltip_frame_dark = 2130837664;
+			public const int roundedbg = 2130837664;
 			
 			// aapt resource value: 0x7f0200a1
-			public const int tooltip_frame_light = 2130837665;
+			public const int roundedbgdark = 2130837665;
+			
+			// aapt resource value: 0x7f0200a2
+			public const int salepoint_bw = 2130837666;
+			
+			// aapt resource value: 0x7f0200a3
+			public const int salepoint_marker = 2130837667;
+			
+			// aapt resource value: 0x7f0200a4
+			public const int shape_circle = 2130837668;
+			
+			// aapt resource value: 0x7f0200a5
+			public const int shape_dotted_left_border = 2130837669;
+			
+			// aapt resource value: 0x7f0200a6
+			public const int shape_map_element = 2130837670;
+			
+			// aapt resource value: 0x7f0200a7
+			public const int shape_primary_button = 2130837671;
+			
+			// aapt resource value: 0x7f0200a8
+			public const int shape_rounded_empty_button = 2130837672;
+			
+			// aapt resource value: 0x7f0200a9
+			public const int shape_rounded_gray_button = 2130837673;
+			
+			// aapt resource value: 0x7f0200aa
+			public const int shape_rounded_primary_button = 2130837674;
+			
+			// aapt resource value: 0x7f0200ab
+			public const int shape_triangle = 2130837675;
+			
+			// aapt resource value: 0x7f0200ac
+			public const int side_view_style = 2130837676;
+			
+			// aapt resource value: 0x7f0200ad
+			public const int tooltip_frame_dark = 2130837677;
+			
+			// aapt resource value: 0x7f0200ae
+			public const int tooltip_frame_light = 2130837678;
 			
 			static Drawable()
 			{
@@ -6474,8 +6593,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0044
 			public const int SYM = 2131427396;
 			
-			// aapt resource value: 0x7f0b00c1
-			public const int action0 = 2131427521;
+			// aapt resource value: 0x7f0b00dc
+			public const int action0 = 2131427548;
 			
 			// aapt resource value: 0x7f0b008c
 			public const int action_bar = 2131427468;
@@ -6498,17 +6617,17 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b006a
 			public const int action_bar_title = 2131427434;
 			
-			// aapt resource value: 0x7f0b00be
-			public const int action_container = 2131427518;
+			// aapt resource value: 0x7f0b00d9
+			public const int action_container = 2131427545;
 			
 			// aapt resource value: 0x7f0b008d
 			public const int action_context_bar = 2131427469;
 			
-			// aapt resource value: 0x7f0b00c5
-			public const int action_divider = 2131427525;
+			// aapt resource value: 0x7f0b00e0
+			public const int action_divider = 2131427552;
 			
-			// aapt resource value: 0x7f0b00bf
-			public const int action_image = 2131427519;
+			// aapt resource value: 0x7f0b00da
+			public const int action_image = 2131427546;
 			
 			// aapt resource value: 0x7f0b0003
 			public const int action_menu_divider = 2131427331;
@@ -6525,14 +6644,29 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b006c
 			public const int action_mode_close_button = 2131427436;
 			
-			// aapt resource value: 0x7f0b00c0
-			public const int action_text = 2131427520;
+			// aapt resource value: 0x7f0b00db
+			public const int action_text = 2131427547;
 			
-			// aapt resource value: 0x7f0b00ce
-			public const int actions = 2131427534;
+			// aapt resource value: 0x7f0b00e9
+			public const int actions = 2131427561;
 			
-			// aapt resource value: 0x7f0b00d1
-			public const int active_route_point_icon = 2131427537;
+			// aapt resource value: 0x7f0b00ab
+			public const int active_route_minimize = 2131427499;
+			
+			// aapt resource value: 0x7f0b00ee
+			public const int active_route_point_body = 2131427566;
+			
+			// aapt resource value: 0x7f0b00ec
+			public const int active_route_point_header = 2131427564;
+			
+			// aapt resource value: 0x7f0b00ed
+			public const int active_route_point_toggle = 2131427565;
+			
+			// aapt resource value: 0x7f0b00aa
+			public const int active_route_points_list = 2131427498;
+			
+			// aapt resource value: 0x7f0b00ac
+			public const int active_route_start_navigation = 2131427500;
 			
 			// aapt resource value: 0x7f0b006d
 			public const int activity_chooser_view_content = 2131427437;
@@ -6558,8 +6692,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b009d
 			public const int animation_view = 2131427485;
 			
-			// aapt resource value: 0x7f0b00bb
-			public const int appbar = 2131427515;
+			// aapt resource value: 0x7f0b00d5
+			public const int appbar = 2131427541;
 			
 			// aapt resource value: 0x7f0b0062
 			public const int async = 2131427426;
@@ -6579,17 +6713,17 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0073
 			public const int buttonPanel = 2131427443;
 			
-			// aapt resource value: 0x7f0b00c2
-			public const int cancel_action = 2131427522;
+			// aapt resource value: 0x7f0b00dd
+			public const int cancel_action = 2131427549;
+			
+			// aapt resource value: 0x7f0b00a3
+			public const int carrier_gmap_fragment = 2131427491;
 			
 			// aapt resource value: 0x7f0b00a2
-			public const int carrier_gmap_fragment = 2131427490;
+			public const int carrier_map_layout = 2131427490;
 			
-			// aapt resource value: 0x7f0b00a1
-			public const int carrier_map_layout = 2131427489;
-			
-			// aapt resource value: 0x7f0b00a6
-			public const int carrier_orders_content = 2131427494;
+			// aapt resource value: 0x7f0b00a7
+			public const int carrier_orders_content = 2131427495;
 			
 			// aapt resource value: 0x7f0b0051
 			public const int center = 2131427409;
@@ -6603,8 +6737,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0083
 			public const int checkbox = 2131427459;
 			
-			// aapt resource value: 0x7f0b00ca
-			public const int chronometer = 2131427530;
+			// aapt resource value: 0x7f0b00e5
+			public const int chronometer = 2131427557;
 			
 			// aapt resource value: 0x7f0b005a
 			public const int clip_horizontal = 2131427418;
@@ -6615,17 +6749,20 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0046
 			public const int collapseActionView = 2131427398;
 			
-			// aapt resource value: 0x7f0b00ae
-			public const int container = 2131427502;
+			// aapt resource value: 0x7f0b00c2
+			public const int collapsed_iv = 2131427522;
+			
+			// aapt resource value: 0x7f0b00b4
+			public const int container = 2131427508;
 			
 			// aapt resource value: 0x7f0b0076
 			public const int contentPanel = 2131427446;
 			
-			// aapt resource value: 0x7f0b00d7
-			public const int content_frame = 2131427543;
+			// aapt resource value: 0x7f0b00f4
+			public const int content_frame = 2131427572;
 			
-			// aapt resource value: 0x7f0b00af
-			public const int coordinator = 2131427503;
+			// aapt resource value: 0x7f0b00b5
+			public const int coordinator = 2131427509;
 			
 			// aapt resource value: 0x7f0b007d
 			public const int custom = 2131427453;
@@ -6642,50 +6779,50 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0070
 			public const int default_activity_button = 2131427440;
 			
-			// aapt resource value: 0x7f0b00b1
-			public const int design_bottom_sheet = 2131427505;
-			
-			// aapt resource value: 0x7f0b00b8
-			public const int design_menu_item_action_area = 2131427512;
-			
 			// aapt resource value: 0x7f0b00b7
-			public const int design_menu_item_action_area_stub = 2131427511;
+			public const int design_bottom_sheet = 2131427511;
 			
-			// aapt resource value: 0x7f0b00b6
-			public const int design_menu_item_text = 2131427510;
+			// aapt resource value: 0x7f0b00be
+			public const int design_menu_item_action_area = 2131427518;
 			
-			// aapt resource value: 0x7f0b00b5
-			public const int design_navigation_view = 2131427509;
+			// aapt resource value: 0x7f0b00bd
+			public const int design_menu_item_action_area_stub = 2131427517;
+			
+			// aapt resource value: 0x7f0b00bc
+			public const int design_menu_item_text = 2131427516;
+			
+			// aapt resource value: 0x7f0b00bb
+			public const int design_navigation_view = 2131427515;
 			
 			// aapt resource value: 0x7f0b002e
 			public const int disableHome = 2131427374;
 			
-			// aapt resource value: 0x7f0b00d5
-			public const int drawer_layout = 2131427541;
+			// aapt resource value: 0x7f0b00f2
+			public const int drawer_layout = 2131427570;
 			
-			// aapt resource value: 0x7f0b00d4
-			public const int edit_point_handle = 2131427540;
+			// aapt resource value: 0x7f0b00f1
+			public const int edit_point_handle = 2131427569;
 			
-			// aapt resource value: 0x7f0b00d2
-			public const int edit_point_item_image = 2131427538;
+			// aapt resource value: 0x7f0b00ef
+			public const int edit_point_item_image = 2131427567;
 			
 			// aapt resource value: 0x7f0b008e
 			public const int edit_query = 2131427470;
 			
-			// aapt resource value: 0x7f0b00a7
-			public const int edit_route_points_list = 2131427495;
+			// aapt resource value: 0x7f0b00ad
+			public const int edit_route_points_list = 2131427501;
 			
 			// aapt resource value: 0x7f0b003d
 			public const int end = 2131427389;
 			
-			// aapt resource value: 0x7f0b00d0
-			public const int end_padder = 2131427536;
+			// aapt resource value: 0x7f0b00eb
+			public const int end_padder = 2131427563;
 			
-			// aapt resource value: 0x7f0b00a0
-			public const int endpoint_image = 2131427488;
+			// aapt resource value: 0x7f0b00a1
+			public const int endpoint_image = 2131427489;
 			
-			// aapt resource value: 0x7f0b00d3
-			public const int endpoint_salepoint_image = 2131427539;
+			// aapt resource value: 0x7f0b00f0
+			public const int endpoint_salepoint_image = 2131427568;
 			
 			// aapt resource value: 0x7f0b004c
 			public const int enterAlways = 2131427404;
@@ -6726,14 +6863,26 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b009e
 			public const int float_details_success = 2131427486;
 			
-			// aapt resource value: 0x7f0b00a3
-			public const int floating_orders_btn = 2131427491;
+			// aapt resource value: 0x7f0b00a0
+			public const int floating_order_item_body = 2131427488;
+			
+			// aapt resource value: 0x7f0b00a4
+			public const int floating_orders_btn = 2131427492;
+			
+			// aapt resource value: 0x7f0b00c0
+			public const int floating_widget_layout = 2131427520;
+			
+			// aapt resource value: 0x7f0b00c1
+			public const int floating_widget_layout_collapsed = 2131427521;
+			
+			// aapt resource value: 0x7f0b00c3
+			public const int floating_widget_layout_expanded = 2131427523;
 			
 			// aapt resource value: 0x7f0b0064
 			public const int forever = 2131427428;
 			
-			// aapt resource value: 0x7f0b00a4
-			public const int geloc_btn = 2131427492;
+			// aapt resource value: 0x7f0b00a5
+			public const int geloc_btn = 2131427493;
 			
 			// aapt resource value: 0x7f0b000a
 			public const int ghost_view = 2131427338;
@@ -6750,8 +6899,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0072
 			public const int icon = 2131427442;
 			
-			// aapt resource value: 0x7f0b00cf
-			public const int icon_group = 2131427535;
+			// aapt resource value: 0x7f0b00ea
+			public const int icon_group = 2131427562;
 			
 			// aapt resource value: 0x7f0b0026
 			public const int icon_only = 2131427366;
@@ -6762,8 +6911,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b006f
 			public const int image = 2131427439;
 			
-			// aapt resource value: 0x7f0b00cb
-			public const int info = 2131427531;
+			// aapt resource value: 0x7f0b00e6
+			public const int info = 2131427558;
 			
 			// aapt resource value: 0x7f0b0065
 			public const int italic = 2131427429;
@@ -6771,8 +6920,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0000
 			public const int item_touch_helper_previous_elevation = 2131427328;
 			
-			// aapt resource value: 0x7f0b00ad
-			public const int largeLabel = 2131427501;
+			// aapt resource value: 0x7f0b00b3
+			public const int largeLabel = 2131427507;
 			
 			// aapt resource value: 0x7f0b0055
 			public const int left = 2131427413;
@@ -6792,23 +6941,35 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0071
 			public const int list_item = 2131427441;
 			
+			// aapt resource value: 0x7f0b00d2
+			public const int loadingImage = 2131427538;
+			
+			// aapt resource value: 0x7f0b00d0
+			public const int loadingProgressBar = 2131427536;
+			
+			// aapt resource value: 0x7f0b00d3
+			public const int loadingProgressWheel = 2131427539;
+			
 			// aapt resource value: 0x7f0b001e
 			public const int lottie_layer_name = 2131427358;
 			
-			// aapt resource value: 0x7f0b00ba
-			public const int main_content = 2131427514;
+			// aapt resource value: 0x7f0b00d4
+			public const int main_content = 2131427540;
 			
-			// aapt resource value: 0x7f0b00d6
-			public const int main_frame = 2131427542;
-			
-			// aapt resource value: 0x7f0b00da
-			public const int masked = 2131427546;
-			
-			// aapt resource value: 0x7f0b00c4
-			public const int media_actions = 2131427524;
+			// aapt resource value: 0x7f0b00f3
+			public const int main_frame = 2131427571;
 			
 			// aapt resource value: 0x7f0b00d8
-			public const int message = 2131427544;
+			public const int main_signin_layout = 2131427544;
+			
+			// aapt resource value: 0x7f0b00f7
+			public const int masked = 2131427575;
+			
+			// aapt resource value: 0x7f0b00df
+			public const int media_actions = 2131427551;
+			
+			// aapt resource value: 0x7f0b00f5
+			public const int message = 2131427573;
 			
 			// aapt resource value: 0x7f0b003e
 			public const int middle = 2131427390;
@@ -6819,8 +6980,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0034
 			public const int multiply = 2131427380;
 			
-			// aapt resource value: 0x7f0b00b4
-			public const int navigation_header_container = 2131427508;
+			// aapt resource value: 0x7f0b00ba
+			public const int navigation_header_container = 2131427514;
 			
 			// aapt resource value: 0x7f0b0048
 			public const int never = 2131427400;
@@ -6831,14 +6992,20 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0021
 			public const int normal = 2131427361;
 			
-			// aapt resource value: 0x7f0b00cd
-			public const int notification_background = 2131427533;
+			// aapt resource value: 0x7f0b00e8
+			public const int notification_background = 2131427560;
 			
-			// aapt resource value: 0x7f0b00c7
-			public const int notification_main_column = 2131427527;
+			// aapt resource value: 0x7f0b00e2
+			public const int notification_main_column = 2131427554;
 			
-			// aapt resource value: 0x7f0b00c6
-			public const int notification_main_column_container = 2131427526;
+			// aapt resource value: 0x7f0b00e1
+			public const int notification_main_column_container = 2131427553;
+			
+			// aapt resource value: 0x7f0b00a9
+			public const int order_pickup_endpoint_address = 2131427497;
+			
+			// aapt resource value: 0x7f0b00a8
+			public const int order_pickup_title = 2131427496;
 			
 			// aapt resource value: 0x7f0b0058
 			public const int parallax = 2131427416;
@@ -6870,11 +7037,11 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0056
 			public const int right = 2131427414;
 			
-			// aapt resource value: 0x7f0b00cc
-			public const int right_icon = 2131427532;
+			// aapt resource value: 0x7f0b00e7
+			public const int right_icon = 2131427559;
 			
-			// aapt resource value: 0x7f0b00c8
-			public const int right_side = 2131427528;
+			// aapt resource value: 0x7f0b00e3
+			public const int right_side = 2131427555;
 			
 			// aapt resource value: 0x7f0b0022
 			public const int satellite = 2131427362;
@@ -6951,29 +7118,29 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0032
 			public const int showTitle = 2131427378;
 			
-			// aapt resource value: 0x7f0b00a8
-			public const int side_view_container = 2131427496;
+			// aapt resource value: 0x7f0b00ae
+			public const int side_view_container = 2131427502;
 			
-			// aapt resource value: 0x7f0b00ab
-			public const int side_view_content = 2131427499;
+			// aapt resource value: 0x7f0b00b1
+			public const int side_view_content = 2131427505;
 			
-			// aapt resource value: 0x7f0b00a5
-			public const int side_view_layout = 2131427493;
+			// aapt resource value: 0x7f0b00a6
+			public const int side_view_layout = 2131427494;
 			
-			// aapt resource value: 0x7f0b00aa
-			public const int side_view_touch = 2131427498;
+			// aapt resource value: 0x7f0b00b0
+			public const int side_view_touch = 2131427504;
 			
-			// aapt resource value: 0x7f0b00a9
-			public const int side_view_touch_container = 2131427497;
-			
-			// aapt resource value: 0x7f0b00ac
-			public const int smallLabel = 2131427500;
-			
-			// aapt resource value: 0x7f0b00b3
-			public const int snackbar_action = 2131427507;
+			// aapt resource value: 0x7f0b00af
+			public const int side_view_touch_container = 2131427503;
 			
 			// aapt resource value: 0x7f0b00b2
-			public const int snackbar_text = 2131427506;
+			public const int smallLabel = 2131427506;
+			
+			// aapt resource value: 0x7f0b00b9
+			public const int snackbar_action = 2131427513;
+			
+			// aapt resource value: 0x7f0b00b8
+			public const int snackbar_text = 2131427512;
 			
 			// aapt resource value: 0x7f0b0050
 			public const int snap = 2131427408;
@@ -6999,8 +7166,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0057
 			public const int start = 2131427415;
 			
-			// aapt resource value: 0x7f0b00c3
-			public const int status_bar_latest_event_content = 2131427523;
+			// aapt resource value: 0x7f0b00de
+			public const int status_bar_latest_event_content = 2131427550;
 			
 			// aapt resource value: 0x7f0b0068
 			public const int strong = 2131427432;
@@ -7014,8 +7181,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b002d
 			public const int tabMode = 2131427373;
 			
-			// aapt resource value: 0x7f0b00bc
-			public const int tabs = 2131427516;
+			// aapt resource value: 0x7f0b00d6
+			public const int tabs = 2131427542;
 			
 			// aapt resource value: 0x7f0b0023
 			public const int terrain = 2131427363;
@@ -7032,8 +7199,11 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0079
 			public const int textSpacerNoTitle = 2131427449;
 			
-			// aapt resource value: 0x7f0b00b9
-			public const int text_input_password_toggle = 2131427513;
+			// aapt resource value: 0x7f0b00d1
+			public const int textViewStatus = 2131427537;
+			
+			// aapt resource value: 0x7f0b00bf
+			public const int text_input_password_toggle = 2131427519;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int textinput_counter = 2131427348;
@@ -7041,8 +7211,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0015
 			public const int textinput_error = 2131427349;
 			
-			// aapt resource value: 0x7f0b00c9
-			public const int time = 2131427529;
+			// aapt resource value: 0x7f0b00e4
+			public const int time = 2131427556;
 			
 			// aapt resource value: 0x7f0b001b
 			public const int title = 2131427355;
@@ -7059,8 +7229,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b007e
 			public const int topPanel = 2131427454;
 			
-			// aapt resource value: 0x7f0b00b0
-			public const int touch_outside = 2131427504;
+			// aapt resource value: 0x7f0b00b6
+			public const int touch_outside = 2131427510;
 			
 			// aapt resource value: 0x7f0b000f
 			public const int transition_current_scene = 2131427343;
@@ -7089,17 +7259,53 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0016
 			public const int view_offset_helper = 2131427350;
 			
-			// aapt resource value: 0x7f0b00bd
-			public const int viewpager = 2131427517;
+			// aapt resource value: 0x7f0b00d7
+			public const int viewpager = 2131427543;
 			
-			// aapt resource value: 0x7f0b00d9
-			public const int visible = 2131427545;
+			// aapt resource value: 0x7f0b00f6
+			public const int visible = 2131427574;
 			
 			// aapt resource value: 0x7f0b0069
 			public const int weak = 2131427433;
 			
 			// aapt resource value: 0x7f0b0028
 			public const int wide = 2131427368;
+			
+			// aapt resource value: 0x7f0b00cf
+			public const int widget_collapse_button = 2131427535;
+			
+			// aapt resource value: 0x7f0b00c4
+			public const int widget_current_index = 2131427524;
+			
+			// aapt resource value: 0x7f0b00cc
+			public const int widget_finish_order_button = 2131427532;
+			
+			// aapt resource value: 0x7f0b00c9
+			public const int widget_next_point_button = 2131427529;
+			
+			// aapt resource value: 0x7f0b00ca
+			public const int widget_passed_time_container = 2131427530;
+			
+			// aapt resource value: 0x7f0b00cb
+			public const int widget_passed_time_text = 2131427531;
+			
+			// aapt resource value: 0x7f0b00c8
+			public const int widget_point_address = 2131427528;
+			
+			// aapt resource value: 0x7f0b00c6
+			public const int widget_point_type = 2131427526;
+			
+			// aapt resource value: 0x7f0b00c7
+			public const int widget_point_type_icon = 2131427527;
+			
+			// aapt resource value: 0x7f0b00c5
+			public const int widget_previous_point_button = 2131427525;
+			
+			// aapt resource value: 0x7f0b00ce
+			public const int widget_set_gmaps_button = 2131427534;
+			
+			// aapt resource value: 0x7f0b00cd
+			public const int widget_show_app_button = 2131427533;
 			
 			// aapt resource value: 0x7f0b0049
 			public const int withText = 2131427401;
@@ -7251,7 +7457,7 @@ namespace CloudDeliveryMobile.Android
 			public const int carrier_floating_order_details = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int carrier_floating_order_itemtemplate = 2130903068;
+			public const int carrier_floating_order_listitem = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
 			public const int carrier_floating_orders = 2130903069;
@@ -7263,145 +7469,166 @@ namespace CloudDeliveryMobile.Android
 			public const int carrier_orders = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int carrier_side_active_route = 2130903072;
+			public const int carrier_pickup_orders = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int carrier_side_route_edit = 2130903073;
+			public const int carrier_pickup_orders_listitem = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int carrier_side_view = 2130903074;
+			public const int carrier_side_active_route = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int design_bottom_navigation_item = 2130903075;
+			public const int carrier_side_route_edit = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int design_bottom_sheet_dialog = 2130903076;
+			public const int carrier_side_view = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int design_layout_snackbar = 2130903077;
+			public const int design_bottom_navigation_item = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public const int design_layout_snackbar_include = 2130903078;
+			public const int design_bottom_sheet_dialog = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public const int design_layout_tab_icon = 2130903079;
+			public const int design_layout_snackbar = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int design_layout_tab_text = 2130903080;
+			public const int design_layout_snackbar_include = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int design_menu_item_action_area = 2130903081;
+			public const int design_layout_tab_icon = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int design_navigation_item = 2130903082;
+			public const int design_layout_tab_text = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int design_navigation_item_header = 2130903083;
+			public const int design_menu_item_action_area = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int design_navigation_item_separator = 2130903084;
+			public const int design_navigation_item = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int design_navigation_item_subheader = 2130903085;
+			public const int design_navigation_item_header = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int design_navigation_menu = 2130903086;
+			public const int design_navigation_item_separator = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int design_navigation_menu_item = 2130903087;
+			public const int design_navigation_item_subheader = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int design_text_input_password_icon = 2130903088;
+			public const int design_navigation_menu = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int main_inprogress = 2130903089;
+			public const int design_navigation_menu_item = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int main_root = 2130903090;
+			public const int design_text_input_password_icon = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int main_signin = 2130903091;
+			public const int floating_widget = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int main_splash = 2130903092;
+			public const int floating_widget_collapsed = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int main_tokenloading = 2130903093;
+			public const int floating_widget_expanded = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int notification_action = 2130903094;
+			public const int loading = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int notification_action_tombstone = 2130903095;
+			public const int loadingimage = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int notification_media_action = 2130903096;
+			public const int loadingprogress = 2130903096;
 			
 			// aapt resource value: 0x7f030039
-			public const int notification_media_cancel_action = 2130903097;
+			public const int main_inprogress = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int notification_template_big_media = 2130903098;
+			public const int main_root = 2130903098;
 			
 			// aapt resource value: 0x7f03003b
-			public const int notification_template_big_media_custom = 2130903099;
+			public const int main_signin = 2130903099;
 			
 			// aapt resource value: 0x7f03003c
-			public const int notification_template_big_media_narrow = 2130903100;
+			public const int main_splash = 2130903100;
 			
 			// aapt resource value: 0x7f03003d
-			public const int notification_template_big_media_narrow_custom = 2130903101;
+			public const int notification_action = 2130903101;
 			
 			// aapt resource value: 0x7f03003e
-			public const int notification_template_custom_big = 2130903102;
+			public const int notification_action_tombstone = 2130903102;
 			
 			// aapt resource value: 0x7f03003f
-			public const int notification_template_icon_group = 2130903103;
+			public const int notification_media_action = 2130903103;
 			
 			// aapt resource value: 0x7f030040
-			public const int notification_template_lines_media = 2130903104;
+			public const int notification_media_cancel_action = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int notification_template_media = 2130903105;
+			public const int notification_template_big_media = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int notification_template_media_custom = 2130903106;
+			public const int notification_template_big_media_custom = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int notification_template_part_chronometer = 2130903107;
+			public const int notification_template_big_media_narrow = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int notification_template_part_time = 2130903108;
+			public const int notification_template_big_media_narrow_custom = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int route_active_point_body_listitem = 2130903109;
+			public const int notification_template_custom_big = 2130903109;
 			
 			// aapt resource value: 0x7f030046
-			public const int route_active_point_header_listitem = 2130903110;
+			public const int notification_template_icon_group = 2130903110;
 			
 			// aapt resource value: 0x7f030047
-			public const int route_edit_endpoint_listitem = 2130903111;
+			public const int notification_template_lines_media = 2130903111;
 			
 			// aapt resource value: 0x7f030048
-			public const int route_edit_salepoint_listitem = 2130903112;
+			public const int notification_template_media = 2130903112;
 			
 			// aapt resource value: 0x7f030049
-			public const int salepoint_root = 2130903113;
+			public const int notification_template_media_custom = 2130903113;
 			
 			// aapt resource value: 0x7f03004a
-			public const int select_dialog_item_material = 2130903114;
+			public const int notification_template_part_chronometer = 2130903114;
 			
 			// aapt resource value: 0x7f03004b
-			public const int select_dialog_multichoice_material = 2130903115;
+			public const int notification_template_part_time = 2130903115;
 			
 			// aapt resource value: 0x7f03004c
-			public const int select_dialog_singlechoice_material = 2130903116;
+			public const int route_active_endpoint_listitem = 2130903116;
 			
 			// aapt resource value: 0x7f03004d
-			public const int support_simple_spinner_dropdown_item = 2130903117;
+			public const int route_active_salepoint_listitem = 2130903117;
 			
 			// aapt resource value: 0x7f03004e
-			public const int tooltip = 2130903118;
+			public const int route_edit_endpoint_listitem = 2130903118;
+			
+			// aapt resource value: 0x7f03004f
+			public const int route_edit_salepoint_listitem = 2130903119;
+			
+			// aapt resource value: 0x7f030050
+			public const int salepoint_root = 2130903120;
+			
+			// aapt resource value: 0x7f030051
+			public const int select_dialog_item_material = 2130903121;
+			
+			// aapt resource value: 0x7f030052
+			public const int select_dialog_multichoice_material = 2130903122;
+			
+			// aapt resource value: 0x7f030053
+			public const int select_dialog_singlechoice_material = 2130903123;
+			
+			// aapt resource value: 0x7f030054
+			public const int support_simple_spinner_dropdown_item = 2130903124;
+			
+			// aapt resource value: 0x7f030055
+			public const int tooltip = 2130903125;
 			
 			static Layout()
 			{
@@ -7515,14 +7742,17 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f070025
 			public const int abc_toolbar_collapse_description = 2131165221;
 			
-			// aapt resource value: 0x7f07003e
-			public const int app_name = 2131165246;
+			// aapt resource value: 0x7f07003f
+			public const int app_name = 2131165247;
 			
 			// aapt resource value: 0x7f070034
 			public const int appbar_scrolling_view_behavior = 2131165236;
 			
 			// aapt resource value: 0x7f070035
 			public const int bottom_sheet_behavior = 2131165237;
+			
+			// aapt resource value: 0x7f070045
+			public const int bullet_active_point = 2131165253;
 			
 			// aapt resource value: 0x7f070036
 			public const int character_counter_pattern = 2131165238;
@@ -7578,11 +7808,23 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f070012
 			public const int common_signin_button_text_long = 2131165202;
 			
-			// aapt resource value: 0x7f07003c
-			public const int fab_scroll_shrink_grow_autohide_behavior = 2131165244;
+			// aapt resource value: 0x7f070044
+			public const int endpoint_display_name = 2131165252;
 			
-			// aapt resource value: 0x7f07003f
-			public const int gmaps_key = 2131165247;
+			// aapt resource value: 0x7f07003d
+			public const int fab_scroll_shrink_grow_autohide_behavior = 2131165245;
+			
+			// aapt resource value: 0x7f070041
+			public const int gmaps_intent_directions = 2131165249;
+			
+			// aapt resource value: 0x7f070042
+			public const int gmaps_intent_travelmode = 2131165250;
+			
+			// aapt resource value: 0x7f070040
+			public const int gmaps_key = 2131165248;
+			
+			// aapt resource value: 0x7f07003c
+			public const int library_name = 2131165244;
 			
 			// aapt resource value: 0x7f070037
 			public const int password_toggle_content_description = 2131165239;
@@ -7599,14 +7841,17 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f07003b
 			public const int path_password_strike_through = 2131165243;
 			
+			// aapt resource value: 0x7f070043
+			public const int salepoint_display_name = 2131165251;
+			
 			// aapt resource value: 0x7f070026
 			public const int search_menu_title = 2131165222;
 			
 			// aapt resource value: 0x7f070027
 			public const int status_bar_notification_info_overflow = 2131165223;
 			
-			// aapt resource value: 0x7f07003d
-			public const int view_scroll_translation_autohide_behavior = 2131165245;
+			// aapt resource value: 0x7f07003e
+			public const int view_scroll_translation_autohide_behavior = 2131165246;
 			
 			static String()
 			{
@@ -10546,6 +10791,56 @@ namespace CloudDeliveryMobile.Android
 			
 			// aapt resource value: 0
 			public const int PopupWindowBackgroundState_state_above_anchor = 0;
+			
+			public static int[] ProgressWheel = new int[] {
+					2130772374,
+					2130772375,
+					2130772376,
+					2130772377,
+					2130772378,
+					2130772379,
+					2130772380,
+					2130772381,
+					2130772382,
+					2130772383,
+					2130772384,
+					2130772385};
+			
+			// aapt resource value: 3
+			public const int ProgressWheel_ahBarColor = 3;
+			
+			// aapt resource value: 11
+			public const int ProgressWheel_ahBarLength = 11;
+			
+			// aapt resource value: 10
+			public const int ProgressWheel_ahBarWidth = 10;
+			
+			// aapt resource value: 8
+			public const int ProgressWheel_ahCircleColor = 8;
+			
+			// aapt resource value: 7
+			public const int ProgressWheel_ahDelayMillis = 7;
+			
+			// aapt resource value: 9
+			public const int ProgressWheel_ahRadius = 9;
+			
+			// aapt resource value: 4
+			public const int ProgressWheel_ahRimColor = 4;
+			
+			// aapt resource value: 5
+			public const int ProgressWheel_ahRimWidth = 5;
+			
+			// aapt resource value: 6
+			public const int ProgressWheel_ahSpinSpeed = 6;
+			
+			// aapt resource value: 0
+			public const int ProgressWheel_ahText = 0;
+			
+			// aapt resource value: 1
+			public const int ProgressWheel_ahTextColor = 1;
+			
+			// aapt resource value: 2
+			public const int ProgressWheel_ahTextSize = 2;
 			
 			public static int[] RecycleListView = new int[] {
 					2130772215,

@@ -5,8 +5,8 @@ using MvvmCross.Droid.Support.V7.AppCompat;
 
 namespace CloudDeliveryMobile.Android.Activities
 {
-    [Activity(Label = "RootSalePointViewModel")]
-    class RootSalePointActivity : MvxAppCompatActivity<RootSalePointViewModel>
+    [Activity(Label = "CloudDelivery")]
+    class SalePointRootActivity : MvxAppCompatActivity<RootSalePointViewModel>
     {
         protected override void OnCreate(Bundle bundle)
         {

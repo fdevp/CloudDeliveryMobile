@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CloudDeliveryMobile.Models.Routes;
-using CloudDeliveryMobile.Models.Routes.Edit;
 using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Resources;
 using Newtonsoft.Json;
@@ -31,7 +30,7 @@ namespace CloudDeliveryMobile.Services.Implementations
         }
 
         
-        public async Task<RouteDetails> Add(List<RoutePointEditModel> model)
+        public async Task<RouteDetails> Add(List<RouteEditModel> model)
         {
             string response = await this.httpProvider.PostAsync(httpProvider.AbsoluteUri(RoutesApiResources.Add), model);
             this.ActiveRoute = JsonConvert.DeserializeObject<RouteDetails>(response);
@@ -50,7 +49,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             return order;
         }
 
-        public async void FinishActiveRoute()
+        public async Task FinishActiveRoute()
         {
             string resource = string.Concat(RoutesApiResources.Finish, "/", ActiveRoute.Id);
             await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
@@ -61,7 +60,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task PassPoint(RoutePoint point)
         {
-            string resource = string.Concat(RoutesApiResources.Details, "/", point);
+            string resource = string.Concat(RoutesApiResources.PassPoint, "/", point.Id);
             await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
             point.PassedTime = DateTime.Now;
         }

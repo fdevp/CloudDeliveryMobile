@@ -1,5 +1,4 @@
 ﻿using CloudDeliveryMobile.Models.Routes;
-using CloudDeliveryMobile.Models.Routes.Edit;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,11 +11,11 @@ namespace CloudDeliveryMobile.Services
 
         event EventHandler ActiveRouteUpdated;
 
-        Task<RouteDetails> Add(List<RoutePointEditModel> model);
+        Task<RouteDetails> Add(List<RouteEditModel> model);
 
         Task<RouteDetails> ActiveRouteDetails();
 
-        void FinishActiveRoute();
+        Task FinishActiveRoute();
 
         Task<RouteDetails> Details(int routeId);
 

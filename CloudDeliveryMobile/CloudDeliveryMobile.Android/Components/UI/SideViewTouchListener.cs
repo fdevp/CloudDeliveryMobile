@@ -1,5 +1,6 @@
 ﻿using Android.Views;
 using Android.Views.Animations;
+using System;
 
 namespace CloudDeliveryMobile.Android.Components.UI
 {
@@ -22,8 +23,20 @@ namespace CloudDeliveryMobile.Android.Components.UI
             switch (e.Action)
             {
                 case MotionEventActions.Down:
-                    this.lastPosX = e.GetX();
-                    continueGesture = true;
+                    if (Environment.TickCount - lastTouchTicks < doubleTapDuration)
+                    {
+                        if (view.TranslationX > autoHidePosition)
+                            ShowView(view);
+                        else
+                            HideView(view);
+
+                        continueGesture = false;
+                    }
+                    else
+                    {
+                        this.lastPosX = e.GetX();
+                        continueGesture = true;
+                    }
 
                     break;
                 case MotionEventActions.Move:
@@ -41,7 +54,7 @@ namespace CloudDeliveryMobile.Android.Components.UI
                     }
 
                     //right border limit
-                    if(transX > maxTranslation)
+                    if (transX > maxTranslation)
                     {
                         transX = maxTranslation;
                     }
@@ -50,14 +63,11 @@ namespace CloudDeliveryMobile.Android.Components.UI
                     continueGesture = true;
                     break;
                 case MotionEventActions.Up:
-                    
                     if (autoHidePosition.HasValue && view.TranslationX > view.Width - autoHidePosition)
                     {
-                        var intrpltr = new OvershootInterpolator(5);
-                        view.Animate().SetInterpolator(intrpltr)
-                                                  .TranslationX(maxTranslation)
-                                                  .SetDuration(500);
+                        HideView(view);
                     }
+                    lastTouchTicks = Environment.TickCount;
                     break;
                 default:
                     return v.OnTouchEvent(e);
@@ -67,13 +77,30 @@ namespace CloudDeliveryMobile.Android.Components.UI
         }
 
 
+        private void HideView(View v)
+        {
+            var intrpltr = new OvershootInterpolator(5);
+            v.Animate().SetInterpolator(intrpltr)
+                                      .TranslationX(maxTranslation)
+                                      .SetDuration(500);
+        }
+
+        private void ShowView(View v)
+        {
+            var intrpltr = new DecelerateInterpolator(5);
+            v.Animate().SetInterpolator(intrpltr)
+                                      .TranslationX(0)
+                                      .SetDuration(500);
+        }
+
+
         private float lastPosX;
-
         private float maxTranslation;
-
-
         private float? autoHidePosition;
 
         private View movingView;
+
+        private long lastTouchTicks;
+        private long doubleTapDuration = 100;
     }
 }

@@ -2,4 +2,9 @@
 <resources>
   <string name="app_name">CloudDelivery</string>
   <string name="gmaps_key">AIzaSyCwZIEKNWwegiRv5SHlthBtdPxqJ40LfHs</string>
+  <string name="gmaps_intent_directions">https://www.google.com/maps/dir/?api=1</string>
+  <string name="gmaps_intent_travelmode">travelmode=driving</string>
+  <string name="salepoint_display_name">Punkt sprzedaży</string>
+  <string name="endpoint_display_name">Punkt dostawy</string>
+  <string name="bullet_active_point">&#10687;</string>
 </resources>

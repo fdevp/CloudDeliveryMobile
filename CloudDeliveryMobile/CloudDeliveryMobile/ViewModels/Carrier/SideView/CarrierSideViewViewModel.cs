@@ -13,8 +13,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
     {
         public CarrierSideRouteEditViewModel routeEditVM { get; set; }
 
-        public CarrierSideTakeOrdersViewModel takeOrdersVM { get; set; }
-
         public CarrierSideActiveRouteViewModel activeRouteVM { get; set; }
 
         public CarrierSideViewViewModel(IRoutesService routesService, IMvxNavigationService navigationService)
@@ -23,7 +21,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             this.navigationService = navigationService;
 
             this.routeEditVM = Mvx.IocConstruct<CarrierSideRouteEditViewModel>();
-            this.takeOrdersVM = Mvx.IocConstruct<CarrierSideTakeOrdersViewModel>();
             this.activeRouteVM = Mvx.IocConstruct<CarrierSideActiveRouteViewModel>();
 
             this.routesService.ActiveRouteUpdated += onActiveRouteUpdated;

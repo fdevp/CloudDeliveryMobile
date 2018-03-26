@@ -9,26 +9,23 @@ using CloudDeliveryMobile.ViewModels.Carrier.SideView;
 using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
 
-namespace CloudDeliveryMobile.Models.Routes.Edit
+namespace CloudDeliveryMobile.ViewModels.Carrier
 {
-    public class RoutePointEditModel
+    public class RoutePointEditListItem
     {
         public RoutePointType Type { get; set; }
 
         public int OrderId { get; set; }
 
-        [JsonIgnore]
         public Order Order { get; set; }
 
-        public RoutePointEditModel(CarrierSideRouteEditViewModel viewModel)
+        public RoutePointEditListItem(CarrierSideRouteEditViewModel viewModel)
         {
             this.ViewModelWrapper = viewModel;
         }
 
-        [JsonIgnore]
         public CarrierSideRouteEditViewModel ViewModelWrapper { get; set; }
 
-        [JsonIgnore]
         public IMvxCommand RemoveSalePointRoutePoint
         {
             get
@@ -40,7 +37,6 @@ namespace CloudDeliveryMobile.Models.Routes.Edit
             }
         }
 
-        [JsonIgnore]
         public IMvxCommand AddSalePointRoutePoint
         {
             get

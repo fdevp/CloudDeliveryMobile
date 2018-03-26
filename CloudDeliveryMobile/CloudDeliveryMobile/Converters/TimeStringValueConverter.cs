@@ -8,8 +8,10 @@ namespace CloudDeliveryMobile.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var datetime = (DateTime)value;
-            return datetime.ToString("H:mm");
+            var datetime = value as DateTime?;
+            if(datetime.HasValue)
+                return datetime.Value.ToString("H:mm");
+            return string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

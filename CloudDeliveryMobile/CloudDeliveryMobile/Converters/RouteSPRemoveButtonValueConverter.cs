@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CloudDeliveryMobile.Models.Enums;
-using CloudDeliveryMobile.Models.Routes.Edit;
+using CloudDeliveryMobile.ViewModels.Carrier;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform.Converters;
 
@@ -18,8 +18,10 @@ namespace CloudDeliveryMobile.Converters
             try
             {
                 int salepointId = (int)parameter;
-                var points = (MvxObservableCollection<RoutePointEditModel>)value;
-                return points.Count(x => x.Type == RoutePointType.SalePoint && x.Order.SalepointId == salepointId) > 1;
+                var points = value as MvxObservableCollection<RoutePointEditListItem>;
+                if(points != null)
+                    return points.Count(x => x.Type == RoutePointType.SalePoint && x.Order.SalepointId == salepointId) > 1;
+                return string.Empty;
             }
             catch (Exception e)
             {
