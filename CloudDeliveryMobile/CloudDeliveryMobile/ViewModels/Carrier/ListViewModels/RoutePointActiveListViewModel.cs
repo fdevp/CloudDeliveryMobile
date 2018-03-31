@@ -104,7 +104,7 @@ namespace CloudDeliveryMobile.Models.Routes
             }
         }
 
-        public RoutePointActiveListViewModel(IRoutesService routesService, IOrdersService ordersService, IMvxNavigationService navigationService, IUserDialogs dialogsService, IMvxPhoneCallTask phoneCallService)
+        public RoutePointActiveListViewModel(IRoutesService routesService, ICarrierOrdersService ordersService, IMvxNavigationService navigationService, IUserDialogs dialogsService, IMvxPhoneCallTask phoneCallService)
         {
             this.routesService = routesService;
             this.navigationService = navigationService;
@@ -115,7 +115,7 @@ namespace CloudDeliveryMobile.Models.Routes
 
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;
-        private IOrdersService ordersService;
+        private ICarrierOrdersService ordersService;
         private IUserDialogs dialogsService;
         private IMvxPhoneCallTask phoneCallService;
     }

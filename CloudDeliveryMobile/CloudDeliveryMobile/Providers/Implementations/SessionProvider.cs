@@ -65,6 +65,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
         public void Logout()
         {
             this.SessionData = null;
+            this.httpProvider.SetAuthorizationHeader(string.Empty);
             this.storageProvider.ClearData();
         }
 

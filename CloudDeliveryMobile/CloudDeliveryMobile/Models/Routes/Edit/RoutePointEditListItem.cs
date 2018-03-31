@@ -17,7 +17,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 
         public int OrderId { get; set; }
 
-        public Order Order { get; set; }
+        public OrderCarrier Order { get; set; }
 
         public RoutePointEditListItem(CarrierSideRouteEditViewModel viewModel)
         {

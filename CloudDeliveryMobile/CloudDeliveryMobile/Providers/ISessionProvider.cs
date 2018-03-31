@@ -6,6 +6,8 @@ namespace CloudDeliveryMobile.Providers
     public interface ISessionProvider
     {
 
+        SessionData SessionData { get; }
+
         /// <summary>
         /// 
         /// </summary>

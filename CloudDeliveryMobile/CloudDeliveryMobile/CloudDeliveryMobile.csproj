@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Converters\AllowCancelOrderValueConveter.cs" />
     <Compile Include="Converters\NullVisibilityValueConverter.cs" />
     <Compile Include="Converters\TogglePointValueConverter.cs" />
     <Compile Include="Converters\PriceTextValueConverter.cs" />
@@ -53,10 +54,15 @@
     <Compile Include="Models\Enums\RoutePointType.cs" />
     <Compile Include="Models\Enums\RouteStatus.cs" />
     <Compile Include="Models\GeoPosition.cs" />
-    <Compile Include="Models\Orders\OrderRouteDetails.cs" />
+    <Compile Include="Models\Orders\Order.cs" />
+    <Compile Include="Models\Orders\OrderEditModel.cs" />
+    <Compile Include="Models\Orders\OrderRoute.cs" />
+    <Compile Include="Models\Orders\OrderSalepoint.cs" />
+    <Compile Include="Services\Implementations\SalepointOrdersService.cs" />
+    <Compile Include="Services\ISalepointOrdersService.cs" />
     <Compile Include="ViewModels\Carrier\ListViewModels\RoutePointOrderPickupModel.cs" />
     <Compile Include="Models\Orders\Trace\ApproximateTrace.cs" />
-    <Compile Include="Models\Orders\Order.cs" />
+    <Compile Include="Models\Orders\OrderCarrier.cs" />
     <Compile Include="Models\Orders\OrderDetails.cs" />
     <Compile Include="Models\Orders\Trace\DurationDistance.cs" />
     <Compile Include="Models\Orders\Trace\Trace.cs" />
@@ -112,11 +118,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RoutesApiResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\Implementations\OrdersService.cs" />
+    <Compile Include="Services\Implementations\CarrierOrdersService.cs" />
     <Compile Include="Services\Implementations\RoutesService.cs" />
-    <Compile Include="Services\IOrdersService.cs" />
+    <Compile Include="Services\ICarrierOrdersService.cs" />
     <Compile Include="Services\IRoutesService.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\SideView\SalepointOrderListItemViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\SideView\SalepointSideAddedOrdersViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\SideView\SalepointSideInProgressOrdersViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\SideView\SalepointSideViewViewModel.cs" />
+    <Compile Include="ViewModels\Shared\BaseViewModel.cs" />
     <Compile Include="ViewModels\Carrier\CarrierPickupOrdersViewModel.cs" />
     <Compile Include="ViewModels\Carrier\Map\CarrierFloatingOrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Carrier\Map\CarrierFloatingOrdersViewModel.cs" />
@@ -126,10 +136,12 @@
     <Compile Include="ViewModels\Carrier\SideView\CarrierSideActiveRouteViewModel.cs" />
     <Compile Include="ViewModels\Carrier\SideView\CarrierSideRouteEditViewModel.cs" />
     <Compile Include="ViewModels\Carrier\SideView\CarrierSideViewViewModel.cs" />
-    <Compile Include="ViewModels\InProgressViewModel.cs" />
-    <Compile Include="ViewModels\SalePoint\RootSalePointViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\SignIn\SigninViewModel.cs" />
+    <Compile Include="ViewModels\Shared\InProgressViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\Map\SalepointMapViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\SalepointOrdersViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\SalePointRootViewModel.cs" />
+    <Compile Include="ViewModels\Shared\ProfileViewModel.cs" />
+    <Compile Include="ViewModels\Shared\SigninViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

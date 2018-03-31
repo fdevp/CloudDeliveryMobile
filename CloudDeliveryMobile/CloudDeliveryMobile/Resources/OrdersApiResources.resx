@@ -123,8 +123,17 @@
   <data name="AcceptedOrders" xml:space="preserve">
     <value>api/orders/AcceptedList</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>api/orders/add</value>
+  </data>
+  <data name="AddedOrders" xml:space="preserve">
+    <value>api/orders/AddedList</value>
+  </data>
   <data name="ApproximateTrace" xml:space="preserve">
     <value>api/orders/CheckDistanceTime</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>api/orders/cancel</value>
   </data>
   <data name="Delivered" xml:space="preserve">
     <value>api/orders/delivered</value>
@@ -134,6 +143,9 @@
   </data>
   <data name="GetTrace" xml:space="preserve">
     <value>api/orders/gettrace</value>
+  </data>
+  <data name="InProgressOrders" xml:space="preserve">
+    <value>api/orders/InProgressList</value>
   </data>
   <data name="List" xml:space="preserve">
     <value>api/orders/list</value>

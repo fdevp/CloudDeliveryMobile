@@ -73,7 +73,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             }
         }
 
-        public CarrierSideActiveRouteViewModel(IRoutesService routesService, IOrdersService ordersService, IMvxNavigationService navigationService, IUserDialogs dialogsService)
+        public CarrierSideActiveRouteViewModel(IRoutesService routesService, ICarrierOrdersService ordersService, IMvxNavigationService navigationService, IUserDialogs dialogsService)
         {
             this.routesService = routesService;
             this.navigationService = navigationService;
@@ -153,7 +153,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
 
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;
-        private IOrdersService ordersService;
+        private ICarrierOrdersService ordersService;
         private IUserDialogs dialogsService;
     }
 }

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+  <android.support.design.widget.TextInputLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:theme="@style/Login.Input">
+
+    <android.support.v7.widget.AppCompatEditText
+        style="@style/Login.ElementsLayout"
+        android:hint="Miasto"
+        android:layout_margin="2dp"
+        android:inputType="text" />
+  </android.support.design.widget.TextInputLayout>
+
+  <android.support.design.widget.TextInputLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:theme="@style/Login.Input">
+
+    <android.support.v7.widget.AppCompatEditText
+        style="@style/Login.ElementsLayout"
+        android:hint="Ulica"
+        android:layout_margin="2dp"
+        android:inputType="text" />
+  </android.support.design.widget.TextInputLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="2">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Login.Input"
+        android:layout_weight="1">
+
+      <android.support.v7.widget.AppCompatEditText
+          style="@style/Login.ElementsLayout"
+          android:hint="Numer domu"
+          android:layout_margin="2dp"
+          android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Login.Input"
+        android:layout_weight="1">
+
+      <android.support.v7.widget.AppCompatEditText
+          style="@style/Login.ElementsLayout"
+          android:hint="Mieszkanie"
+          android:layout_margin="2dp"
+          android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="2">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Login.Input"
+        android:layout_weight="1">
+
+      <android.support.v7.widget.AppCompatEditText
+          style="@style/Login.ElementsLayout"
+          android:hint="Telefon"
+          android:layout_margin="2dp"
+          android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Login.Input"
+        android:layout_weight="1">
+
+      <android.support.v7.widget.AppCompatEditText
+          style="@style/Login.ElementsLayout"
+          android:hint="Koszt"
+          android:layout_margin="2dp"
+          android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+
+  </LinearLayout>
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="40dp"
+      android:orientation="horizontal">
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rounded_primary_button"
+        android:layout_weight="1"
+        android:layout_marginLeft="2dp"
+        android:text="Dodaj"/>
+
+  </LinearLayout>
+
+
+</LinearLayout>
+
+
+
+

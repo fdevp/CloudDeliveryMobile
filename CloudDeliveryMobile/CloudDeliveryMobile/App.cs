@@ -36,8 +36,11 @@ namespace CloudDeliveryMobile
             var sessionProvider = new SessionProvider(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<IStorageProvider>());
             Mvx.RegisterSingleton<ISessionProvider>(sessionProvider);
 
-            var ordersService = new OrdersService(Mvx.Resolve<IHttpProvider>());
-            Mvx.RegisterSingleton<IOrdersService>(ordersService);
+            var carrierOrdersService = new CarrierOrdersService(Mvx.Resolve<IHttpProvider>());
+            Mvx.RegisterSingleton<ICarrierOrdersService>(carrierOrdersService);
+
+            var salepointOrdersService = new SalepointOrdersService(Mvx.Resolve<IHttpProvider>());
+            Mvx.RegisterSingleton<ISalepointOrdersService>(salepointOrdersService);
 
             var routesService = new RoutesService(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<IStorageProvider>());
             Mvx.RegisterSingleton<IRoutesService>(routesService);

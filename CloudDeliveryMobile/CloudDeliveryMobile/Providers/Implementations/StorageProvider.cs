@@ -32,8 +32,10 @@ namespace CloudDeliveryMobile.Providers.Implementations
         {
             using (var ctx = dbConnectionFactory.GetConnection())
             {
-                ctx.DropTable<MainTable>();
-                ctx.CreateTable<MainTable>();
+                if (!this.Exists(key))
+                    throw new InvalidOperationException("Klucz nie ma przypisanej wartości");
+
+                ctx.Table<MainTable>().Delete(x => x.Key == key);
             }
         }
 

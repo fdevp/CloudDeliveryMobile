@@ -1,9 +1,12 @@
-﻿using PCLStorage;
+﻿using MvvmCross.Core.ViewModels;
+using PCLStorage;
 
 namespace CloudDeliveryMobile.Providers
 {
     public interface IDeviceProvider
     {
+        MvxViewModel RootViewModel { get; set; }
+
         /// <summary>
         /// returns Device ID
         /// </summary>

@@ -16,6 +16,6 @@ namespace CloudDeliveryMobile.Models.Routes
 
         public DateTime? PassedTime { get; set; }
 
-        public OrderRouteDetails Order { get; set; }
+        public OrderRoute Order { get; set; }
     }
 }

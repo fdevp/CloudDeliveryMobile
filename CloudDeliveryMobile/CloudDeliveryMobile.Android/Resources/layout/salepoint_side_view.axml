@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/salepoint_side_view_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+             android:background="#00000000"
+                
+    >
+  <RelativeLayout
+    android:id="@+id/salepoint_side_view_touch_container"
+  android:layout_width="35dp"
+  android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/salepoint_side_view_touch"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:background="#fff">
+
+      <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="|||"/>
+
+    </RelativeLayout>
+
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_toRightOf="@id/salepoint_side_view_touch_container"
+      android:background="@drawable/side_view_style">
+
+    <RelativeLayout
+        android:id="@+id/salepoint_side_view_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true">
+
+
+      <android.support.design.widget.TabLayout
+          android:id="@+id/salepoint_side_view_tabs"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:tabMode="fixed"
+          app:tabMaxWidth="0dp"
+          app:tabGravity="fill"
+          app:tabIndicatorColor="@color/primaryColor"
+          android:background="#fff"/>
+
+      <android.support.v4.view.ViewPager
+            android:id="@+id/salepoint_side_view_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginTop="?attr/actionBarSize"/>
+
+
+    </RelativeLayout>
+
+
+  </RelativeLayout>
+
+
+</RelativeLayout>

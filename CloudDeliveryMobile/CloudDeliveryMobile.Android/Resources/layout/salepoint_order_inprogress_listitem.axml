@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:app="http://schemas.android.com/apk/res-auto"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="1dp"
+          android:orientation="vertical">
+
+  
+  <!-- HEADER -->
+  <android.support.v7.widget.CardView
+               android:id="@+id/active_route_point_header"
+               android:layout_width="match_parent"
+               android:minHeight="60dp"
+               android:layout_height="wrap_content"
+               app:MvxBind="Click ToggleDetails">
+
+    <RelativeLayout
+          android:minHeight="60dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+
+      <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="#fff"
+          android:layout_centerVertical="true"
+          android:weightSum="100">
+
+        <!-- TEXT -->
+
+        <RelativeLayout
+           android:minHeight="60dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="20">
+
+          <!-- pending -->
+          <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true">
+            
+
+            <ImageView
+              android:layout_width="25dp"
+              android:layout_height="25dp"
+              android:layout_marginLeft="10dp"
+              android:src="@drawable/marker_bw"/>
+
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                                android:textColor="#000"
+                app:MvxBind="Text Order, Converter=DestinationAddress"
+            />
+
+          </LinearLayout>
+
+          
+        </RelativeLayout>
+      
+        
+        <!-- BUTTON -->
+        <Button
+           android:layout_weight="80"
+           android:id="@+id/active_route_point_toggle"
+           android:background="#fff"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:textSize="25dp"
+           android:gravity="center"
+           android:textColor="#aaa"
+           android:layout_marginRight="3dp"
+           app:MvxBind="Click ToggleDetails; Text ShowDetails, Converter=TogglePoint"/>
+        
+      </LinearLayout>
+
+
+    </RelativeLayout>
+
+  </android.support.v7.widget.CardView>
+
+
+  <!-- BODY -->
+  <RelativeLayout
+      android:id="@+id/active_route_point_body"
+      android:layout_width="match_parent"
+      android:layout_below="@id/active_route_point_header"
+      android:layout_height="wrap_content"
+      app:MvxBind="Visible ShowDetails">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="2dp"
+          android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Adres: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order, Converter=DestinationAddress"
+                        />
+      </LinearLayout>
+
+      <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="2dp"
+               android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Telefon klienta: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order.CustomerPhone"
+                        />
+      </LinearLayout>
+
+      <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="2dp"
+               android:orientation="horizontal"
+               app:MvxBind="Visible Order.Price, Converter=NullVisibility">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Koszt zamówienia: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order.Price"
+                        />
+      </LinearLayout>
+
+      <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="2dp"
+               android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Kierowca: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order.CarrierName"
+                        />
+      </LinearLayout>
+      
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="2dp"
+          android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Telefon kierowcy: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="754 987 312"
+            app:MvxBind="Text Order.CarrierPhone"
+                        />
+      </LinearLayout>
+
+      <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="2dp"
+         android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Zaakceptowano: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="754 987 312"
+            app:MvxBind="Text Order.AcceptedTime"
+                        />
+      </LinearLayout>
+
+      <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_margin="2dp"
+           android:orientation="horizontal"
+           app:MvxBind="Visible Order.PickUpTime, Converter=NullVisibility">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Odebrano: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="754 987 312"
+            app:MvxBind="Text Order.PickUpTime"
+                        />
+      </LinearLayout>
+      
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:layout_marginTop="5dp"
+          android:background="#ccc"
+                    />
+
+
+      <!-- footer -->
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:orientation="horizontal"
+          android:layout_marginTop="5dp"
+          android:weightSum="3">
+
+        <!-- call button -->
+
+        <Button
+          android:layout_height="match_parent"
+          android:layout_width="match_parent"
+          android:textAlignment="center"
+          android:background="#ccc"
+          android:gravity="center"
+          android:textColor="#111"
+          android:textSize="11dp"
+          android:layout_margin="3dp"
+          android:text="klient"
+          android:layout_weight="1"
+          android:drawableLeft="@drawable/ic_phone_grey_600_48dp"
+          android:drawablePadding="2dip"
+          app:MvxBind="Click MakeCustomerCall"/>
+
+        <Button
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         android:textAlignment="center"
+         android:background="#ccc"
+         android:gravity="center"
+         android:textColor="#111"
+         android:textSize="11dp"
+         android:layout_margin="3dp"
+         android:text="kierowca"
+         android:layout_weight="1"
+         android:drawableLeft="@drawable/ic_phone_grey_600_48dp"
+         android:drawablePadding="2dip"
+         app:MvxBind="Click MakeCarrierCall"/>
+
+
+
+        <!-- control buttons -->
+        <LinearLayout
+           android:layout_height="match_parent"
+           android:layout_width="match_parent"
+           android:layout_weight="1">
+
+          <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            app:MvxBind="Visible Order, Converter=AllowCancelOrder">
+
+            <!-- canceling order in progress -->
+            <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              app:MvxBind="Visible InProgress">
+              <ProgressBar
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_margin="3dp"
+                android:textSize="11dp"
+                android:background="#ccc"
+                android:textColor="#111"
+                android:text="anuluj"
+                app:MvxBind="Click PassPoint; Visible !InProgress"/>
+
+
+          </LinearLayout>
+
+        
+        </LinearLayout>
+
+
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+
+
+  </RelativeLayout>
+
+
+</LinearLayout>

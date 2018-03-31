@@ -19,7 +19,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        public List<Order> Orders
+        public List<OrderCarrier> Orders
         {
             get
             {
@@ -28,7 +28,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
         }
 
 
-        public CarrierFloatingOrdersViewModel(IMvxNavigationService navigationService, IOrdersService ordersService)
+        public CarrierFloatingOrdersViewModel(IMvxNavigationService navigationService, ICarrierOrdersService ordersService)
         {
             this.navigationService = navigationService;
             this.ordersService = ordersService;
@@ -40,6 +40,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
         }
 
         private IMvxNavigationService navigationService;
-        private IOrdersService ordersService;
+        private ICarrierOrdersService ordersService;
     }
 }

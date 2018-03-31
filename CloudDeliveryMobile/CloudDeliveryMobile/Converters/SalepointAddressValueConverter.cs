@@ -11,7 +11,7 @@ namespace CloudDeliveryMobile.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var order =  value as Order;
+            var order =  value as OrderCarrier;
 
             if(order != null)
                 return String.Concat(order.SalepointCity, ", ", order.SalepointAddress);

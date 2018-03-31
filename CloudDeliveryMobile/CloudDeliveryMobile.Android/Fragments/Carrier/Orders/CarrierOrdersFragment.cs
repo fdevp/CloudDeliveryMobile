@@ -6,7 +6,7 @@ using MvvmCross.Droid.Support.V4;
 
 namespace CloudDeliveryMobile.Android.Fragments.Carrier.Orders
 {
-    public class CarrierOrdersFragment : MvxFragment<CarrierOrdersViewModel>
+    public class CarrierOrdersFragment : MvxFragment<CarrierRoutesViewModel>
     {
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

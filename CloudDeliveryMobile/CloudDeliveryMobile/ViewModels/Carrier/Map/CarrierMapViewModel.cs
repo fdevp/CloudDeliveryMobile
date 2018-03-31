@@ -13,6 +13,8 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 {
     public class CarrierMapViewModel : BaseViewModel
     {
+        public CarrierSideViewViewModel SideView { get; set; }
+
         //pending orders
         private MvxInteraction _ordersUpdateInteraction = new MvxInteraction();
 
@@ -23,7 +25,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             this._ordersUpdateInteraction.Raise();
         }
 
-        public List<Order> PendingOrders
+        public List<OrderCarrier> PendingOrders
         {
             get
             {
@@ -112,9 +114,9 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        public CarrierSideViewViewModel SideView { get; set; }
+        
 
-        public CarrierMapViewModel(IDeviceProvider deviceProvider, IMvxNavigationService navigationService, IOrdersService ordersService)
+        public CarrierMapViewModel(IDeviceProvider deviceProvider, IMvxNavigationService navigationService, ICarrierOrdersService ordersService)
         {
             this.deviceProvider = deviceProvider;
             this.navigationService = navigationService;
@@ -145,9 +147,8 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 
         private BaseViewModel activeFloatingView;
 
-
         private IDeviceProvider deviceProvider;
         private IMvxNavigationService navigationService;
-        private IOrdersService ordersService;
+        private ICarrierOrdersService ordersService;
     }
 }

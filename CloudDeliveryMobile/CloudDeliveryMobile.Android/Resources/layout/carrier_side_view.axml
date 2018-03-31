@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/side_view_container"
+                android:id="@+id/carrier_side_view_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
              android:background="#00000000"
     >
   <RelativeLayout
-    android:id="@+id/side_view_touch_container"
+    android:id="@+id/carrier_side_view_touch_container"
   android:layout_width="35dp"
   android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/side_view_touch"
+        android:id="@+id/carrier_side_view_touch"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_centerVertical="true"
@@ -30,18 +30,17 @@
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_toRightOf="@id/side_view_touch_container"
+      android:layout_toRightOf="@id/carrier_side_view_touch_container"
       android:background="@drawable/side_view_style">
 
     <RelativeLayout
-        android:id="@+id/side_view_content"
+        android:id="@+id/carrier_side_view_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-      
-      
+
       <include layout="@layout/main_inprogress"/>
-          
+
     </RelativeLayout>
 
 

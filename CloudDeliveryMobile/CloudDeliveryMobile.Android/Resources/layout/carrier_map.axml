@@ -22,7 +22,7 @@
         android:background="@drawable/shape_circle"
         android:scaleType="fitCenter"
         android:padding="12dp"
-        android:src="@drawable/ic_person_grey_400_48dp"
+        android:src="@drawable/marker_bw"
         app:MvxBind="Click ShowFloatingOrders"
         />
 
@@ -40,8 +40,9 @@
         />
   
   
+  
   <FrameLayout
-    android:id="@+id/side_view_layout"
+    android:id="@+id/carrier_side_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     

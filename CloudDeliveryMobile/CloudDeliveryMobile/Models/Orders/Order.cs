@@ -1,35 +1,16 @@
 ﻿using CloudDeliveryMobile.Models.Enums;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CloudDeliveryMobile.Models.Orders
 {
-    public class Order
+    public abstract class Order
     {
         public int Id { get; set; }
-
-        public string SalepointName { get; set; }
-
-        public string SalepointCity { get; set; }
-
-        public string SalepointAddress { get; set; }
-
-        public int SalepointId { get; set; }
-
-        [JsonProperty(PropertyName = "SalepointLatLng")]
-        private string SalepointLatLngString { get; set; }
-
-        [JsonIgnore]
-        public GeoPosition SalepointLatLng
-        {
-            get
-            {
-                if (this.salepointLatLng != null)
-                    return this.salepointLatLng;
-                this.salepointLatLng = JsonConvert.DeserializeObject<GeoPosition>(this.SalepointLatLngString);
-                return this.salepointLatLng;
-            }
-        }
 
         public DateTime AddedTime { get; set; }
 
@@ -42,7 +23,6 @@ namespace CloudDeliveryMobile.Models.Orders
         public int Priority { get; set; }
 
         public OrderStatus Status { get; set; }
-
 
         [JsonProperty(PropertyName = "EndLatLng")]
         private string EndLatLngString { get; set; }
@@ -59,7 +39,6 @@ namespace CloudDeliveryMobile.Models.Orders
             }
         }
 
-        private GeoPosition salepointLatLng;
         private GeoPosition endLatLng;
     }
 }

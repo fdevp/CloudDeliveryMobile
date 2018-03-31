@@ -17,11 +17,12 @@ using MvvmCross.Droid.Support.V7.AppCompat;
 using Plugin.Permissions;
 using Android.Provider;
 using AndroidNet = Android.Net;
+using CloudDeliveryMobile.Android.Fragments.Shared;
 
 namespace CloudDeliveryMobile.Android.Activities
 {
     [Activity(Label = "CloudDelivery")]
-    public class CarrierRootActivity : MvxAppCompatActivity<RootCarrierViewModel>, IFloatingWidgetActivity
+    public class CarrierRootActivity : MvxAppCompatActivity<CarrierRootViewModel>, IFloatingWidgetActivity
     {
         public FloatingWidgetService FloatingWidgetBinder { get; set; }
 
@@ -36,12 +37,16 @@ namespace CloudDeliveryMobile.Android.Activities
             SetContentView(Resource.Layout.main_root);
 
             var viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
+
+
             if (viewPager != null)
             {
                 var fragments = new List<MvxViewPagerFragmentInfo>();
                 fragments.Add(new MvxViewPagerFragmentInfo("Mapa", typeof(CarrierMapFragment), typeof(CarrierMapViewModel)));
-                fragments.Add(new MvxViewPagerFragmentInfo("Zamówienia", typeof(CarrierOrdersFragment), typeof(CarrierOrdersViewModel)));
-                viewPager.Adapter = new MvxFragmentPagerAdapter(this, this.SupportFragmentManager, fragments);
+                fragments.Add(new MvxViewPagerFragmentInfo("Trasy", typeof(CarrierOrdersFragment), typeof(CarrierRoutesViewModel)));
+                fragments.Add(new MvxViewPagerFragmentInfo("Profil", typeof(ProfileFragment), typeof(ProfileViewModel)));
+                viewPager.Adapter = new MvxCachingFragmentStatePagerAdapter(this, this.SupportFragmentManager, fragments);
+                viewPager.OffscreenPageLimit = 2;
             }
 
             this.FloatingWidgetConnection = new FloatingWidgetConnection(this);

@@ -22,7 +22,7 @@ using static Android.Gms.Maps.GoogleMap;
 
 namespace CloudDeliveryMobile.Android.Fragments.Carrier
 {
-    [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(RootCarrierViewModel))]
+    [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(CarrierRootViewModel))]
     public class CarrierMapFragment : MvxFragment<CarrierMapViewModel>, IOnMapReadyCallback
     {
         private GoogleMap map;

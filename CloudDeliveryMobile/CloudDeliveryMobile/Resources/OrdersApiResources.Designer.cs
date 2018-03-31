@@ -80,11 +80,38 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to api/orders/add.
+        /// </summary>
+        internal static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to api/orders/AddedList.
+        /// </summary>
+        internal static string AddedOrders {
+            get {
+                return ResourceManager.GetString("AddedOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to api/orders/CheckDistanceTime.
         /// </summary>
         internal static string ApproximateTrace {
             get {
                 return ResourceManager.GetString("ApproximateTrace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to api/orders/cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -112,6 +139,15 @@ namespace CloudDeliveryMobile.Resources {
         internal static string GetTrace {
             get {
                 return ResourceManager.GetString("GetTrace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to api/orders/InProgressList.
+        /// </summary>
+        internal static string InProgressOrders {
+            get {
+                return ResourceManager.GetString("InProgressOrders", resourceCulture);
             }
         }
         

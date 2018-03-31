@@ -89,7 +89,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             }
         }
 
-        public CarrierSideRouteEditViewModel(IRoutesService routesService, IOrdersService ordersService, IMvxNavigationService navigationService)
+        public CarrierSideRouteEditViewModel(IRoutesService routesService, ICarrierOrdersService ordersService, IMvxNavigationService navigationService)
         {
             this.routesService = routesService;
             this.navigationService = navigationService;
@@ -132,8 +132,8 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
                 return;
             }
 
-            List<Order> addedOrders = this.ordersService.AcceptedOrders.Where(x => this.Points.All(y => y.OrderId != x.Id)).ToList(); //added points
-            foreach (Order order in addedOrders)
+            List<OrderCarrier> addedOrders = this.ordersService.AcceptedOrders.Where(x => this.Points.All(y => y.OrderId != x.Id)).ToList(); //added points
+            foreach (OrderCarrier order in addedOrders)
             {
                 this.setPoints(order);
             }
@@ -141,7 +141,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             RaiseAllPropertiesChanged();
         }
 
-        private void setPoints(Order order)
+        private void setPoints(OrderCarrier order)
         {
 
             RoutePointEditListItem salepoint = new RoutePointEditListItem(this);
@@ -162,6 +162,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
         private bool initialised = false;
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;
-        private IOrdersService ordersService;
+        private ICarrierOrdersService ordersService;
     }
 }

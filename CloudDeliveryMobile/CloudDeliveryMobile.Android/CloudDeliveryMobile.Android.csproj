@@ -270,11 +270,18 @@
     <Compile Include="Fragments\Carrier\Map\CarrierFloatingOrdersFragment.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierMapFragment.cs" />
     <Compile Include="Fragments\Carrier\Orders\CarrierOrdersFragment.cs" />
-    <Compile Include="Fragments\Carrier\SideView\SideActiveRouteFragment.cs" />
-    <Compile Include="Fragments\Carrier\SideView\SideRouteEditFragment.cs" />
-    <Compile Include="Fragments\Carrier\SideView\SideTakeOrdersFragment.cs" />
-    <Compile Include="Fragments\Carrier\SideView\SideViewFragment.cs" />
-    <Compile Include="Fragments\InProgressFragment.cs" />
+    <Compile Include="Fragments\Carrier\SideView\CarrierSideActiveRouteFragment.cs" />
+    <Compile Include="Fragments\Carrier\SideView\CarrierSideRouteEditFragment.cs" />
+    <Compile Include="Fragments\Carrier\SideView\CarrierSideTakeOrdersFragment.cs" />
+    <Compile Include="Fragments\Carrier\SideView\CarrierSideViewFragment.cs" />
+    <Compile Include="Fragments\Salepoint\SalepointAddOrderFragment.cs" />
+    <Compile Include="Fragments\Salepoint\SideView\SalepointSideAddedOrdersFragment.cs" />
+    <Compile Include="Fragments\Salepoint\SideView\SalepointSideInProgressOrdersFragment.cs" />
+    <Compile Include="Fragments\Salepoint\SideView\SalepointSideViewFragment.cs" />
+    <Compile Include="Fragments\Shared\InProgressFragment.cs" />
+    <Compile Include="Fragments\Salepoint\Map\SalepointMapFragment.cs" />
+    <Compile Include="Fragments\Salepoint\SalepointOrdersFragment.cs" />
+    <Compile Include="Fragments\Shared\ProfileFragment.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -306,7 +313,7 @@
     <AndroidResource Include="Resources\layout\main_root.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\carrier_map.axml">
+    <AndroidResource Include="Resources\layout\salepoint_map.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\carrier_orders.axml">
@@ -357,6 +364,30 @@
     <AndroidResource Include="Resources\layout\carrier_pickup_orders_listitem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\main_profile.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\salepoint_side_view.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\carrier_map.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\salepoint_side_added_orders.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\salepoint_side_inprogress_orders.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\salepoint_order_added_listitem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\salepoint_order_inprogress_listitem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\salepoint_new_order_modal.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\strings.xml" />
@@ -386,18 +417,6 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\ic_person_orange_A400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_person_orange_A400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_person_orange_A400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_person_orange_A400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_person_grey_400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_person_grey_400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_person_grey_400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_person_grey_400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_lock_grey_400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_lock_grey_400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_lock_grey_400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_lock_grey_400_48dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_my_location_grey_700_48dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_my_location_grey_700_48dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_my_location_grey_700_48dp.png" />
@@ -411,22 +430,6 @@
     <AndroidResource Include="Resources\drawable-mdpi\carrier_marker.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\carrier_marker.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\carrier_marker.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_clear_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_clear_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_clear_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_clear_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_autorenew_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_autorenew_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_autorenew_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_autorenew_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_access_time_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_access_time_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_access_time_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_access_time_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_person_pin_circle_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_person_pin_circle_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_person_pin_circle_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_person_pin_circle_grey_500_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\endpoint.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\endpoint_bw.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\endpoint_marker.png" />
@@ -470,6 +473,30 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_done_grey_600_48dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_done_grey_600_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_done_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_exit_to_app_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_exit_to_app_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_exit_to_app_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_exit_to_app_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_access_time_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_access_time_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_access_time_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_access_time_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_clear_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_clear_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_clear_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_clear_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_autorenew_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_autorenew_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_autorenew_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_autorenew_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_language_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_language_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_language_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_language_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_phone_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_phone_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_phone_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_phone_grey_600_48dp.png" />
     <Content Include="Resources\drawable-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\values\styles_splash.xml">
       <SubType>Designer</SubType>
@@ -479,15 +506,10 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\shape_rounded_primary_button.xml" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_person_orange_A400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_person_grey_400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_lock_grey_400_48dp.png" />
     <AndroidResource Include="Resources\drawable\name_icon.png" />
     <AndroidResource Include="Resources\drawable\shape_map_element.xml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_my_location_grey_700_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_my_location_deep_orange_400_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_clear_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_autorenew_grey_500_48dp.png" />
     <AndroidResource Include="Resources\drawable\floating_element_style.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -496,8 +518,6 @@
     <AndroidResource Include="Resources\layout\carrier_floating_order_details.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_access_time_grey_500_48dp.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_person_pin_circle_grey_500_48dp.png" />
     <AndroidResource Include="Resources\drawable\shape_triangle.xml" />
     <AndroidResource Include="Resources\drawable\shape_dotted_left_border.xml" />
     <AndroidResource Include="Resources\drawable\animaton_slide_in_up.xml" />
@@ -531,6 +551,14 @@
     <AndroidResource Include="Resources\drawable\shape_rounded_gray_button.xml" />
     <AndroidResource Include="Resources\drawable\shape_rounded_empty_button.xml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_done_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_exit_to_app_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable\profile_border_bottom.xml" />
+    <AndroidResource Include="Resources\drawable\profile_border_right.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_access_time_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_clear_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_autorenew_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_language_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_phone_grey_600_48dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

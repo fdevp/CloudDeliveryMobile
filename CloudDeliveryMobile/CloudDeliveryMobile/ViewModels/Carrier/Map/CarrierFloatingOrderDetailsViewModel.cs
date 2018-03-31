@@ -8,7 +8,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 {
     public class CarrierFloatingOrderDetailsViewModel : BaseViewModel<int>
     {
-        public Order Order { get; set; }
+        public OrderCarrier Order { get; set; }
 
         public MvxAsyncCommand AcceptOrder
         {
@@ -35,7 +35,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        public CarrierFloatingOrderDetailsViewModel(IMvxNavigationService navigationService, IOrdersService ordersService)
+        public CarrierFloatingOrderDetailsViewModel(IMvxNavigationService navigationService, ICarrierOrdersService ordersService)
         {
             this.ordersService = ordersService;
             this.navigationService = navigationService;
@@ -54,6 +54,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
         }
 
         private IMvxNavigationService navigationService;
-        private IOrdersService ordersService;
+        private ICarrierOrdersService ordersService;
     }
 }

@@ -1,9 +1,12 @@
-﻿using PCLStorage;
+﻿using MvvmCross.Core.ViewModels;
+using PCLStorage;
 using Plugin.DeviceInfo;
 namespace CloudDeliveryMobile.Providers.Implementations
 {
     public class DeviceProvider : IDeviceProvider
     {
+        public MvxViewModel RootViewModel { get; set; }
+
         public IFolder DataFolder()
         {
             IFileSystem dataDirPath = FileSystem.Current;

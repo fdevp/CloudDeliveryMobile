@@ -15,7 +15,7 @@ namespace CloudDeliveryMobile.Models.Orders
 {
     public class RoutePointOrderPickupModel : BaseViewModel
     {
-        public OrderRouteDetails Order { get; set; }
+        public OrderRoute Order { get; set; }
 
         public bool PickedUp { get; set; } = false;
 
@@ -52,7 +52,7 @@ namespace CloudDeliveryMobile.Models.Orders
             }
         }
 
-        public RoutePointOrderPickupModel(IMvxNavigationService navigationService, IRoutesService routesService, IOrdersService ordersService, IUserDialogs dialogsService)
+        public RoutePointOrderPickupModel(IMvxNavigationService navigationService, IRoutesService routesService, ICarrierOrdersService ordersService, IUserDialogs dialogsService)
         {
             this.navigationService = navigationService;
             this.routesService = routesService;
@@ -62,7 +62,7 @@ namespace CloudDeliveryMobile.Models.Orders
 
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;
-        private IOrdersService ordersService;
+        private ICarrierOrdersService ordersService;
         private IUserDialogs dialogsService;
     }
 }

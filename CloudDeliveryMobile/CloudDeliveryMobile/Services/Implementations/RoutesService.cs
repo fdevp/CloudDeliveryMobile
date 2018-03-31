@@ -28,8 +28,7 @@ namespace CloudDeliveryMobile.Services.Implementations
                 this.ActiveRouteUpdated.Invoke(this, null);
             return this.ActiveRoute;
         }
-
-        
+   
         public async Task<RouteDetails> Add(List<RouteEditModel> model)
         {
             string response = await this.httpProvider.PostAsync(httpProvider.AbsoluteUri(RoutesApiResources.Add), model);
@@ -39,8 +38,6 @@ namespace CloudDeliveryMobile.Services.Implementations
             return this.ActiveRoute;
         }
         
-
-
         public async Task<RouteDetails> Details(int routeId)
         {
             string resource = string.Concat(RoutesApiResources.Details, "/", routeId);
