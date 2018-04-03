@@ -122,6 +122,8 @@
     <Compile Include="Services\Implementations\RoutesService.cs" />
     <Compile Include="Services\ICarrierOrdersService.cs" />
     <Compile Include="Services\IRoutesService.cs" />
+    <Compile Include="ViewModels\SalePoint\Map\SalepointFloatingOrderDetailsViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\SalepointNewOrderViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\SideView\SalepointOrderListItemViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\SideView\SalepointSideAddedOrdersViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\SideView\SalepointSideInProgressOrdersViewModel.cs" />

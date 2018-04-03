@@ -69,6 +69,17 @@ namespace CloudDeliveryMobile.ViewModels
             //set root viewmodel
             this.deviceProvider.RootViewModel = this;
 
+            //if already signed go to root
+            if (this.sessionProvider.SessionData != null)
+            {
+                await this.GoToRoot().ContinueWith(async x =>
+                {
+                    await this.navigationService.Close(this);
+                });
+
+                return;
+            }
+
             //try sign in by token
             this.TokenInProgress = true;
             await this.sessionProvider.CheckToken().ContinueWith(async t =>

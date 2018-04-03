@@ -6,11 +6,9 @@
     android:layout_height="match_parent">
 
   <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
-            android:id="@+id/active_route_points_list"
+            android:id="@+id/salepoint_inprogress_orders_list"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:background="#eee"
-            android:layout_weight="12"
             app:MvxItemTemplate="@layout/salepoint_order_inprogress_listitem"
             app:MvxBind="ItemsSource Orders"/>
 

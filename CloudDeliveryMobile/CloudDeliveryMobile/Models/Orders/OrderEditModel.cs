@@ -14,11 +14,11 @@ namespace CloudDeliveryMobile.Models.Orders
 
         public string DestinationAddress { get; set; }
 
-        public GeoPosition EndLatLng { get; set; }
+        public GeoPosition EndLatLng { get; set; } = new GeoPosition();
 
-        public int Priority { get; set; }
+        public int Priority { get; set; } = 0;
 
-        public int PackageId { get; set; }
+        public int PackageId { get; set; } = 1;
 
         public string CustomerPhone { get; set; }
 

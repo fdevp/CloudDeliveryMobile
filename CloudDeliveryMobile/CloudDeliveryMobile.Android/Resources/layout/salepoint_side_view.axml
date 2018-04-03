@@ -33,14 +33,14 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_toRightOf="@id/salepoint_side_view_touch_container"
-      android:background="@drawable/side_view_style">
+      android:background="@drawable/side_view_style"
+      android:paddingLeft="1dp">
 
     <RelativeLayout
         android:id="@+id/salepoint_side_view_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true">
-
 
       <android.support.design.widget.TabLayout
           android:id="@+id/salepoint_side_view_tabs"
@@ -58,7 +58,6 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginTop="?attr/actionBarSize"/>
-
 
     </RelativeLayout>
 

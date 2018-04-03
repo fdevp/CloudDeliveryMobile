@@ -134,7 +134,7 @@
 
       <com.airbnb.lottie.LottieAnimationView
              android:id="@+id/animation_view"
-             app:lottie_fileName="lofftie_loading.json"
+             app:lottie_fileName="truck_running.json"
              app:lottie_loop="true"
              app:lottie_autoPlay="true"
              android:layout_width="70dp"
@@ -142,6 +142,7 @@
              android:layout_centerHorizontal="true"
              app:MvxBind="Visible InProgress"
            />
+      
       <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/float_details_success"
         android:layout_width="90dp"

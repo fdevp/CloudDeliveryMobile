@@ -268,13 +268,15 @@
     <Compile Include="Fragments\Carrier\CarrierPickupOrdersFragment.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierFloatingOrderDetails.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierFloatingOrdersFragment.cs" />
+    <Compile Include="Fragments\Carrier\Map\CarrierFloatingSalepointLabelFragment.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierMapFragment.cs" />
     <Compile Include="Fragments\Carrier\Orders\CarrierOrdersFragment.cs" />
     <Compile Include="Fragments\Carrier\SideView\CarrierSideActiveRouteFragment.cs" />
     <Compile Include="Fragments\Carrier\SideView\CarrierSideRouteEditFragment.cs" />
     <Compile Include="Fragments\Carrier\SideView\CarrierSideTakeOrdersFragment.cs" />
     <Compile Include="Fragments\Carrier\SideView\CarrierSideViewFragment.cs" />
-    <Compile Include="Fragments\Salepoint\SalepointAddOrderFragment.cs" />
+    <Compile Include="Fragments\Salepoint\Map\SalepointFloatingOrderDetails.cs" />
+    <Compile Include="Fragments\Salepoint\SalepointNewOrderFragment.cs" />
     <Compile Include="Fragments\Salepoint\SideView\SalepointSideAddedOrdersFragment.cs" />
     <Compile Include="Fragments\Salepoint\SideView\SalepointSideInProgressOrdersFragment.cs" />
     <Compile Include="Fragments\Salepoint\SideView\SalepointSideViewFragment.cs" />
@@ -292,7 +294,6 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\location.json" />
     <AndroidAsset Include="Assets\truck_running.json" />
-    <AndroidAsset Include="Assets\lofftie_loading.json" />
     <AndroidAsset Include="Assets\round.json" />
     <AndroidAsset Include="Assets\success.json" />
     <None Include="packages.config" />
@@ -386,6 +387,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\salepoint_new_order_modal.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\test.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\carrier_floating_salepoint_label.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -520,7 +527,7 @@
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\shape_triangle.xml" />
     <AndroidResource Include="Resources\drawable\shape_dotted_left_border.xml" />
-    <AndroidResource Include="Resources\drawable\animaton_slide_in_up.xml" />
+    <AndroidResource Include="Resources\drawable\animation_slide_in_up.xml" />
     <AndroidResource Include="Resources\drawable\animation_slide_out_down.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -543,8 +550,12 @@
     <AndroidResource Include="Resources\drawable\floating_widget_rouded_corners.xml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_back_grey_600_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_forward_grey_600_48dp.png" />
-    <AndroidResource Include="Resources\drawable\animation_fade_in.xml" />
-    <AndroidResource Include="Resources\drawable\animation_fade_out.xml" />
+    <AndroidResource Include="Resources\drawable\animation_fade_in.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\animation_fade_out.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\ripple_gray_color_rounded.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -559,6 +570,12 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_autorenew_grey_600_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_language_grey_600_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_phone_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\menu\salepoint_new_order_menu.xml" />
+    <AndroidResource Include="Resources\drawable\animation_slide_in_left.xml" />
+    <AndroidResource Include="Resources\drawable\animation_slide_out_right.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\values\styles_salepoint.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

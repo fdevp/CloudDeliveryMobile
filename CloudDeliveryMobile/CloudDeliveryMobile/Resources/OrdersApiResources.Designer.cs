@@ -186,5 +186,14 @@ namespace CloudDeliveryMobile.Resources {
                 return ResourceManager.GetString("SetTrace", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://pastebin.com/raw/G5NSeFUc.
+        /// </summary>
+        internal static string Streets {
+            get {
+                return ResourceManager.GetString("Streets", resourceCulture);
+            }
+        }
     }
 }

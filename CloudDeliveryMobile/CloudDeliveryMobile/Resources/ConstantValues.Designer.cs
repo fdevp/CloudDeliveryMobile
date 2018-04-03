@@ -62,6 +62,15 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Słupsk.
+        /// </summary>
+        internal static string default_city {
+            get {
+                return ResourceManager.GetString("default_city", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 54.46405.
         /// </summary>
         internal static string map_base_lat {

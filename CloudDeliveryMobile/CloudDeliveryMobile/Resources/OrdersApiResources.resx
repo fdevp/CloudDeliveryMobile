@@ -159,4 +159,7 @@
   <data name="SetTrace" xml:space="preserve">
     <value>api/orders/settrace</value>
   </data>
+  <data name="Streets" xml:space="preserve">
+    <value>https://pastebin.com/raw/G5NSeFUc</value>
+  </data>
 </root>

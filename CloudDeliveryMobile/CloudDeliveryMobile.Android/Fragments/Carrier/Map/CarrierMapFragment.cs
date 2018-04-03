@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Android.App;
 using Android.Gms.Location;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
@@ -11,6 +12,10 @@ using Android.Widget;
 using CloudDeliveryMobile.Android.Components;
 using CloudDeliveryMobile.Android.Components.Converters;
 using CloudDeliveryMobile.Android.Components.Geolocation;
+using CloudDeliveryMobile.Android.Fragments.Carrier.Map;
+using CloudDeliveryMobile.Android.Fragments.Salepoint.Map;
+using CloudDeliveryMobile.Models.Enums;
+using CloudDeliveryMobile.Models.Routes;
 using CloudDeliveryMobile.ViewModels;
 using CloudDeliveryMobile.ViewModels.Carrier;
 using MvvmCross.Binding.BindingContext;
@@ -31,13 +36,11 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
 
         private ImageButton geoLocButton;
 
-
-        private int? activeSalepointId;
         private Dictionary<int, Marker> salepointsMarkers = new Dictionary<int, Marker>();
-        private List<Marker> ordersMarkers = new List<Marker>();
+        private Dictionary<int, Marker> ordersMarkers = new Dictionary<int, Marker>();
+        private Dictionary<int, Marker> routePointsMarkers = new Dictionary<int, Marker>();
 
-
-        private bool setSPMarkersAfterMapInit = false;
+        private bool setMarkersAfterMapInitialisation = false;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -55,15 +58,23 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
             MapFragment mapFragment = (MapFragment)this.Activity.FragmentManager.FindFragmentById(Resource.Id.carrier_gmap_fragment);
             mapFragment.GetMapAsync(this);
 
+
+
             //interaction binding
             var set = this.CreateBindingSet<CarrierMapFragment, CarrierMapViewModel>();
             set.Bind(this).For(v => v.OrdersUpdateInteraction).To(viewModel => viewModel.OrdersUpdateInteraction).OneWay();
             set.Apply();
 
             //sideview
-            Task.Run(async ()=> { await this.ViewModel.InitSideView.ExecuteAsync(); });
+            Task.Run(async () => { await this.ViewModel.InitSideView.ExecuteAsync(); });
+
+            //floating label fragment
+            this.carrierFloatingSalepointLabelFragment = new CarrierFloatingSalepointLabelFragment(() => { this.ViewModel.SelectedSalepointId = null; this.CloseSalepointLabelFragment(); });
 
             return view;
+
+
+
         }
 
         //map
@@ -85,14 +96,14 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
             this.InitCurrentPositionMarker();
 
             //if orders inited before
-            if (setSPMarkersAfterMapInit)
+            if (setMarkersAfterMapInitialisation)
             {
-                this.SetSalepointsMarkers(this,null);
-                setSPMarkersAfterMapInit = false;
+                this.SetMarkers(this, null);
+                setMarkersAfterMapInitialisation = false;
             }
         }
 
-        public void InitCurrentPositionMarker()
+        private void InitCurrentPositionMarker()
         {
             MarkerOptions options = new MarkerOptions();
             BitmapDescriptor icon = BitmapDescriptorFactory.FromResource(Resource.Drawable.carrier_marker);
@@ -119,25 +130,32 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
             UpdateCurrentPosition();
         }
 
-        public void MarkerClickEvent(object sender, MarkerClickEventArgs e)
+        private void MarkerClickEvent(object sender, MarkerClickEventArgs e)
         {
             MarkerTag tag = (MarkerTag)e.Marker.Tag;
 
             this.map.AnimateCamera(CameraUpdateFactory.NewLatLng(e.Marker.Position));
-    
+
             if (tag.Type == MarkerType.Order)
             {
-                this.ViewModel.ShowOrderDetails.Execute(tag.OrderId);
+                this.ViewModel.ShowOrderDetails.Execute(tag.OrderId.Value);
             }
             else if (tag.Type == MarkerType.Salepoint)
             {
-                SetOrdersMarkers(tag.SalepointId.Value);
+                if (this.ViewModel.SelectedSalepointId.HasValue && this.ViewModel.SelectedSalepointId.Value == tag.SalepointId.Value)
+                    return;
+
+                this.ViewModel.SelectedSalepointId = tag.SalepointId;
+                this.ShowSalepointLabelFragment();
+
+                //new salepoint selected
+                SetOrdersMarkers(true);
             }
 
         }
 
         //geolocation
-        public void UpdateCurrentPosition()
+        private void UpdateCurrentPosition()
         {
             Task.Run(async () =>
             {
@@ -154,7 +172,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
             });
         }
 
-        public void ToggleGeolocationWatcher(object sender, EventArgs e)
+        private void ToggleGeolocationWatcher(object sender, EventArgs e)
         {
             if (this.geolocationProvider.Running)
             {
@@ -178,22 +196,31 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
             set
             {
                 if (_ordersUpdateInteraction != null)
-                    _ordersUpdateInteraction.Requested -= SetSalepointsMarkers;
+                    _ordersUpdateInteraction.Requested -= SetMarkers;
 
                 _ordersUpdateInteraction = value;
-                _ordersUpdateInteraction.Requested += SetSalepointsMarkers;
+                _ordersUpdateInteraction.Requested += SetMarkers;
             }
         }
 
-        public void SetSalepointsMarkers(object sender, EventArgs e)
+        private void SetMarkers(object sender, EventArgs e)
         {
             if (this.map == null)
             {
-                setSPMarkersAfterMapInit = true;
+                setMarkersAfterMapInitialisation = true;
                 return;
             }
-                
 
+            if (this.ViewModel.IsActiveRoute)
+                SetRouteMarkers();
+            else
+                SetSalepointsMarkers();
+
+
+        }
+
+        private void SetSalepointsMarkers()
+        {
             //remove outdated
             foreach (var item in salepointsMarkers)
             {
@@ -222,26 +249,102 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
                 salepointsMarkers.Add(item.SalepointId, marker);
             }
 
+            //if active salepoint has not orders
+            if (this.ViewModel.SelectedSalepointId.HasValue && !this.salepointsMarkers.ContainsKey(this.ViewModel.SelectedSalepointId.Value))
+                this.ViewModel.SelectedSalepointId = null;
+
+            //if has update markers
+            if (this.ViewModel.SelectedSalepointId.HasValue)
+                SetOrdersMarkers();
+        }
+
+        private void SetRouteMarkers()
+        {
+            //if active route finished
+            if (this.ViewModel.ActiveRoute == null)
+            {
+                foreach (var item in this.routePointsMarkers)
+                    item.Value.Remove();
+
+                this.routePointsMarkers.Clear();
+
+                return;
+            }
+
+            //if created new active route
+            if (this.routePointsMarkers.Count == 0 && this.ViewModel.ActiveRoute != null)
+            {
+
+                int activeRoutePointId = this.ViewModel.ActiveRoute.Points.OrderByDescending(x => x.Index).FirstOrDefault().Id;
+
+                foreach (RoutePoint item in this.ViewModel.ActiveRoute.Points)
+                {
+                    MarkerOptions options = new MarkerOptions();
+                    options.SetPosition(new LatLng(item.Order.EndLatLng.lat, item.Order.EndLatLng.lng));
+
+                    //icon
+                    BitmapDescriptor orderMarkerIcon;
+                    if (item.Id == activeRoutePointId)
+                    {
+                        orderMarkerIcon = item.Type == RoutePointType.EndPoint ? BitmapDescriptorFactory.FromResource(Resource.Drawable.endpoint_marker) : BitmapDescriptorFactory.FromResource(Resource.Drawable.salepoint_marker);
+                    }
+                    else
+                    {
+                        orderMarkerIcon = BitmapDescriptorFactory.FromResource(Resource.Drawable.marker_bw);
+                    }
+
+                    options.SetIcon(orderMarkerIcon);
+
+
+                    Marker marker = this.map.AddMarker(options);
+                    marker.Tag = new MarkerTag { Type = MarkerType.Order, PointId = item.Id, OrderId = item.OrderId };
+
+                    ordersMarkers.Add(item.Id, marker);
+                }
+
+                return;
+            }
+
+            //if changes one of the point in active route
+            foreach (var item in this.ViewModel.ActiveRoute.Points)
+            {
+
+            }
 
         }
 
         //orders markers
-        public void SetOrdersMarkers(int salepointId)
+        private void SetOrdersMarkers(bool clearAll = false)
         {
-            if (this.activeSalepointId.HasValue && this.activeSalepointId.Value == salepointId)
-                return;
-
-            foreach(var item in ordersMarkers)
+            if (clearAll)
             {
-                item.Remove();
+                //remove all
+                foreach (var item in ordersMarkers)
+                {
+                    item.Value.Remove();
+                }
+
+                ordersMarkers.Clear();
+            }
+            else
+            {
+                //remove outdated
+                foreach (var item in ordersMarkers)
+                {
+                    if (this.ViewModel.PendingOrders.All(x => x.Id != item.Key))
+                    {
+                        item.Value.Remove();
+                        ordersMarkers.Remove(item.Key);
+                    }
+                }
             }
 
-            ordersMarkers.Clear();
 
 
-            var salepointOrders = this.ViewModel.PendingOrders.Where(x => x.SalepointId == salepointId).ToList();
+            var salepointOrders = this.ViewModel.PendingOrders.Where(x => x.SalepointId == this.ViewModel.SelectedSalepointId &&
+                                                                          ordersMarkers.All(y => y.Key != x.Id)).ToList();
 
-            foreach(var order in salepointOrders)
+            foreach (var order in salepointOrders)
             {
                 MarkerOptions options = new MarkerOptions();
                 BitmapDescriptor orderMarkerIcon = BitmapDescriptorFactory.FromResource(Resource.Drawable.endpoint_marker);
@@ -252,11 +355,45 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
                 Marker marker = this.map.AddMarker(options);
                 marker.Tag = new MarkerTag { Type = MarkerType.Order, SalepointId = order.SalepointId, OrderId = order.Id };
 
-                ordersMarkers.Add(marker);
+                ordersMarkers.Add(order.Id, marker);
             }
-            
+
         }
 
+
+        //mvvmcross 5.6.3 navigation service has problems with closing fragments together with activity
+        private void ShowSalepointLabelFragment()
+        {
+            var ft = this.ChildFragmentManager.BeginTransaction();
+            ft.SetCustomAnimations(Resource.Drawable.animation_slide_in_left, Resource.Drawable.animation_slide_out_right);
+
+            if (this.selectedSalepointLabelActive)
+                CloseSalepointLabelFragment();
+
+            ft.Add(carrierFloatingSalepointLabelFragment, "carrierFloatingSalepointLabelFragment");
+            ft.Commit();
+
+            string salepointName = this.ViewModel.PendingOrders.Where(x => x.SalepointId == this.ViewModel.SelectedSalepointId).FirstOrDefault().SalepointName;
+            this.carrierFloatingSalepointLabelFragment.SalepointName = salepointName;
+
+            this.selectedSalepointLabelActive = true;
+        }
+
+        private void CloseSalepointLabelFragment()
+        {
+            if (!selectedSalepointLabelActive)
+                return;
+
+            var ft = this.ChildFragmentManager.BeginTransaction();
+            ft.SetCustomAnimations(Resource.Drawable.animation_slide_in_left, Resource.Drawable.animation_slide_out_right);
+            ft.Remove(this.carrierFloatingSalepointLabelFragment);
+            ft.Commit();
+
+            this.selectedSalepointLabelActive = false;
+        }
+
+        private bool selectedSalepointLabelActive = false;
+        private CarrierFloatingSalepointLabelFragment carrierFloatingSalepointLabelFragment;
         private View view;
 
         private int FragmentId { get; } = Resource.Layout.carrier_map;

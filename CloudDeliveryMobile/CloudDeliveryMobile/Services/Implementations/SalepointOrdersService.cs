@@ -13,9 +13,10 @@ namespace CloudDeliveryMobile.Services.Implementations
 {
     public class SalepointOrdersService : ISalepointOrdersService
     {
-        public SalepointOrdersService(IHttpProvider httpProvider)
+        public SalepointOrdersService(IHttpProvider httpProvider, IStorageProvider storageProvider)
         {
             this.httpProvider = httpProvider;
+            this.storageProvider = storageProvider;
         }
 
         public event EventHandler AddedOrdersUpdated;
@@ -79,7 +80,34 @@ namespace CloudDeliveryMobile.Services.Implementations
             return this.AddedOrders;
         }
 
+        public async Task<List<string>> StreetsList()
+        {
+            if (this.streets != null)
+                return this.streets;
+
+            try
+            {
+                string streetsJson = this.storageProvider.Select(DataKeys.Streets);
+                this.streets = JsonConvert.DeserializeObject<List<string>>(streetsJson);
+                return this.streets;
+            }
+            catch (Exception e) { }
+
+            try
+            {
+                string streetsJson = await this.httpProvider.GetAsync(OrdersApiResources.Streets);
+                this.storageProvider.Insert(DataKeys.Streets, streetsJson);
+                this.streets = JsonConvert.DeserializeObject<List<string>>(streetsJson);
+                return this.streets;
+            }
+            catch (Exception e) { }
+
+            return new List<string>();
+        }
+
+        private List<string> streets;
 
         private IHttpProvider httpProvider;
+        private IStorageProvider storageProvider;
     }
 }

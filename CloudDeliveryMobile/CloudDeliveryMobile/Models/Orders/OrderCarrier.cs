@@ -15,7 +15,7 @@ namespace CloudDeliveryMobile.Models.Orders
         public int SalepointId { get; set; }
 
         [JsonProperty(PropertyName = "SalepointLatLng")]
-        private string SalepointLatLngString { get; set; }
+        public string SalepointLatLngString { get; set; }
 
         [JsonIgnore]
         public GeoPosition SalepointLatLng

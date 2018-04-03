@@ -25,7 +25,7 @@ namespace CloudDeliveryMobile.Models.Orders
         public OrderStatus Status { get; set; }
 
         [JsonProperty(PropertyName = "EndLatLng")]
-        private string EndLatLngString { get; set; }
+        public string EndLatLngString { get; set; }
 
         [JsonIgnore]
         public GeoPosition EndLatLng

@@ -1,7 +1,9 @@
 ﻿using CloudDeliveryMobile.Models;
 using CloudDeliveryMobile.Models.Orders;
+using CloudDeliveryMobile.Models.Routes;
 using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Services;
+using CloudDeliveryMobile.ViewModels.Carrier.SideView;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
@@ -9,13 +11,16 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
+using System.Linq;
+
 namespace CloudDeliveryMobile.ViewModels.Carrier
 {
     public class CarrierMapViewModel : BaseViewModel
     {
         public CarrierSideViewViewModel SideView { get; set; }
 
-        //pending orders
+
+        //collections
         private MvxInteraction _ordersUpdateInteraction = new MvxInteraction();
 
         public IMvxInteraction OrdersUpdateInteraction => _ordersUpdateInteraction;
@@ -33,19 +38,52 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        public MvxCommand ShowFloatingOrders
+        public RouteDetails ActiveRoute
+        {
+            get
+            {
+                return this.routesService.ActiveRoute;
+            }
+        }
+
+        public bool IsActiveRoute
+        {
+            get
+            {
+                return this.SideView.currentChildViewModel != null && this.SideView.currentChildViewModel.GetType() == typeof(CarrierSideActiveRouteViewModel);
+            }
+        }
+
+
+        //floating elements
+        public int? SelectedSalepointId
+        {
+            get
+            {
+                return this.selectedSalepointId;
+            }
+            set
+            {
+                if (this.selectedSalepointId != value)
+                {
+                    this.selectedSalepointId = value;
+                    this.SendInteraction(this, null);
+                }
+            }
+        }
+
+        public IMvxCommand ShowFloatingOrders
         {
             get
             {
                 return new MvxCommand(() =>
                 {
-                    this._ordersUpdateInteraction.Raise();
                     this.navigationService.Navigate<CarrierFloatingOrdersViewModel>();
                 });
             }
         }
 
-        public MvxCommand<int> ShowOrderDetails
+        public IMvxCommand<int> ShowOrderDetails
         {
             get
             {
@@ -55,7 +93,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
                 });
             }
         }
-
 
         //gmaps
         public GeoPosition CurrentPosition
@@ -114,15 +151,17 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        
 
-        public CarrierMapViewModel(IDeviceProvider deviceProvider, IMvxNavigationService navigationService, ICarrierOrdersService ordersService)
+        public CarrierMapViewModel(IDeviceProvider deviceProvider, IMvxNavigationService navigationService, ICarrierOrdersService ordersService, IRoutesService routesService)
         {
             this.deviceProvider = deviceProvider;
             this.navigationService = navigationService;
             this.ordersService = ordersService;
+            this.routesService = routesService;
 
             this.ordersService.PendingOrdersUpdated += this.SendInteraction;
+            this.routesService.ActiveRouteUpdated += this.SendInteraction;
+
             this.SideView = Mvx.IocConstruct<CarrierSideViewViewModel>();
         }
 
@@ -132,23 +171,22 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
                 return;
 
             base.Start();
-            
+
             //pending orders
             await this.ordersService.GetPendingOrders();
             initialised = true;
         }
 
-
+        private int? selectedSalepointId;
         private bool initialised = false;
         private float? baseZoom;
         private bool sideViewInitialised = false;
         private GeoPosition basePosition;
         private GeoPosition currentPosition = new GeoPosition();
 
-        private BaseViewModel activeFloatingView;
-
         private IDeviceProvider deviceProvider;
         private IMvxNavigationService navigationService;
         private ICarrierOrdersService ordersService;
+        private IRoutesService routesService;
     }
 }

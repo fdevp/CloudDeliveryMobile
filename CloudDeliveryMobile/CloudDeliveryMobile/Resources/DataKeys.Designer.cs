@@ -71,6 +71,15 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to streets.
+        /// </summary>
+        internal static string Streets {
+            get {
+                return ResourceManager.GetString("Streets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to token.
         /// </summary>
         internal static string Token {

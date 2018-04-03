@@ -5,16 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    android:orientation="vertical">
 
-  <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
-            android:id="@+id/active_route_points_list"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:background="#eee"
-            android:layout_weight="12"
-            app:MvxItemTemplate="@layout/salepoint_order_added_listitem"
-            app:MvxBind="ItemsSource Orders"/>
+    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+          android:id="@+id/salepoint_added_orders_list"
+          android:layout_height="match_parent"
+          android:layout_width="match_parent"
+          android:layout_weight="12"
+          app:MvxItemTemplate="@layout/salepoint_order_added_listitem"
+          app:MvxBind="ItemsSource Orders"/>
 
+    <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_weight="88">
+      <Button
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:text="Dodaj zamówienie"
+          android:layout_margin="8dp"
+          android:textColor="#fff"
+          android:background="@drawable/ripple_primary_color"
+          app:MvxBind="Click OpenNewOrderModal">
+
+      </Button>
+    </LinearLayout>
+    
+    
+  </LinearLayout>
+
+  
   <include layout="@layout/main_inprogress"/>
   
 </LinearLayout>

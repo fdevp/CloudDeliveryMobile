@@ -12,7 +12,7 @@ using static Android.Animation.Animator;
 
 namespace CloudDeliveryMobile.Android.Fragments.Carrier.Map
 {
-    [MvxFragmentPresentation(fragmentContentId: Resource.Id.carrier_map_layout, AddToBackStack = true, EnterAnimation = Resource.Drawable.animaton_slide_in_up, ExitAnimation = Resource.Drawable.animation_slide_out_down, PopEnterAnimation = Resource.Drawable.animaton_slide_in_up, PopExitAnimation = Resource.Drawable.animation_slide_out_down)]
+    [MvxFragmentPresentation(fragmentContentId: Resource.Id.carrier_map_layout, AddToBackStack = true, EnterAnimation = Resource.Drawable.animation_slide_in_up, ExitAnimation = Resource.Drawable.animation_slide_out_down, PopEnterAnimation = Resource.Drawable.animation_slide_in_up, PopExitAnimation = Resource.Drawable.animation_slide_out_down)]
     public class CarrierFloatingOrderDetails : MvxFragment<CarrierFloatingOrderDetailsViewModel>, IAnimatorListener
     {
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -48,7 +48,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.Map
 
         public async void OnAnimationEnd(Animator animation)
         {
-            this.ViewModel.CloseFragment.ExecuteAsync();
+            await this.ViewModel.CloseFragment.ExecuteAsync();
         }
 
         public void OnAnimationRepeat(Animator animation)

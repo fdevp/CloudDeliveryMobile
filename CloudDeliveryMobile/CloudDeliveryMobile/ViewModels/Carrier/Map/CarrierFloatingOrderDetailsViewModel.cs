@@ -23,7 +23,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-
         public MvxAsyncCommand CloseFragment
         {
             get

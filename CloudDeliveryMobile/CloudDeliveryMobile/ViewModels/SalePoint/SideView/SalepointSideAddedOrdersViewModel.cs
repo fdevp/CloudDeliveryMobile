@@ -1,5 +1,6 @@
 ﻿using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Services;
+using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 using System;
@@ -12,14 +13,26 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
 {
     public class SalepointSideAddedOrdersViewModel : BaseViewModel
     {
-        public List<SalepointOrderListItemViewModel> Orders { get; set; }
+        public MvxObservableCollection<SalepointOrderListItemViewModel> Orders { get; set; }
 
-        public SalepointSideAddedOrdersViewModel(ISalepointOrdersService salepointOrdersService)
+        public IMvxAsyncCommand OpenNewOrderModal
         {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    await this.navigationService.Navigate(typeof(SalepointNewOrderViewModel));
+                });
+            }
+        }
+
+        public SalepointSideAddedOrdersViewModel(IMvxNavigationService navigationService, ISalepointOrdersService salepointOrdersService)
+        {
+            this.navigationService = navigationService;
             this.salepointOrdersService = salepointOrdersService;
             this.salepointOrdersService.AddedOrdersUpdated += OrdersPropertyChanged;
 
-            this.Orders = new List<SalepointOrderListItemViewModel>();
+            this.Orders = new MvxObservableCollection<SalepointOrderListItemViewModel>();
         }
 
         public async override void Start()
@@ -57,7 +70,13 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
             List<OrderSalepoint> updatedOrders = this.salepointOrdersService.AddedOrders;
 
             List<OrderSalepoint> removedOrders = this.Orders.Where(x => updatedOrders.All(y => y.Id != x.Order.Id)).Select(x => x.Order).ToList();
-            this.Orders.RemoveAll(x => removedOrders.Contains(x.Order));
+            foreach(var item in removedOrders)
+            {
+                var toRemove = this.Orders.Where(x => x.Order == item).FirstOrDefault();
+                if(toRemove!=null)
+                    this.Orders.Remove(toRemove);
+            }
+
 
             List<OrderSalepoint> newOrders = this.salepointOrdersService.AddedOrders.Where(x => this.Orders.All(y => y.Order.Id != x.Id))
                                                                                           .ToList();
@@ -73,6 +92,8 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
         }
 
         bool initialised = false;
+
         ISalepointOrdersService salepointOrdersService;
+        IMvxNavigationService navigationService;
     }
 }

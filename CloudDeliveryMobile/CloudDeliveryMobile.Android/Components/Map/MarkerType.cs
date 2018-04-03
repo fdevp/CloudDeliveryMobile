@@ -4,6 +4,11 @@
     {
         CurrentPosition,
         Salepoint,
-        Order
+        Order,
+        AddedOrder,
+        InProgressOrder,
+        PassedRoutePoint,
+        PendingRoutePoint,
+        ActiveRoutePoint
     }
 }

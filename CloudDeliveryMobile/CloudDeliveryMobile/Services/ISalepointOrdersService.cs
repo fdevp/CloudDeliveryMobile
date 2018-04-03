@@ -25,6 +25,8 @@ namespace CloudDeliveryMobile.Services
 
         Task<OrderSalepoint> Add(OrderEditModel order);
 
+        Task<List<string>> StreetsList();
+
         Task Cancel(OrderSalepoint order);
     }
 }

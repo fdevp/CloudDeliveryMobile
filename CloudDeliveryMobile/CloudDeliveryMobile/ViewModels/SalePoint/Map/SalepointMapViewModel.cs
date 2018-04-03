@@ -1,4 +1,6 @@
 ﻿using CloudDeliveryMobile.Models;
+using CloudDeliveryMobile.Models.Orders;
+using CloudDeliveryMobile.Services;
 using CloudDeliveryMobile.ViewModels.SalePoint.SideView;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
@@ -15,6 +17,43 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
     public class SalepointMapViewModel : BaseViewModel
     {
         public SalepointSideViewViewModel SideView { get; set; }
+
+        public List<OrderSalepoint> InProgressOrders
+        {
+            get
+            {
+                return this.salepointOrdersService.InProgressOrders;
+            }
+        }
+
+        public List<OrderSalepoint> AddedOrders
+        {
+            get
+            {
+                return this.salepointOrdersService.AddedOrders;
+            }
+        }
+
+
+        //added orders interaction
+        private MvxInteraction _addedOrdersUpdateInteraction = new MvxInteraction();
+
+        public IMvxInteraction AddedOrdersUpdateInteraction => _addedOrdersUpdateInteraction;
+
+        private void SendAddedOrdersInteraction(object sender, EventArgs e)
+        {
+            this._addedOrdersUpdateInteraction.Raise();
+        }
+
+        //inprogress orders interaction
+        private MvxInteraction _inProgressOrdersUpdateInteraction = new MvxInteraction();
+
+        public IMvxInteraction InProgressOrdersUpdateInteraction => _inProgressOrdersUpdateInteraction;
+
+        private void SendInProgressOrdersInteraction(object sender, EventArgs e)
+        {
+            this._inProgressOrdersUpdateInteraction.Raise();
+        }
 
         public GeoPosition BasePosition
         {
@@ -41,10 +80,14 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
             }
         }
 
-        public SalepointMapViewModel(IMvxNavigationService navigationService)
+        public SalepointMapViewModel(IMvxNavigationService navigationService, ISalepointOrdersService salepointOrdersService)
         {
             this.navigationService = navigationService;
             this.SideView = Mvx.IocConstruct<SalepointSideViewViewModel>();
+            this.salepointOrdersService = salepointOrdersService;
+
+            this.salepointOrdersService.AddedOrdersUpdated += SendAddedOrdersInteraction;
+            this.salepointOrdersService.InProgressOrdersUpdated += SendInProgressOrdersInteraction;
         }
 
         public MvxAsyncCommand InitSideView
@@ -63,11 +106,11 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
             }
         }
 
-
         private bool sideViewInitialised = false;
         private float? baseZoom;
         private GeoPosition basePosition;
         private IMvxNavigationService navigationService;
+        private ISalepointOrdersService salepointOrdersService;
     }
 
 

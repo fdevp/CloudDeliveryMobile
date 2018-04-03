@@ -37,7 +37,7 @@
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:textSize="20dp"
+            android:textSize="17dp"
             android:textStyle="bold"
             app:MvxBind='Text Order.SalepointName'/>
 
@@ -87,7 +87,7 @@
              android:layout_height="match_parent"
              android:background="@drawable/editpoint_element_border"
              android:text="×"
-             android:textSize="35dp"
+             android:textSize="30dp"
              android:gravity="center"
              android:textColor="#aaa"
              app:MvxBind="Click RemoveSalePointRoutePoint;Visible RouteSPRemoveButton(ViewModelWrapper.Points,Order.SalepointId)"/>

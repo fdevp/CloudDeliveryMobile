@@ -7,5 +7,7 @@
         public int? SalepointId { get; set; }
 
         public int? OrderId { get; set; }
+
+        public int? PointId { get; set; }
     }
 }

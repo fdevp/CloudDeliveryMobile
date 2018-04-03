@@ -31,7 +31,8 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_toRightOf="@id/carrier_side_view_touch_container"
-      android:background="@drawable/side_view_style">
+      android:background="@drawable/side_view_style"
+      android:paddingLeft="1dp">
 
     <RelativeLayout
         android:id="@+id/carrier_side_view_content"

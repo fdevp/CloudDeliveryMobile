@@ -89,7 +89,7 @@
            android:layout_height="match_parent"
            android:orientation="vertical"
            android:layout_weight="11"
-           android:background="#eee"
+           
            app:MvxBind="Visible Points.Count==0">
 
       <TextView
@@ -106,7 +106,7 @@
              android:id="@+id/edit_route_points_list"
              android:layout_height="match_parent"
              android:layout_width="match_parent"
-             android:background="#eee"
+             
              android:layout_weight="11"
              app:MvxBind="ItemsSource Points;Visible Points.Count > 0"/>
 
@@ -116,7 +116,7 @@
     <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:background="#eee"
+        
         android:layout_weight="44">
 
       <Button

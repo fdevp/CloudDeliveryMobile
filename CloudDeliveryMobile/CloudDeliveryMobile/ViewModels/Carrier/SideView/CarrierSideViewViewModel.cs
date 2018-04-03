@@ -11,7 +11,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 {
     public class CarrierSideViewViewModel : BaseViewModel
     {
-        public CarrierSideRouteEditViewModel routeEditVM { get; set; }
+        public CarrierSideRouteEditViewModel editRouteVM { get; set; }
 
         public CarrierSideActiveRouteViewModel activeRouteVM { get; set; }
 
@@ -20,7 +20,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             this.routesService = routesService;
             this.navigationService = navigationService;
 
-            this.routeEditVM = Mvx.IocConstruct<CarrierSideRouteEditViewModel>();
+            this.editRouteVM = Mvx.IocConstruct<CarrierSideRouteEditViewModel>();
             this.activeRouteVM = Mvx.IocConstruct<CarrierSideActiveRouteViewModel>();
 
             this.routesService.ActiveRouteUpdated += onActiveRouteUpdated;
@@ -28,7 +28,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 
         private async void onActiveRouteUpdated(object sender, EventArgs e)
         {
-            BaseViewModel vmToLoad = this.routesService.ActiveRoute != null ? this.activeRouteVM : (BaseViewModel)this.routeEditVM;
+            BaseViewModel vmToLoad = this.routesService.ActiveRoute != null ? this.activeRouteVM : (BaseViewModel)this.editRouteVM;
             Type currentChildType = this.currentChildViewModel?.GetType();
 
             if (currentChildType != vmToLoad.GetType())
@@ -59,8 +59,8 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
             catch (HttpUnprocessableEntityException e) // no active routes
             {
-                this.currentChildViewModel = this.routeEditVM;
-                await this.navigationService.Navigate(this.routeEditVM);
+                this.currentChildViewModel = this.editRouteVM;
+                await this.navigationService.Navigate(this.editRouteVM);
             }
             catch (HttpRequestException e) //no connection
             {
@@ -74,7 +74,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
         }
 
         public bool initialised = false;
-        private BaseViewModel currentChildViewModel;
+        public BaseViewModel currentChildViewModel;
 
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;
