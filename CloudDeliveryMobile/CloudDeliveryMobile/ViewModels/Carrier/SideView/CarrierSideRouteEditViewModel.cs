@@ -95,9 +95,9 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             this.navigationService = navigationService;
             this.ordersService = ordersService;
 
-            this.ordersService.AcceptedOrdersUpdated += updatePoints;
+            this.ordersService.AcceptedOrdersUpdated += UpdatePoints;
         }
-
+        
         public override async void Start()
         {
             base.Start();
@@ -105,24 +105,32 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             if (initialised)
                 return;
 
+            this.InProgress = true;
             try
             {
-                this.InProgress = true;
                 await this.ordersService.GetAcceptedOrders();
-                this.InProgress = false;
             }
             catch (HttpUnprocessableEntityException e) // server error
             {
-
+                this.ErrorOccured = true;
+                this.ErrorMessage = e.Message;
             }
-            catch (HttpRequestException e) //no connection
+            catch (HttpRequestException httpException) //no connection
             {
-                this.Error.Occured = true;
-                this.Error.Message = "Problem z połączeniem z serwerem.";
+                this.ErrorOccured = true;
+                this.ErrorMessage = "Problem z połączeniem z serwerem.";
+            }catch(Exception e)
+            {
+                this.ErrorOccured = true;
+                this.ErrorMessage = "Wystąpił nieznany błąd.";
+            }
+            finally
+            {
+                this.InProgress = false;
             }
         }
 
-        private void updatePoints(object sender, EventArgs e)
+        private void UpdatePoints(object sender, EventArgs e)
         {
 
             if (this.ordersService.AcceptedOrders == null)          //points have been cleared

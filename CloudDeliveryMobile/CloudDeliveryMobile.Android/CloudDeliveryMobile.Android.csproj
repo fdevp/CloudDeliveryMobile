@@ -273,16 +273,15 @@
     <Compile Include="Fragments\Carrier\Orders\CarrierOrdersFragment.cs" />
     <Compile Include="Fragments\Carrier\SideView\CarrierSideActiveRouteFragment.cs" />
     <Compile Include="Fragments\Carrier\SideView\CarrierSideRouteEditFragment.cs" />
-    <Compile Include="Fragments\Carrier\SideView\CarrierSideTakeOrdersFragment.cs" />
     <Compile Include="Fragments\Carrier\SideView\CarrierSideViewFragment.cs" />
-    <Compile Include="Fragments\Salepoint\Map\SalepointFloatingOrderDetails.cs" />
+    <Compile Include="Fragments\Salepoint\Orders\SalepointOrderDetailsFragment.cs" />
     <Compile Include="Fragments\Salepoint\SalepointNewOrderFragment.cs" />
     <Compile Include="Fragments\Salepoint\SideView\SalepointSideAddedOrdersFragment.cs" />
     <Compile Include="Fragments\Salepoint\SideView\SalepointSideInProgressOrdersFragment.cs" />
     <Compile Include="Fragments\Salepoint\SideView\SalepointSideViewFragment.cs" />
     <Compile Include="Fragments\Shared\InProgressFragment.cs" />
     <Compile Include="Fragments\Salepoint\Map\SalepointMapFragment.cs" />
-    <Compile Include="Fragments\Salepoint\SalepointOrdersFragment.cs" />
+    <Compile Include="Fragments\Salepoint\Orders\SalepointFinishedOrdersFragment.cs" />
     <Compile Include="Fragments\Shared\ProfileFragment.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="MainApplication.cs" />
@@ -393,6 +392,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\carrier_floating_salepoint_label.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\salepoint_finished_orders.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\salepoint_finished_order_listitem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\salepoint_order_details.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

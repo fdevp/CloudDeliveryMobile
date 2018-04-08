@@ -42,8 +42,8 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
             }
             catch (Exception e)
             {
-                this.Error.Occured = true;
-                this.Error.Message = "Problem z połączeniem z serwerem.";
+                this.ErrorOccured = true;
+                this.ErrorMessage = "Problem z połączeniem z serwerem.";
             }
             finally
             {

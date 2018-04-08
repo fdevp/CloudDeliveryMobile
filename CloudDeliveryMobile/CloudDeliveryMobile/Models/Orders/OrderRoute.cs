@@ -14,10 +14,7 @@ namespace CloudDeliveryMobile.Models.Orders
  
          public DateTime? DeliveredTime { get; set; }
  
-         public string CustomerPhone { get; set; }
- 
          public string SalepointPhone { get; set; }
- 
-         public decimal? Price { get; set; }
+
     }
 }

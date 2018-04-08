@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#aa000000"
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="15dp"
+      android:background="@drawable/floating_element_style"
+      android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/floating_element_header_style">
+
+      <TextView
+          android:id="@+id/order_details_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:textSize="20dp"
+          android:text="Szczegóły zamówienia"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/order_details_title"
+          android:layout_centerHorizontal="true"
+          android:layout_marginBottom="5dp"
+          app:MvxBind="Text Order, Converter=DestinationAddress; Visible Order, Converter=NullVisibility" />
+
+      <ImageButton
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:background="#00ffffff"
+          android:layout_alignParentRight="true"
+          android:scaleType="fitCenter"
+          android:layout_marginRight="5dp"
+          android:src="@drawable/ic_clear_grey_600_48dp"
+          app:MvxBind="Click CloseFragment"/>
+
+
+    </RelativeLayout>
+
+    <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:MvxBind="Visible ShowContent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"  
+        android:padding="10dp"
+        android:orientation="vertical"
+        app:MvxBind="Visible Order, Converter=NullVisibility"
+        >
+
+      <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:weightSum="2">
+
+        <TextView
+          style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Miejscowość: "/>
+        <TextView
+             style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind="Text Order.DestinationCity"/>
+      </LinearLayout>
+      
+      
+      <LinearLayout
+          android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:weightSum="2">
+
+        <TextView
+            style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Adres: "/>
+        <TextView
+             style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind="Text Order.DestinationAddress"/>
+      </LinearLayout>
+
+      <LinearLayout
+               android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:weightSum="2">
+
+        <TextView
+           style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Telefon klienta: "
+                    />
+        <TextView
+            style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind="Text Order.CustomerPhone; Visible Order.CustomerPhone, Converter=StringNullEmptyVisibility"
+                    />
+
+        <TextView
+            style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind='Text "nie podano"; Visible !StringNullEmptyVisibility(Order.CustomerPhone)'
+                    />
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:weightSum="2">
+
+        <TextView
+            style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Koszt: "
+                    />
+        <TextView
+            style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind="Text Order.Price; Visible Order.Price, Converter=NullVisibility"
+                    />
+
+        <TextView
+            style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind='Text "nie podano"; Visible !NullVisibility(Order.CustomerPhone)'
+                    />
+
+      </LinearLayout>
+
+      <LinearLayout
+         android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:weightSum="2">
+
+        <TextView
+           style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Wymagany odbiór: "
+                    />
+        <TextView
+           style="@style/Salepoint.Order.Details.Field"
+           app:MvxBind="Text Order.RequiredPickUpTime; Visible Order.RequiredPickUpTime, Converter=NullVisibility"
+                    />
+
+        <TextView
+            style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind='Text "nie podano"; Visible !NullVisibility(Order.RequiredPickUpTime)'
+                    />
+
+      </LinearLayout>
+
+      <LinearLayout
+         android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:weightSum="2">
+
+        <TextView
+          style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Dodano: "
+                    />
+        <TextView
+            style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind="Text Order.AddedTime"
+                    />
+
+      </LinearLayout>
+
+      <LinearLayout
+              android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:weightSum="2"
+               app:MvxBind="Visible Order.CancellationTime, Converter=NullVisibility">
+
+        <TextView
+           style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Anulowano: "
+                    />
+        <TextView
+            style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind="Text Order.CancellationTime"
+                    />
+
+      </LinearLayout>
+
+    
+      
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_margin="5dp"
+          android:background="#eee"
+                />
+
+
+      <LinearLayout
+        android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:weightSum="2"
+          app:MvxBind="Visible Order.AcceptedTime, Converter=NullVisibility">
+
+        <TextView
+           style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Zaakceptowano: "
+                    />
+        <TextView
+          style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind="Text Order.AcceptedTime"
+                    />
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:weightSum="2"
+         app:MvxBind="Visible Order.PickUpTime, Converter=NullVisibility">
+
+        <TextView
+          style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Odebrano: "
+                    />
+        <TextView
+            style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind="Text Order.PickUpTime"/>
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:weightSum="2"
+         app:MvxBind="Visible Order.DeliveredTime, Converter=NullVisibility">
+
+        <TextView
+            style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Dostarczono: "
+                    />
+        <TextView
+            style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind="Text Order.DeliveredTime"
+                    />
+
+      </LinearLayout>
+
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_margin="5dp"
+          android:background="#eee"
+                />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:weightSum="2"
+          app:MvxBind="Visible Order.CarrierName, Converter=StringEmptyNullVisibility">
+
+        <TextView
+          style="@style/Salepoint.Order.Details.Field.Bold"
+          android:text="Kierowca: "
+                    />
+        <TextView
+          style="@style/Salepoint.Order.Details.Field"
+          app:MvxBind="Text Order.CarrierName"
+          />
+
+      </LinearLayout>
+
+      <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:weightSum="2"
+         app:MvxBind="Visible Order.FinalMinutes, Converter=NullVisibility">
+
+        <TextView
+            style="@style/Salepoint.Order.Details.Field.Bold"
+            android:text="Dostarczono w: "
+                    />
+        <TextView
+            style="@style/Salepoint.Order.Details.Field"
+            app:MvxBind="Text Order.FinalMinutes"/>
+
+      </LinearLayout>
+  
+      <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_margin="5dp"
+    android:background="#eee"
+            />
+
+
+
+      <LinearLayout
+         android:id="@+id/salepoint_order_details_gmap_container"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:visibility="gone">
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/salepoint_order_details_gmap_fragment"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          class="com.google.android.gms.maps.SupportMapFragment"
+                />
+      </LinearLayout>
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/main_inprogress"/>
+
+  </LinearLayout>
+
+</LinearLayout>

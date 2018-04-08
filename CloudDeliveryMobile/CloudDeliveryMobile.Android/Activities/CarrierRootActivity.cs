@@ -43,7 +43,7 @@ namespace CloudDeliveryMobile.Android.Activities
             {
                 var fragments = new List<MvxViewPagerFragmentInfo>();
                 fragments.Add(new MvxViewPagerFragmentInfo("Mapa", typeof(CarrierMapFragment), typeof(CarrierMapViewModel)));
-                fragments.Add(new MvxViewPagerFragmentInfo("Trasy", typeof(CarrierOrdersFragment), typeof(CarrierRoutesViewModel)));
+                fragments.Add(new MvxViewPagerFragmentInfo("Zakończone", typeof(CarrierOrdersFragment), typeof(CarrierRoutesViewModel)));
                 fragments.Add(new MvxViewPagerFragmentInfo("Profil", typeof(ProfileFragment), typeof(ProfileViewModel)));
                 viewPager.Adapter = new MvxCachingFragmentStatePagerAdapter(this, this.SupportFragmentManager, fragments);
                 viewPager.OffscreenPageLimit = 2;
@@ -53,7 +53,9 @@ namespace CloudDeliveryMobile.Android.Activities
 
             var tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);
             tabLayout.SetupWithViewPager(viewPager);
+
         }
+
 
         protected override void OnResume()
         {

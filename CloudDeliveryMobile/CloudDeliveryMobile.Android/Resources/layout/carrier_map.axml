@@ -5,7 +5,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-  
+
+
+ 
 
   <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                android:id="@+id/carrier_gmap_fragment"
@@ -38,14 +40,14 @@
         android:padding="12dp"
         android:src="@drawable/ic_my_location_grey_700_48dp"
         />
-  
-  
-  
+
+  <include layout="@layout/main_inprogress"/>
+
   <FrameLayout
     android:id="@+id/carrier_side_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
+
   </FrameLayout>
   
 </FrameLayout>

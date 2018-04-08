@@ -8,6 +8,7 @@ using Android.Content;
 using Android.Locations;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 using CloudDeliveryMobile.ViewModels;
@@ -26,10 +27,10 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
             HasOptionsMenu = true;
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
             this.view = this.BindingInflate(FragmentId, null);
-            
+
             Button addOrder = this.view.FindViewById<Button>(Resource.Id.salepoint_add_order_search_address);
             addOrder.Click += CreateOrderButtonClicked;
-            
+
             if (this.geocoder == null)
                 this.geocoder = new Geocoder(this.Context);
 
@@ -42,14 +43,34 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
             this.ViewModel.GeocoderInProgress = true;
             this.ViewModel.GeocoderStarted = true;
 
+            IList<Address> addressesList = null;
+
+            if (this.ViewModel.Model.DestinationCity.Length < 3 || this.ViewModel.Model.DestinationAddress.Length < 3)
+            {
+                Snackbar.Make(this.view, "Podaj poprawne miasto i adres", 5000).Show();
+
+                this.ViewModel.GeocoderInProgress = false;
+                this.ViewModel.GeocoderStarted = false;
+                return;
+            }
+
+
             await Task.Run(() =>
             {
-                IList<Address> addressesList = this.geocoder.GetFromLocationName(this.ViewModel.FullLocationName, 5);
+                try
+                {
+                    addressesList = this.geocoder.GetFromLocationName(this.ViewModel.FullLocationName, 5);
+                }
+                catch (Exception ex)
+                {
+                    Snackbar.Make(this.view, "Wyszukiwanie wymaga połączenia z internetem", 5000).Show();
+                }
+
 
                 this.ViewModel.GeocoderInProgress = false;
                 this.ViewModel.GeocoderFinished = true;
 
-                if (addressesList.Count > 0)
+                if (addressesList != null && addressesList.Count > 0)
                 {
                     this.ViewModel.Model.EndLatLng.lat = addressesList[0].Latitude;
                     this.ViewModel.Model.EndLatLng.lng = addressesList[0].Longitude;
@@ -59,8 +80,8 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
                 {
                     this.ViewModel.AddressFound = false;
                 }
-                
-                
+
+
             });
 
         }

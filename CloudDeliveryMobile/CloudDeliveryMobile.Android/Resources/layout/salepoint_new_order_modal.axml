@@ -34,7 +34,7 @@
           android:layout_below="@id/order_pickup_title"
           android:layout_centerHorizontal="true"
           android:layout_marginBottom="5dp"
-          android:text="Pod kasztanem" />
+          android:text="############" />
 
       <ImageButton
           android:layout_width="30dp"
@@ -90,7 +90,7 @@
              android:layout_height="wrap_content"
              android:hint="Adres"
              android:completionThreshold="3"
-             app:MvxBind="Text DestinationAdddress; ItemsSource StreetSuggestions; PartialText CurrentStreetHint"
+             app:MvxBind="Text DestinationAdddress; ItemsSource StreetSuggestions; PartialText CurrentStreetHint;Enabled !InProgress"
              android:layout_gravity="right"
          style="@style/Salepoint.Autocomplete"/>
 
@@ -139,15 +139,18 @@
       </LinearLayout>
 
 
+      
+      
       <LinearLayout
           android:layout_width='match_parent'
           android:layout_height='wrap_content'
           android:layout_margin='40dp'
-          android:orientation='vertical'>
+          android:orientation='vertical'
+          app:MvxBind='Visible !InProgress'>
 
 
 
-        <!-- IN PROGRESS -->
+        <!-- GEOCODER IN PROGRESS -->
         <LinearLayout
             android:layout_width='match_parent'
             android:layout_height='wrap_content'
@@ -199,7 +202,7 @@
               android:layout_marginTop='30dp'
               android:layout_width='match_parent'
               android:layout_height='wrap_content'
-              android:background='@drawable/shape_rounded_primary_button'
+              android:background='@drawable/ripple_primary_color_rounded'
               android:layout_weight='1'
               android:textColor='#fff'
               android:layout_marginLeft='2dp'
@@ -236,7 +239,7 @@
 
                 android:layout_width='match_parent'
                 android:layout_height='wrap_content'
-                android:background='@drawable/shape_rounded_primary_button'
+                android:background='@drawable/ripple_primary_color_rounded'
                 android:layout_weight='1'
                 android:textColor='#fff'
                 android:layout_marginLeft='2dp'
@@ -246,7 +249,7 @@
             <Button
                 android:layout_width='match_parent'
                 android:layout_height='wrap_content'
-                android:background='@drawable/shape_rounded_primary_button'
+                android:background='@drawable/ripple_primary_color_rounded'
                 android:layout_weight='1'
                 android:textColor='#fff'
                 android:layout_marginLeft='2dp'
@@ -265,7 +268,7 @@
             android:id='@+id/salepoint_add_order_search_address'
             android:layout_width='match_parent'
             android:layout_height='wrap_content'
-            android:background='@drawable/shape_rounded_primary_button'
+            android:background='@drawable/ripple_primary_color_rounded'
             android:layout_weight='1'
             android:textColor='#fff'
             android:layout_marginLeft='2dp'
@@ -274,6 +277,8 @@
 
       </LinearLayout>
 
+
+      <include layout="@layout/main_inprogress"/>
 
     </LinearLayout>
 

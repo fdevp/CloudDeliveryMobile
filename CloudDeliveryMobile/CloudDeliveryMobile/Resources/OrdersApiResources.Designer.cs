@@ -134,6 +134,15 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to api/orders/FinishedList.
+        /// </summary>
+        internal static string FinishedOrders {
+            get {
+                return ResourceManager.GetString("FinishedOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to api/orders/gettrace.
         /// </summary>
         internal static string GetTrace {

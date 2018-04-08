@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using CloudDeliveryMobile.Helpers.Exceptions;
 using CloudDeliveryMobile.Models.Enums;
 using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Providers;
@@ -23,18 +25,22 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public event EventHandler InProgressOrdersUpdated;
 
+        public event EventHandler FinishedOrdersUpdated;
+
         public List<OrderSalepoint> AddedOrders { get; private set; }
 
         public List<OrderSalepoint> InProgressOrders { get; private set; }
 
+        public List<OrderFinishedListItem> FinishedOrders { get; private set; }
+
         public async Task<OrderSalepoint> Add(OrderEditModel order)
         {
-            string response = await this.httpProvider.PostAsync(OrdersApiResources.Add, order);
+            string response = await this.httpProvider.PostAsync(httpProvider.AbsoluteUri(OrdersApiResources.Add), order);
             OrderSalepoint newOrder = JsonConvert.DeserializeObject<OrderSalepoint>(response);
+            
             this.AddedOrders.Add(newOrder);
 
-            if (this.AddedOrdersUpdated != null)
-                this.AddedOrdersUpdated.Invoke(this, null);
+            this.AddedOrdersUpdated?.Invoke(this, null);
 
             return newOrder;
         }
@@ -43,11 +49,19 @@ namespace CloudDeliveryMobile.Services.Implementations
         {
             string resource = string.Concat(OrdersApiResources.Cancel, "/", order.Id);
             await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
-            order.Status = OrderStatus.Cancelled;
-            this.AddedOrders.Remove(order);
 
-            if (this.AddedOrdersUpdated != null)
-                this.AddedOrdersUpdated.Invoke(this, null);
+            if (this.AddedOrders.Contains(order))
+            {
+                this.AddedOrders.Remove(order);
+                this.AddedOrdersUpdated?.Invoke(this, null);
+            }
+
+            if (this.InProgressOrders.Contains(order))
+            {
+                this.InProgressOrders.Remove(order);
+                this.InProgressOrdersUpdated?.Invoke(this, null);
+            }
+
         }
 
         public async Task<OrderDetails> Details(int orderId)
@@ -63,8 +77,8 @@ namespace CloudDeliveryMobile.Services.Implementations
             string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.AddedOrders));
             this.AddedOrders = JsonConvert.DeserializeObject<List<OrderSalepoint>>(response);
 
-            if (this.AddedOrdersUpdated != null)
-                this.AddedOrdersUpdated.Invoke(this, null);
+
+            this.AddedOrdersUpdated?.Invoke(this, null);
 
             return this.AddedOrders;
         }
@@ -74,10 +88,19 @@ namespace CloudDeliveryMobile.Services.Implementations
             string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.InProgressOrders));
             this.InProgressOrders = JsonConvert.DeserializeObject<List<OrderSalepoint>>(response);
 
-            if (this.InProgressOrdersUpdated != null)
-                this.InProgressOrdersUpdated.Invoke(this, null);
+            this.InProgressOrdersUpdated?.Invoke(this, null);
 
             return this.AddedOrders;
+        }
+
+        public async Task<List<OrderFinishedListItem>> GetFinishedOrders()
+        {
+            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.FinishedOrders));
+            this.FinishedOrders = JsonConvert.DeserializeObject<List<OrderFinishedListItem>>(response);
+
+            this.FinishedOrdersUpdated?.Invoke(this, null);
+
+            return this.FinishedOrders;
         }
 
         public async Task<List<string>> StreetsList()
@@ -103,6 +126,12 @@ namespace CloudDeliveryMobile.Services.Implementations
             catch (Exception e) { }
 
             return new List<string>();
+        }
+
+        public void ClearData()
+        {
+            this.AddedOrders = null;
+            this.InProgressOrders = null;
         }
 
         private List<string> streets;

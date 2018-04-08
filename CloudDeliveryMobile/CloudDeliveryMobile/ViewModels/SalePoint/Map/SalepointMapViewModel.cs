@@ -42,7 +42,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
 
         private void SendAddedOrdersInteraction(object sender, EventArgs e)
         {
-            this._addedOrdersUpdateInteraction.Raise();
+            this._addedOrdersUpdateInteraction?.Raise();
         }
 
         //inprogress orders interaction
@@ -52,7 +52,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
 
         private void SendInProgressOrdersInteraction(object sender, EventArgs e)
         {
-            this._inProgressOrdersUpdateInteraction.Raise();
+            this._inProgressOrdersUpdateInteraction?.Raise();
         }
 
         public GeoPosition BasePosition

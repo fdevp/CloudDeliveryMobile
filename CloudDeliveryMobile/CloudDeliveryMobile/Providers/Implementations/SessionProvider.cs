@@ -35,9 +35,9 @@ namespace CloudDeliveryMobile.Providers.Implementations
                 string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(ApiResources.UserInfo));
                 this.SessionData = JsonConvert.DeserializeObject<SessionData>(response);
             }
-            catch (Exception e)
+            catch (HttpUnprocessableEntityException e)
             {
-                throw new InvalidTokenException("Token expired.");
+                throw new InvalidTokenException("Sesja wygasła");
             }
 
             this.SessionData.access_token = token;
@@ -52,9 +52,9 @@ namespace CloudDeliveryMobile.Providers.Implementations
                 string response = await this.httpProvider.PostAsync(httpProvider.AbsoluteUri(ApiResources.Login), form.ToDict(),true);
                 this.SessionData = JsonConvert.DeserializeObject<SessionData>(response);
             }
-            catch (Exception e)
+            catch (HttpUnprocessableEntityException e)
             {
-                throw new SignInException("Invalid username or password.");
+                throw new SignInException("Podano nieprawidłowe dane");
             }
 
             this.httpProvider.SetAuthorizationHeader(this.SessionData.access_token);

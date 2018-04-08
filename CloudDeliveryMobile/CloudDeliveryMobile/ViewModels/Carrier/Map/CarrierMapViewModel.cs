@@ -1,4 +1,5 @@
-﻿using CloudDeliveryMobile.Models;
+﻿using CloudDeliveryMobile.Helpers.Exceptions;
+using CloudDeliveryMobile.Models;
 using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Models.Routes;
 using CloudDeliveryMobile.Providers;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Globalization;
 
 using System.Linq;
+using System.Net.Http;
 
 namespace CloudDeliveryMobile.ViewModels.Carrier
 {
@@ -19,15 +21,49 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
     {
         public CarrierSideViewViewModel SideView { get; set; }
 
-
         //collections
+        public IMvxAsyncCommand InitializeData
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    if (initialised)
+                        return;
+
+                    initialised = true;
+
+                    //init data
+                    this.InProgress = true;
+                    try
+                    {
+                        await this.routesService.ActiveRouteDetails();
+                    }
+                    catch (HttpUnprocessableEntityException) // no active route
+                    {
+                        await this.ordersService.GetPendingOrders();
+                    }
+                    catch (HttpRequestException httpException) //no connection
+                    {
+                        this.ErrorOccured = true;
+                        this.ErrorMessage = "Problem z połączeniem z serwerem.";
+                    }
+                    finally
+                    {
+                        this.InProgress = false;
+                        await this.navigationService.Navigate(this.SideView);
+                    }
+                });
+            }
+        }
+
         private MvxInteraction _ordersUpdateInteraction = new MvxInteraction();
 
         public IMvxInteraction OrdersUpdateInteraction => _ordersUpdateInteraction;
 
         private void SendInteraction(object sender, EventArgs e)
         {
-            this._ordersUpdateInteraction.Raise();
+            this._ordersUpdateInteraction?.Raise();
         }
 
         public List<OrderCarrier> PendingOrders
@@ -45,15 +81,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
                 return this.routesService.ActiveRoute;
             }
         }
-
-        public bool IsActiveRoute
-        {
-            get
-            {
-                return this.SideView.currentChildViewModel != null && this.SideView.currentChildViewModel.GetType() == typeof(CarrierSideActiveRouteViewModel);
-            }
-        }
-
 
         //floating elements
         public int? SelectedSalepointId
@@ -94,20 +121,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        //gmaps
-        public GeoPosition CurrentPosition
-        {
-            get
-            {
-                return this.currentPosition;
-            }
-            set
-            {
-                this.currentPosition = value;
-                RaisePropertyChanged(() => CurrentPosition);
-            }
-        }
-
         public GeoPosition BasePosition
         {
             get
@@ -133,25 +146,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-
-        //side view
-        public MvxAsyncCommand InitSideView
-        {
-            get
-            {
-                return new MvxAsyncCommand(async () =>
-                {
-                    if (this.sideViewInitialised)
-                        return;
-
-                    this.sideViewInitialised = true;
-                    await this.navigationService.Navigate(this.SideView);
-                });
-
-            }
-        }
-
-
         public CarrierMapViewModel(IDeviceProvider deviceProvider, IMvxNavigationService navigationService, ICarrierOrdersService ordersService, IRoutesService routesService)
         {
             this.deviceProvider = deviceProvider;
@@ -165,22 +159,16 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             this.SideView = Mvx.IocConstruct<CarrierSideViewViewModel>();
         }
 
-        public async override void Start()
+
+        public override void ViewDestroy(bool viewFinishing = true)
         {
-            if (initialised)
-                return;
-
-            base.Start();
-
-            //pending orders
-            await this.ordersService.GetPendingOrders();
-            initialised = true;
+            base.ViewDestroy(viewFinishing);
+            this.initialised = false;
         }
 
         private int? selectedSalepointId;
         private bool initialised = false;
         private float? baseZoom;
-        private bool sideViewInitialised = false;
         private GeoPosition basePosition;
         private GeoPosition currentPosition = new GeoPosition();
 

@@ -22,7 +22,15 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.SideView
 
             this.view.ViewTreeObserver.AddOnGlobalLayoutListener(this);
 
+            
+
             return view;
+        }
+
+        public override void OnStart()
+        {
+            base.OnStart();
+            this.ViewModel.InitializeSideViewContent.ExecuteAsync();
         }
 
         public void OnGlobalLayout()

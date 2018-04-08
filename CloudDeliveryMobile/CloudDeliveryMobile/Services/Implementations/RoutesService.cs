@@ -24,20 +24,20 @@ namespace CloudDeliveryMobile.Services.Implementations
         {
             string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(RoutesApiResources.ActiveRouteDetails));
             this.ActiveRoute = JsonConvert.DeserializeObject<RouteDetails>(response);
-            if (this.ActiveRouteUpdated != null)
-                this.ActiveRouteUpdated.Invoke(this, null);
+
+            this.ActiveRouteUpdated?.Invoke(this, null);
             return this.ActiveRoute;
         }
-   
+
         public async Task<RouteDetails> Add(List<RouteEditModel> model)
         {
             string response = await this.httpProvider.PostAsync(httpProvider.AbsoluteUri(RoutesApiResources.Add), model);
             this.ActiveRoute = JsonConvert.DeserializeObject<RouteDetails>(response);
-            if (this.ActiveRouteUpdated != null)
-                this.ActiveRouteUpdated.Invoke(this, null);
+
+            this.ActiveRouteUpdated?.Invoke(this, null);
             return this.ActiveRoute;
         }
-        
+
         public async Task<RouteDetails> Details(int routeId)
         {
             string resource = string.Concat(RoutesApiResources.Details, "/", routeId);
@@ -51,10 +51,13 @@ namespace CloudDeliveryMobile.Services.Implementations
             string resource = string.Concat(RoutesApiResources.Finish, "/", ActiveRoute.Id);
             await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
             this.ActiveRoute = null;
-            if (this.ActiveRouteUpdated != null)
-                this.ActiveRouteUpdated.Invoke(this, null);
+            this.ActiveRouteUpdated?.Invoke(this, null);
         }
 
+        public void ClearData()
+        {
+            this.ActiveRoute = null;
+        }
         public async Task PassPoint(RoutePoint point)
         {
             string resource = string.Concat(RoutesApiResources.PassPoint, "/", point.Id);

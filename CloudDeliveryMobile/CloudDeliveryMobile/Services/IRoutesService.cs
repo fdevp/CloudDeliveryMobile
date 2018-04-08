@@ -20,5 +20,7 @@ namespace CloudDeliveryMobile.Services
         Task<RouteDetails> Details(int routeId);
 
         Task PassPoint(RoutePoint point);
+
+        void ClearData();
     }
 }

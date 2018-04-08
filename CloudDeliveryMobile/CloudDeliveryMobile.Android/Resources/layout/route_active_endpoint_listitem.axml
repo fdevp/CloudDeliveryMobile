@@ -183,13 +183,14 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="2dp"
-          android:orientation="horizontal">
+          android:orientation="horizontal"
+          app:MvxBind="Visible Order.CustomerPhone,Converter=StringNullEmptyVisibility">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="15dp"
-            android:text="Telefon: "
+            android:text="Telefon klienta: "
                         />
         <TextView
             android:layout_width="wrap_content"
@@ -378,7 +379,7 @@
              android:textSize="11dp"
              android:textColor="@color/whiteColor"
              android:text="Dostarczono"
-             app:MvxBind="Click PassPoint; Visible !InProgress"/>
+             app:MvxBind="Click PassPointCommand; Visible !InProgress"/>
 
         </LinearLayout>
 

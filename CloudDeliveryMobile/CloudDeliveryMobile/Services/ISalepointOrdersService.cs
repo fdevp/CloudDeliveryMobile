@@ -13,13 +13,19 @@ namespace CloudDeliveryMobile.Services
 
         event EventHandler InProgressOrdersUpdated;
 
+        event EventHandler FinishedOrdersUpdated;
+
         List<OrderSalepoint> AddedOrders { get; }
 
         List<OrderSalepoint> InProgressOrders { get;}
 
+        List<OrderFinishedListItem> FinishedOrders { get; }
+
         Task<List<OrderSalepoint>> GetAddedOrders();
 
         Task<List<OrderSalepoint>> GetInProgressOrders();
+
+        Task<List<OrderFinishedListItem>> GetFinishedOrders();
 
         Task<OrderDetails> Details(int orderId);
 
@@ -28,5 +34,7 @@ namespace CloudDeliveryMobile.Services
         Task<List<string>> StreetsList();
 
         Task Cancel(OrderSalepoint order);
+
+        void ClearData();
     }
 }

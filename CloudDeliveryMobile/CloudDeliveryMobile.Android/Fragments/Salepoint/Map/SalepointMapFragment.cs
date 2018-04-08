@@ -27,7 +27,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
     public class SalepointMapFragment : MvxFragment<SalepointMapViewModel>, IOnMapReadyCallback
     {
         private GoogleMap map;
-
+        private MapFragment mapFragment;
 
         private Dictionary<int, Marker> addedOrdersMarkers = new Dictionary<int, Marker>();
         private Dictionary<int, Marker> inprogressOrdersMarkers = new Dictionary<int, Marker>();
@@ -38,8 +38,13 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
         {
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
             this.view = this.BindingInflate(FragmentId, null);
-            MapFragment mapFragment = (MapFragment)this.Activity.FragmentManager.FindFragmentById(Resource.Id.salepoint_gmap_fragment);
-            mapFragment.GetMapAsync(this);
+
+            if(mapFragment == null)
+            {
+                mapFragment = (MapFragment)this.Activity.FragmentManager.FindFragmentById(Resource.Id.salepoint_gmap_fragment);
+                mapFragment.GetMapAsync(this);
+            }
+            
 
             //sideview
             Task.Run(async () => { await this.ViewModel.InitSideView.ExecuteAsync(); });
@@ -85,6 +90,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
 
             this.map.AnimateCamera(CameraUpdateFactory.NewLatLng(e.Marker.Position));
 
+            e.Marker.ShowInfoWindow();
             //this.ViewModel.Show
         }
 
@@ -128,7 +134,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
             }
 
             //remove outdated
-            foreach (var item in addedOrdersMarkers)
+            foreach (var item in addedOrdersMarkers.ToList())
             {
                 if (this.ViewModel.AddedOrders.All(x => x.Id != item.Key))
                 {
@@ -136,6 +142,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
                     addedOrdersMarkers.Remove(item.Key);
                 }
             }
+
 
             //add new
             foreach (var item in this.ViewModel.AddedOrders)
@@ -151,6 +158,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
 
                 options.SetIcon(salepointMarkerIcon);
                 options.SetPosition(new LatLng(item.EndLatLng.lat, item.EndLatLng.lng));
+                options.SetTitle(string.Concat(item.DestinationCity, ", ", item.DestinationAddress));
 
                 Marker marker = this.map.AddMarker(options);
                 marker.Tag = new MarkerTag { Type = MarkerType.AddedOrder, OrderId = item.Id };
@@ -169,7 +177,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
             }
 
             //remove outdated
-            foreach (var item in inprogressOrdersMarkers)
+            foreach (var item in inprogressOrdersMarkers.ToList())
             {
                 if (this.ViewModel.InProgressOrders.All(x => x.Id != item.Key))
                 {

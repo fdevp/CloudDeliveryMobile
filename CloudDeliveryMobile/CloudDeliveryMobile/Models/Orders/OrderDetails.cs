@@ -1,12 +1,11 @@
 ﻿using CloudDeliveryMobile.Models.Enums;
+using Newtonsoft.Json;
 using System;
 
 namespace CloudDeliveryMobile.Models.Orders
 {
-    public class OrderDetails
+    public class OrderDetails : Order
     {
-        public int Id { get; set; }
-
         public string SalepointName { get; set; }
 
         public int SalepointId { get; set; }
@@ -15,38 +14,31 @@ namespace CloudDeliveryMobile.Models.Orders
 
         public int? CarrierId { get; set; }
 
-        public string SalepointLatLng { get; set; }
+        [JsonProperty(PropertyName = "SalepointLatLng")]
+        public string SalepointLatLngString { get; set; }
 
-        public DateTime? AddedTime { get; set; }
+        [JsonIgnore]
+        public GeoPosition SalepointLatLng
+        {
+            get
+            {
+                if (this.salepointLatLng != null)
+                    return this.salepointLatLng;
+                this.salepointLatLng = JsonConvert.DeserializeObject<GeoPosition>(this.SalepointLatLngString);
+                return this.salepointLatLng;
+            }
+        }
 
         public DateTime? AcceptedTime { get; set; }
 
         public DateTime? CancellationTime { get; set; }
 
-        public DateTime? RequiredPickUpTime { get; set; }
-
         public DateTime? PickUpTime { get; set; }
 
         public DateTime? DeliveredTime { get; set; }
 
-        public string StartLatLng { get; set; }
-
-        public string DestinationCity { get; set; }
-
-        public string DestinationAddress { get; set; }
-
-        public int Priority { get; set; }
-
-        public OrderStatus Status { get; set; }
-
-        public string TraceJSON { get; set; }
-
-        public string EndLatLng { get; set; }
-
-        public int? DistanceMeters { get; set; }
-
-        public int? ExpectedMinutes { get; set; }
-
         public int? FinalMinutes { get; set; }
+
+        private GeoPosition salepointLatLng;
     }
 }

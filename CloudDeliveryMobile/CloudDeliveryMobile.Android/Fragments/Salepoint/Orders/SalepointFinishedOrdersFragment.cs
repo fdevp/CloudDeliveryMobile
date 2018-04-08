@@ -19,7 +19,7 @@ using MvvmCross.Droid.Views.Attributes;
 namespace CloudDeliveryMobile.Android.Fragments.Salepoint
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(SalePointRootViewModel), IsCacheableFragment = true)]
-    public class SalepointOrdersFragment : MvxFragment<SalepointOrdersViewModel>
+    public class SalepointFinishedOrdersFragment : MvxFragment<SalepointFinishedOrdersViewModel>
     {
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -28,6 +28,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
             return view;
         }
 
-        private int FragmentId { get; } = Resource.Layout.carrier_orders;
+        private int FragmentId { get; } = Resource.Layout.salepoint_finished_orders;
     }
 }

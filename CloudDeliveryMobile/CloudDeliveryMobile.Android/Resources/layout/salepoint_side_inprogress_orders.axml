@@ -10,7 +10,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             app:MvxItemTemplate="@layout/salepoint_order_inprogress_listitem"
-            app:MvxBind="ItemsSource Orders"/>
+            app:MvxBind="ItemsSource Orders;Visible ShowContent"/>
 
   <include layout="@layout/main_inprogress"/>
   

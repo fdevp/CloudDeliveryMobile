@@ -23,7 +23,7 @@ namespace CloudDeliveryMobile.Services.Implementations
         public List<OrderCarrier> PendingOrders { get; private set; }
 
         public List<OrderCarrier> AcceptedOrders { get; private set; }
-        
+
         public async Task Accept(OrderCarrier order)
         {
             string resource = string.Concat(OrdersApiResources.Accept, "/", order.Id);
@@ -31,15 +31,12 @@ namespace CloudDeliveryMobile.Services.Implementations
 
             order.Id = int.Parse(id);
             this.AcceptedOrders.Add(order);
-
-            if (this.AcceptedOrdersUpdated != null)
-                this.AcceptedOrdersUpdated.Invoke(this, null);
+            this.AcceptedOrdersUpdated?.Invoke(this, null);
 
             this.PendingOrders.Remove(order);
-            if (this.PendingOrdersUpdated != null)
-                this.PendingOrdersUpdated.Invoke(this, null);
+            this.PendingOrdersUpdated?.Invoke(this, null);
         }
-      
+
         public async Task Delivered(OrderRoute order)
         {
             string resource = string.Concat(OrdersApiResources.Delivered, "/", order.Id);
@@ -61,8 +58,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.AcceptedOrders));
             this.AcceptedOrders = JsonConvert.DeserializeObject<List<OrderCarrier>>(response);
 
-            if (this.AcceptedOrdersUpdated != null)
-                this.AcceptedOrdersUpdated.Invoke(this, null);
+            this.AcceptedOrdersUpdated?.Invoke(this, null);
 
             return this.AcceptedOrders;
         }
@@ -73,8 +69,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.PendingOrders));
             this.PendingOrders = JsonConvert.DeserializeObject<List<OrderCarrier>>(response);
 
-            if (this.PendingOrdersUpdated != null)
-                this.PendingOrdersUpdated.Invoke(this, null);
+            this.PendingOrdersUpdated?.Invoke(this, null);
 
             return this.PendingOrders;
         }
@@ -85,6 +80,12 @@ namespace CloudDeliveryMobile.Services.Implementations
             string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(resource));
             OrderDetails order = JsonConvert.DeserializeObject<OrderDetails>(response);
             return order;
+        }
+
+        public void ClearData()
+        {
+            this.AcceptedOrders = null;
+            this.PendingOrders = null;
         }
 
         private IHttpProvider httpProvider;

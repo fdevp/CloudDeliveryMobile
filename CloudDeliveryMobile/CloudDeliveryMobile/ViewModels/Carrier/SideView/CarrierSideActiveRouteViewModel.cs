@@ -78,6 +78,8 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             this.routesService = routesService;
             this.navigationService = navigationService;
             this.ordersService = ordersService;
+
+           
         }
 
         public override void Start()
@@ -150,7 +152,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
         private bool initialised = false;
         private bool _allPointsPassed = false;
         private bool _finishingInProgress = false;
-
+        
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;
         private ICarrierOrdersService ordersService;

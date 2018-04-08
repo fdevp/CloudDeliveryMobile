@@ -20,7 +20,7 @@ using AndroidNet = Android.Net;
 
 namespace CloudDeliveryMobile.Android.Components.FloatingWidget
 {
-    public class FloatingWidgetExpandedController
+    public class FloatingWidgetExpandedController : Java.Lang.Object, IDialogInterfaceOnClickListener
     {
         private FloatingWidgetService service;
         private CarrierSideActiveRouteViewModel viewModel;
@@ -30,7 +30,6 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
         //buttons
         private ImageButton nextPointButton;
         private ImageButton previousPointButton;
-        private Button finishOrderButton;
         private Button showAppButton;
         private Button gmapsIntentButton;
 
@@ -69,9 +68,6 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
             previousPointButton = expandedView.FindViewById<ImageButton>(Resource.Id.widget_previous_point_button);
             previousPointButton.Click += PreviousPointClick;
 
-            finishOrderButton = expandedView.FindViewById<Button>(Resource.Id.widget_finish_order_button);
-            finishOrderButton.Click += FinishOrderClick;
-
             showAppButton = expandedView.FindViewById<Button>(Resource.Id.widget_show_app_button);
             showAppButton.Click += ShowAppClick;
 
@@ -101,7 +97,6 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
             pointTypeIcon.Visibility = ViewStates.Gone;
             pointTypeHeader.SetTextColor(ContextCompat.GetColorStateList(this.service.BaseContext, Resource.Color.grayColor));
 
-            finishOrderButton.Visibility = ViewStates.Gone;
             showAppButton.Visibility = ViewStates.Gone;
             gmapsIntentButton.Visibility = ViewStates.Gone;
 
@@ -119,7 +114,6 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
             pointTypeIcon.SetImageResource(Resource.Drawable.marker);
             pointTypeHeader.SetTextColor(ContextCompat.GetColorStateList(this.service.BaseContext, Resource.Color.primaryColor));
 
-            finishOrderButton.Visibility = ViewStates.Visible;
             showAppButton.Visibility = ViewStates.Visible;
             gmapsIntentButton.Visibility = ViewStates.Visible;
 
@@ -133,7 +127,6 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
             pointTypeIcon.SetImageResource(Resource.Drawable.marker_bw);
             pointTypeHeader.SetTextColor(ContextCompat.GetColorStateList(this.service.BaseContext, Resource.Color.blackColor));
 
-            finishOrderButton.Visibility = ViewStates.Gone;
             showAppButton.Visibility = ViewStates.Visible;
             gmapsIntentButton.Visibility = ViewStates.Visible;
 
@@ -160,12 +153,14 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
             int index = viewModel.Points.IndexOf(currentPoint);
             int pointsCount = viewModel.Points.Count;
 
+            this.nextPointButton.Visibility = this.previousPointButton.Visibility = ViewStates.Visible;
+
             if (index == pointsCount - 1)
                 this.nextPointButton.Visibility = ViewStates.Gone;
-            else if (index == 0)
+
+            if (index == 0)
                 this.previousPointButton.Visibility = ViewStates.Gone;
-            else
-                this.nextPointButton.Visibility = this.previousPointButton.Visibility = ViewStates.Visible;
+
 
             pointIndex.Text = string.Concat(index + 1, "/", pointsCount);
         }
@@ -201,7 +196,11 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
 
         private void FinishOrderClick(object sender, EventArgs e)
         {
-
+            new AlertDialog.Builder(this.service.BaseContext)
+                           .SetMessage("siema")
+                           .SetPositiveButton("tak", this)
+                           .SetNegativeButton("nie", this)
+                           .Show();
         }
 
         private void GmapsNavigationClick(object sender, EventArgs e)
@@ -211,5 +210,9 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
             service.BaseContext.StartActivity(intent);
         }
 
+        public void OnClick(IDialogInterface dialog, int which)
+        {
+            
+        }
     }
 }

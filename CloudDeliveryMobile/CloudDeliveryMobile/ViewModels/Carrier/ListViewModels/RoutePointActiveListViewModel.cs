@@ -37,44 +37,51 @@ namespace CloudDeliveryMobile.Models.Routes
             }
         }
 
-        public IMvxAsyncCommand PassPoint
+        public IMvxCommand PassPointCommand
         {
             get
             {
 
-                return new MvxAsyncCommand(async () =>
+                return new MvxCommand(async () =>
                 {
-                    this.InProgress = true;
-                    try
-                    {
-
-                        if (this.Point.Type == RoutePointType.SalePoint)
-                        {
-                            await routesService.PassPoint(this.Point);
-                        }
-                        else
-                        {
-                            Task passPoint = routesService.PassPoint(this.Point);
-                            Task deliverOrder = ordersService.Delivered(this.Point.Order);
-
-                            await Task.WhenAll(passPoint, deliverOrder);
-                        }
-
-                        this.Active = false;
-                        this.ShowDetails = false;
-
-                        if (this.OnActiveChange != null)
-                            this.OnActiveChange.Invoke(this.Point.Type == RoutePointType.SalePoint ? this.Point.Order.SalepointId : (int?)null);
-
-                    }
-                    catch (Exception e)
-                    {
-                        this.dialogsService.Toast(e.Message, TimeSpan.FromSeconds(5));
-                    }
-
-                    this.InProgress = false;
-                    RaiseAllPropertiesChanged();
+                    this.dialogsService.Confirm(this.passPointDialogConfig);
                 });
+            }
+        }
+
+        private async void PassPoint(bool dialogResult)
+        {
+            if (dialogResult)
+            {
+                this.InProgress = true;
+                try
+                {
+
+                    if (this.Point.Type == RoutePointType.SalePoint)
+                    {
+                        await routesService.PassPoint(this.Point);
+                    }
+                    else
+                    {
+                        Task passPoint = routesService.PassPoint(this.Point);
+                        Task deliverOrder = ordersService.Delivered(this.Point.Order);
+
+                        await Task.WhenAll(passPoint, deliverOrder);
+                    }
+
+                    this.Active = false;
+                    this.ShowDetails = false;
+
+                    this.OnActiveChange?.Invoke(this.Point.Type == RoutePointType.SalePoint ? this.Point.Order.SalepointId : (int?)null);
+
+                }
+                catch (Exception e)
+                {
+                    this.dialogsService.Toast(e.Message, TimeSpan.FromSeconds(5));
+                }
+
+                this.InProgress = false;
+                RaiseAllPropertiesChanged();
             }
         }
 
@@ -111,8 +118,22 @@ namespace CloudDeliveryMobile.Models.Routes
             this.ordersService = ordersService;
             this.phoneCallService = phoneCallService;
             this.dialogsService = dialogsService;
+
+            this.passPointDialogConfig = new ConfirmConfig();
+            this.passPointDialogConfig.OkText = "Tak";
+            this.passPointDialogConfig.CancelText = "Nie";
+            this.passPointDialogConfig.Title = "Dostarczenie zamówienia";
+            this.passPointDialogConfig.Message = "Czy na pewno chcesz zakończyć dowóz zamówienia?";
+            this.passPointDialogConfig.OnAction += x=> { };
         }
 
+
+        private void OrderAcceptation(bool dialogResult)
+        {
+
+        }
+
+        private ConfirmConfig passPointDialogConfig;
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;
         private ICarrierOrdersService ordersService;

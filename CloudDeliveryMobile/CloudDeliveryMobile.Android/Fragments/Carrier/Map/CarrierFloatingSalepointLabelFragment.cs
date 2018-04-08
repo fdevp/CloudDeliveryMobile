@@ -27,13 +27,22 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.Map
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
-            view = inflater.Inflate(this.FragmentId, container);
+            view = inflater.Inflate(this.FragmentId, container, false);
+
             var closeButton = view.FindViewById<ImageButton>(Resource.Id.carrier_floating_salepoint_label_close);
             closeButton.Click += CloseButtonClick;
 
             this.salepointNameTextView = view.FindViewById<TextView>(Resource.Id.carrier_floating_salepoint_label_name);
             this.salepointNameTextView.Text = this.salepointName;
             return view;
+        }
+
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            if (this.salepointNameTextView != null)
+                this.salepointNameTextView.Text = this.salepointName;
         }
 
         private void CloseButtonClick(object sender, EventArgs e)
@@ -46,8 +55,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.Map
             set
             {
                 this.salepointName = value;
-                if(this.salepointNameTextView != null)
-                    this.salepointNameTextView.Text = value;
+                
             }
         }
 

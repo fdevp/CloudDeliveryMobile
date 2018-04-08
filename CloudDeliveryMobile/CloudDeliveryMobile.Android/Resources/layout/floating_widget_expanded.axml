@@ -128,14 +128,14 @@
           android:gravity="center"
           android:layout_height="40dp"
           android:layout_marginTop="3dp"
-          android:weightSum="3">
+          android:weightSum="2">
 
 
         <LinearLayout
           android:id="@+id/widget_passed_time_container"
           android:layout_height="match_parent"  
           android:layout_width="wrap_content"
-          android:layout_weight="3">
+          android:layout_weight="2">
                 
         <TextView
             android:id="@+id/widget_passed_time_text"
@@ -146,26 +146,10 @@
                         />
         
           </LinearLayout>
-          
+        
         <LinearLayout
           android:layout_height="match_parent"
-          android:layout_width="wrap_content"
-          android:layout_weight="1">
-
-          <Button
-          android:id="@+id/widget_finish_order_button"
-          android:layout_margin="3dp"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:background="@drawable/ripple_gray_color_rounded"
-          android:text="DOWÓZ"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-          android:layout_height="match_parent"
-          android:layout_width="wrap_content"
           android:layout_weight="1">
 
           <Button
@@ -178,9 +162,9 @@
         </LinearLayout>
 
         <LinearLayout
-  android:layout_height="match_parent"
-  android:layout_width="wrap_content"
-  android:layout_weight="1">
+          android:layout_height="match_parent"
+          android:layout_width="match_parent"
+          android:layout_weight="1">
 
           <Button
         android:id="@+id/widget_set_gmaps_button"

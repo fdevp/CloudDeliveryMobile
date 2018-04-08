@@ -15,7 +15,7 @@ namespace CloudDeliveryMobile.Models.Orders
         public int SalepointId { get; set; }
 
         [JsonProperty(PropertyName = "SalepointLatLng")]
-        public string SalepointLatLngString { get; set; }
+        private string SalepointLatLngString { get; set; }
 
         [JsonIgnore]
         public GeoPosition SalepointLatLng
@@ -24,12 +24,16 @@ namespace CloudDeliveryMobile.Models.Orders
             {
                 if (this.salepointLatLng != null)
                     return this.salepointLatLng;
+
+                if (this.SalepointLatLngString == null)
+                    return null;
+
                 this.salepointLatLng = JsonConvert.DeserializeObject<GeoPosition>(this.SalepointLatLngString);
                 return this.salepointLatLng;
             }
         }
 
         private GeoPosition salepointLatLng;
-        
+
     }
 }

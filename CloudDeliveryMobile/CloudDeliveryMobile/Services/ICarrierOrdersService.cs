@@ -25,5 +25,7 @@ namespace CloudDeliveryMobile.Services
         Task Pickup(OrderRoute order);
 
         Task Delivered(OrderRoute order);
+
+        void ClearData();
     }
 }

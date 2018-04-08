@@ -1,4 +1,6 @@
-﻿using CloudDeliveryMobile.Models.Orders;
+﻿using Acr.UserDialogs;
+using CloudDeliveryMobile.Helpers.Exceptions;
+using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Resources;
 using CloudDeliveryMobile.Services;
 using MvvmCross.Core.Navigation;
@@ -10,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +37,36 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
                 return new MvxAsyncCommand(async () =>
                 {
                     string asd = JsonConvert.SerializeObject(this.Model);
+                    this.InProgress = true;
+                    try
+                    {
+                        await this.salepointOrdersService.Add(this.Model);
+                        this.dialogsService.Toast("Dodano nowe zamówienie.", TimeSpan.FromSeconds(5));
+                        await this.navigationService.Close(this);
+                        return;
+                    }
+                    catch (HttpUnprocessableEntityException e) // server error
+                    {
+                        this.ErrorOccured = true;
+                        this.ErrorMessage = e.Message;
+                    }
+                    catch (HttpRequestException httpException) //no connection
+                    {
+                        this.ErrorOccured = true;
+                        this.ErrorMessage = "Problem z połączeniem z serwerem.";
+                    }
+                    catch (Exception unknownException)
+                    {
+                        this.ErrorOccured = true;
+                        this.ErrorMessage = "Wystąpił nieznany błąd.";
+                    }
+                    finally
+                    {
+                        this.InProgress = false;
+                    }
+
+                    this.dialogsService.Toast(string.Concat("Błąd, ", this.ErrorMessage), TimeSpan.FromSeconds(5));
+
                 });
             }
         }
@@ -133,13 +166,15 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
             }
         }
 
-        public SalepointNewOrderViewModel(IMvxNavigationService navigationService, ISalepointOrdersService salepointOrdersService)
+        public SalepointNewOrderViewModel(IMvxNavigationService navigationService, ISalepointOrdersService salepointOrdersService, IUserDialogs dialogsService)
         {
             this.salepointOrdersService = salepointOrdersService;
             this.navigationService = navigationService;
+            this.dialogsService = dialogsService;
 
             this.Model = new OrderEditModel();
             this.Model.DestinationCity = ConstantValues.default_city;
+            this.Model.DestinationAddress = string.Empty;
 
             LoadStreetsList();
         }
@@ -151,6 +186,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
         private bool geocoderFinished = false;
         private string apartament;
 
+        private IUserDialogs dialogsService;
         private ISalepointOrdersService salepointOrdersService;
         private IMvxNavigationService navigationService;
 
@@ -222,7 +258,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
                 }
                 return _streetSuggestions;
             }
-            set { _streetSuggestions = value; RaisePropertyChanged(()=> StreetSuggestions); }
+            set { _streetSuggestions = value; RaisePropertyChanged(() => StreetSuggestions); }
         }
 
         private List<string> CompleteStreetsList;
@@ -236,7 +272,5 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
         {
             StreetSuggestions = new List<string>();
         }
-
-       
     }
 }

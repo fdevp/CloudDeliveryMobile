@@ -47,8 +47,7 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
                 activity.FloatingWidgetBinder = serviceBinder.GetService();
                 activity.FloatingWidetIsBound = true;
 
-                if (serviceConnected != null)
-                    serviceConnected.Invoke(this, null);
+                serviceConnected?.Invoke(this, null);
             }
         }
 

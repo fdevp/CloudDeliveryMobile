@@ -35,6 +35,9 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Converters\AllowCancelOrderValueConveter.cs" />
+    <Compile Include="Converters\DeliveredStatusValueConverter.cs" />
+    <Compile Include="Converters\MonthShortTextValueConverter.cs" />
+    <Compile Include="Converters\StringNullEmptyVisibilityValueConverter.cs" />
     <Compile Include="Converters\NullVisibilityValueConverter.cs" />
     <Compile Include="Converters\TogglePointValueConverter.cs" />
     <Compile Include="Converters\PriceTextValueConverter.cs" />
@@ -56,6 +59,7 @@
     <Compile Include="Models\GeoPosition.cs" />
     <Compile Include="Models\Orders\Order.cs" />
     <Compile Include="Models\Orders\OrderEditModel.cs" />
+    <Compile Include="Models\Orders\OrderFinishedListItem.cs" />
     <Compile Include="Models\Orders\OrderRoute.cs" />
     <Compile Include="Models\Orders\OrderSalepoint.cs" />
     <Compile Include="Services\Implementations\SalepointOrdersService.cs" />
@@ -122,9 +126,9 @@
     <Compile Include="Services\Implementations\RoutesService.cs" />
     <Compile Include="Services\ICarrierOrdersService.cs" />
     <Compile Include="Services\IRoutesService.cs" />
-    <Compile Include="ViewModels\SalePoint\Map\SalepointFloatingOrderDetailsViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\Orders\SalepointOrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\SalepointNewOrderViewModel.cs" />
-    <Compile Include="ViewModels\SalePoint\SideView\SalepointOrderListItemViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\ListViewModels\SalepointOrderListItemViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\SideView\SalepointSideAddedOrdersViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\SideView\SalepointSideInProgressOrdersViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\SideView\SalepointSideViewViewModel.cs" />
@@ -140,7 +144,7 @@
     <Compile Include="ViewModels\Carrier\SideView\CarrierSideViewViewModel.cs" />
     <Compile Include="ViewModels\Shared\InProgressViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\Map\SalepointMapViewModel.cs" />
-    <Compile Include="ViewModels\SalePoint\SalepointOrdersViewModel.cs" />
+    <Compile Include="ViewModels\SalePoint\Orders\SalepointFinishedOrdersViewModel.cs" />
     <Compile Include="ViewModels\SalePoint\SalePointRootViewModel.cs" />
     <Compile Include="ViewModels\Shared\ProfileViewModel.cs" />
     <Compile Include="ViewModels\Shared\SigninViewModel.cs" />

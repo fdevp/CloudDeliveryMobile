@@ -141,6 +141,9 @@
   <data name="Details" xml:space="preserve">
     <value>api/orders/details</value>
   </data>
+  <data name="FinishedOrders" xml:space="preserve">
+    <value>api/orders/FinishedList</value>
+  </data>
   <data name="GetTrace" xml:space="preserve">
     <value>api/orders/gettrace</value>
   </data>

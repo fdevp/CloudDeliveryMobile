@@ -19,10 +19,5 @@ namespace CloudDeliveryMobile.Models.Orders
 
         public DateTime? PickUpTime { get; set; }
 
-        public DateTime? DeliveredTime { get; set; }
-
-        public string CustomerPhone { get; set; }
-
-        public decimal? Price { get; set; }
     }
 }

@@ -26,8 +26,8 @@ namespace CloudDeliveryMobile.Android.Activities
             if (viewPager != null)
             {
                 var fragments = new List<MvxViewPagerFragmentInfo>();
-                fragments.Add(new MvxViewPagerFragmentInfo("Mapa", typeof(SalepointMapFragment), typeof(SalepointMapViewModel)));
-                fragments.Add(new MvxViewPagerFragmentInfo("Zamówienia", typeof(SalepointOrdersFragment), typeof(SalepointOrdersViewModel)));
+                fragments.Add(new MvxViewPagerFragmentInfo("Zamówienia", typeof(SalepointMapFragment), typeof(SalepointMapViewModel)));
+                fragments.Add(new MvxViewPagerFragmentInfo("Zakończone", typeof(SalepointFinishedOrdersFragment), typeof(SalepointFinishedOrdersViewModel)));
                 fragments.Add(new MvxViewPagerFragmentInfo("Profil", typeof(ProfileFragment), typeof(ProfileViewModel)));
                 viewPager.Adapter = new MvxCachingFragmentStatePagerAdapter(this, this.SupportFragmentManager, fragments);
                 viewPager.OffscreenPageLimit = 2;

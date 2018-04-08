@@ -5,32 +5,113 @@ namespace CloudDeliveryMobile.ViewModels
 {
     public class BaseViewModel : MvxViewModel
     {
-        public Error Error { get; set; } = new Error();
+
+        public string ErrorMessage
+        {
+            get
+            {
+                return this.error.Message;
+            }
+            set
+            {
+                this.error.Message = value;
+                RaisePropertyChanged(() => this.ErrorMessage);
+            }
+        }
+
+        public bool ErrorOccured
+        {
+            get
+            {
+                return this.error.Occured;
+            }
+            set
+            {
+                this.error.Occured = value;
+                RaisePropertyChanged(() => this.ErrorOccured);
+                RaisePropertyChanged(() => ShowContent);
+            }
+        }
 
         public bool InProgress
         {
             get { return _inProgress; }
-            set { _inProgress = value; RaisePropertyChanged(() => InProgress); }
+            set
+            {
+                _inProgress = value;
+                RaisePropertyChanged(() => InProgress);
+                RaisePropertyChanged(() => ShowContent);
+            }
+        }
+
+        public bool ShowContent
+        {
+            get
+            {
+                return !this.InProgress && !this.ErrorOccured;
+            }
         }
 
         protected bool _inProgress;
+        protected Error error = new Error();
     }
 
     public class BaseViewModel<TParameter> : MvxViewModel<TParameter>
     {
-        public Error Error { get; set; } = new Error();
+        public string ErrorMessage
+        {
+            get
+            {
+                return this.error.Message;
+            }
+            set
+            {
+                this.error.Message = value;
+                RaisePropertyChanged(() => this.ErrorMessage);
+                RaisePropertyChanged(() => ShowContent);
+            }
+        }
+
+        public bool ErrorOccured
+        {
+            get
+            {
+                return this.error.Occured;
+            }
+            set
+            {
+                this.error.Occured = value;
+                RaisePropertyChanged(() => this.ErrorOccured);
+                RaisePropertyChanged(() => ShowContent);
+            }
+        }
+
+        public bool ShowContent
+        {
+            get
+            {
+                return !this.InProgress && !this.ErrorOccured;
+            }
+        }
+
 
         public bool InProgress
         {
             get { return _inProgress; }
-            set { _inProgress = value; RaisePropertyChanged(() => InProgress); }
+            set
+            {
+                _inProgress = value;
+                RaisePropertyChanged(() => InProgress);
+                RaisePropertyChanged(() => ShowContent);
+            }
         }
-
-        protected bool _inProgress;
 
         public override void Prepare(TParameter parameter)
         {
-            
+
         }
+
+        protected bool _inProgress;
+        protected Error error = new Error();
     }
 }

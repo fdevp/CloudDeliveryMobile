@@ -34,11 +34,19 @@ namespace CloudDeliveryMobile.Models.Orders
             {
                 if (this.endLatLng != null)
                     return this.endLatLng;
+
+                if (this.EndLatLngString == null)
+                    return null;
+
                 this.endLatLng = JsonConvert.DeserializeObject<GeoPosition>(this.EndLatLngString);
                 return this.endLatLng;
             }
         }
 
         private GeoPosition endLatLng;
+
+        public decimal? Price { get; set; }
+
+        public string CustomerPhone { get; set; }
     }
 }
