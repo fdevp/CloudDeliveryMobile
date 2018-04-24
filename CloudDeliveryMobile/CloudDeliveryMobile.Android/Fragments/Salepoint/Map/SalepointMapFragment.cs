@@ -10,10 +10,15 @@ using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
 using CloudDeliveryMobile.Android.Components.Geolocation;
+using CloudDeliveryMobile.Android.Components.Map;
+using CloudDeliveryMobile.Models;
+using CloudDeliveryMobile.Models.Enums.Events;
 using CloudDeliveryMobile.ViewModels;
 using CloudDeliveryMobile.ViewModels.SalePoint.Map;
+using Microsoft.AspNet.SignalR.Client;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Core.ViewModels;
@@ -29,22 +34,27 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
         private GoogleMap map;
         private MapFragment mapFragment;
 
-        private Dictionary<int, Marker> addedOrdersMarkers = new Dictionary<int, Marker>();
-        private Dictionary<int, Marker> inprogressOrdersMarkers = new Dictionary<int, Marker>();
+        private ImageButton refreshButton;
+        private Animation refreshingInProgressAnimation;
 
-        private bool setMarkersAfterMapInitialisation = false;
+        private ImageButton signalrReconnectButton;
+
+        private SalepointMapMarkersManager mapMarkersManager;
+
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
             this.view = this.BindingInflate(FragmentId, null);
 
-            if(mapFragment == null)
+            if (mapFragment == null)
             {
                 mapFragment = (MapFragment)this.Activity.FragmentManager.FindFragmentById(Resource.Id.salepoint_gmap_fragment);
                 mapFragment.GetMapAsync(this);
             }
-            
+
+
+            SetRotationAnimation();
 
             //sideview
             Task.Run(async () => { await this.ViewModel.InitSideView.ExecuteAsync(); });
@@ -53,6 +63,19 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
 
         }
 
+
+        public override void OnDestroy()
+        {
+            if (this.mapMarkersManager != null)
+            {
+                this._addedOrdersUpdateInteraction.Requested -= this.mapMarkersManager.HandleAddedOrdersMarkers;
+                this._inProgressOrdersUpdateInteraction.Requested -= this.mapMarkersManager.HandleInProgressOrdersMarkers;
+                this.mapMarkersManager.Dispose();
+            }
+            base.OnDestroy();
+        }
+
+        //map
         public void OnMapReady(GoogleMap googleMap)
         {
             this.map = googleMap;
@@ -68,22 +91,11 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
             CameraUpdate latLngZoom = CameraUpdateFactory.NewLatLngZoom(position, this.ViewModel.BaseZoom);
             this.map.MoveCamera(latLngZoom);
 
-            //interaction binding
-            var set = this.CreateBindingSet<SalepointMapFragment, SalepointMapViewModel>();
-            set.Bind(this).For(v => v.AddedOrdersUpdateInteraction).To(viewModel => viewModel.AddedOrdersUpdateInteraction).OneWay();
-            set.Bind(this).For(v => v.InProgressOrdersUpdateInteraction).To(viewModel => viewModel.InProgressOrdersUpdateInteraction).OneWay();
-            set.Apply();
-
-
-            //if orders inited before
-            if (setMarkersAfterMapInitialisation)
-            {
-                this.SetAddedMarkers(this, null);
-                this.SetInProgressMarkers(this, null);
-                setMarkersAfterMapInitialisation = false;
-            }
+            //markers manager
+            this.InitMarkersManager();
         }
 
+        //markers
         public void MarkerClickEvent(object sender, MarkerClickEventArgs e)
         {
             MarkerTag tag = (MarkerTag)e.Marker.Tag;
@@ -93,119 +105,79 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
             e.Marker.ShowInfoWindow();
             //this.ViewModel.Show
         }
-
-
-        //added orders markers
-        private IMvxInteraction _addedOrdersUpdateInteraction;
-        public IMvxInteraction AddedOrdersUpdateInteraction
+       
+        private IMvxInteraction<ServiceEvent<SalepointAddedOrdersEvents>> _addedOrdersUpdateInteraction;
+        public IMvxInteraction<ServiceEvent<SalepointAddedOrdersEvents>> AddedOrdersUpdateInteraction
         {
             get => _addedOrdersUpdateInteraction;
             set
             {
                 if (_addedOrdersUpdateInteraction != null)
-                    _addedOrdersUpdateInteraction.Requested -= SetAddedMarkers;
+                    _addedOrdersUpdateInteraction.Requested -= this.mapMarkersManager.HandleAddedOrdersMarkers;
 
                 _addedOrdersUpdateInteraction = value;
-                _addedOrdersUpdateInteraction.Requested += SetAddedMarkers;
+                _addedOrdersUpdateInteraction.Requested += this.mapMarkersManager.HandleAddedOrdersMarkers;
             }
         }
 
-        //inprogress orders markers
-        private IMvxInteraction _inProgressOrdersUpdateInteraction;
-        public IMvxInteraction InProgressOrdersUpdateInteraction
+        private IMvxInteraction<ServiceEvent<SalepointInProgressOrdersEvents>> _inProgressOrdersUpdateInteraction;
+        public IMvxInteraction<ServiceEvent<SalepointInProgressOrdersEvents>> InProgressOrdersUpdateInteraction
         {
             get => _inProgressOrdersUpdateInteraction;
             set
             {
                 if (_inProgressOrdersUpdateInteraction != null)
-                    _inProgressOrdersUpdateInteraction.Requested -= SetInProgressMarkers;
+                    _inProgressOrdersUpdateInteraction.Requested -= this.mapMarkersManager.HandleInProgressOrdersMarkers;
 
                 _inProgressOrdersUpdateInteraction = value;
-                _inProgressOrdersUpdateInteraction.Requested += SetInProgressMarkers;
+                _inProgressOrdersUpdateInteraction.Requested += this.mapMarkersManager.HandleInProgressOrdersMarkers;
             }
         }
 
-        private void SetAddedMarkers(object sender, EventArgs e)
+
+        private void InitMarkersManager()
         {
-            if (this.map == null)
-            {
-                setMarkersAfterMapInitialisation = true;
-                return;
-            }
-
-            //remove outdated
-            foreach (var item in addedOrdersMarkers.ToList())
-            {
-                if (this.ViewModel.AddedOrders.All(x => x.Id != item.Key))
-                {
-                    item.Value.Remove();
-                    addedOrdersMarkers.Remove(item.Key);
-                }
-            }
-
-
-            //add new
-            foreach (var item in this.ViewModel.AddedOrders)
-            {
-                if (addedOrdersMarkers.ContainsKey(item.Id))
-                    continue;
-
-                if (item.EndLatLng == null)
-                    continue;
-
-                MarkerOptions options = new MarkerOptions();
-                BitmapDescriptor salepointMarkerIcon = BitmapDescriptorFactory.FromResource(Resource.Drawable.marker_bw);
-
-                options.SetIcon(salepointMarkerIcon);
-                options.SetPosition(new LatLng(item.EndLatLng.lat, item.EndLatLng.lng));
-                options.SetTitle(string.Concat(item.DestinationCity, ", ", item.DestinationAddress));
-
-                Marker marker = this.map.AddMarker(options);
-                marker.Tag = new MarkerTag { Type = MarkerType.AddedOrder, OrderId = item.Id };
-
-                addedOrdersMarkers.Add(item.Id, marker);
-            }
-
+            this.mapMarkersManager = new SalepointMapMarkersManager(this.Activity, this.map, this.ViewModel);
+            var set = this.CreateBindingSet<SalepointMapFragment, SalepointMapViewModel>();
+            set.Bind(this).For(v => v.AddedOrdersUpdateInteraction).To(viewModel => viewModel.AddedOrdersUpdateInteraction).OneWay();
+            set.Bind(this).For(v => v.InProgressOrdersUpdateInteraction).To(viewModel => viewModel.InProgressOrdersUpdateInteraction).OneWay();
+            set.Apply();
         }
 
-        private void SetInProgressMarkers(object sender, EventArgs e)
+        private void SetRotationAnimation()
         {
-            if (this.map == null)
-            {
-                setMarkersAfterMapInitialisation = true;
-                return;
-            }
+            this.refreshButton = view.FindViewById<ImageButton>(Resource.Id.salepoint_refresh_data);
+            this.refreshingInProgressAnimation = AnimationUtils.LoadAnimation(this.Context, Resource.Drawable.animation_rotate);
 
-            //remove outdated
-            foreach (var item in inprogressOrdersMarkers.ToList())
+            if (this.ViewModel.RefreshingDataInProgress)
+                this.refreshButton.StartAnimation(this.refreshingInProgressAnimation);
+
+
+            this.signalrReconnectButton = view.FindViewById<ImageButton>(Resource.Id.signalr_reconnect_button);
+            if (this.ViewModel.SignalrConnectionStatus == ConnectionState.Connecting || this.ViewModel.SignalrConnectionStatus == ConnectionState.Reconnecting)
+                this.signalrReconnectButton.StartAnimation(this.refreshingInProgressAnimation);
+
+
+            this.ViewModel.PropertyChanged += (sender, args) =>
             {
-                if (this.ViewModel.InProgressOrders.All(x => x.Id != item.Key))
+                if (args.PropertyName == "RefreshingDataInProgress")
                 {
-                    item.Value.Remove();
-                    inprogressOrdersMarkers.Remove(item.Key);
+                    if (this.ViewModel.RefreshingDataInProgress)
+
+                        this.refreshButton.StartAnimation(this.refreshingInProgressAnimation);
+                    else
+                        this.refreshButton.Animation = null;
+
                 }
-            }
+                else if (args.PropertyName == "SignalrConnectionStatus")
+                {
+                    if (this.ViewModel.SignalrConnectionStatus == ConnectionState.Connecting || this.ViewModel.SignalrConnectionStatus == ConnectionState.Reconnecting)
+                        this.signalrReconnectButton.StartAnimation(this.refreshingInProgressAnimation);
+                    else
+                        this.signalrReconnectButton.Animation = null;
+                }
+            };
 
-            //add new
-            foreach(var item in this.ViewModel.InProgressOrders)
-            {
-                if (inprogressOrdersMarkers.ContainsKey(item.Id))
-                    continue;
-
-                if (item.EndLatLng == null)
-                    continue;
-
-                MarkerOptions options = new MarkerOptions();
-                BitmapDescriptor salepointMarkerIcon = BitmapDescriptorFactory.FromResource(Resource.Drawable.marker);
-
-                options.SetIcon(salepointMarkerIcon);
-                options.SetPosition(new LatLng(item.EndLatLng.lat, item.EndLatLng.lng));
-
-                Marker marker = this.map.AddMarker(options);
-                marker.Tag = new MarkerTag { Type = MarkerType.InProgressOrder, OrderId = item.Id };
-
-                inprogressOrdersMarkers.Add(item.Id, marker);
-            }
         }
 
         private View view;

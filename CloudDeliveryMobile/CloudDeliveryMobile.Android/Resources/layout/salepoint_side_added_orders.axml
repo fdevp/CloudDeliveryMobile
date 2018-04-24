@@ -32,7 +32,7 @@
           android:textColor="#fff"
           android:background="@drawable/ripple_primary_color"
           app:MvxBind="Click OpenNewOrderModal">
-
+        
       </Button>
     </LinearLayout>
     
@@ -41,5 +41,6 @@
 
   
   <include layout="@layout/main_inprogress"/>
+  <include layout="@layout/main_error"/>
   
 </LinearLayout>

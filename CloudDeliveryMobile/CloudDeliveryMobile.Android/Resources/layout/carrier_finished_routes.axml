@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/finished_routes_container">
+
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <include layout="@layout/main_inprogress"/>
+    <include layout="@layout/main_error"/>
+    
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:MvxBind="Visible ShowContent"
+      android:orientation="vertical">
+
+      <MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout
+       android:id="@+id/carrier_finished_routes_swiperefresh"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+        app:MvxBind="Refreshing RefreshingInProgress; RefreshCommand RefreshList">
+
+        <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+              android:id="@+id/carrier_finished_routes_list"
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:layout_weight="12"
+              app:MvxItemTemplate="@layout/carrier_finished_route_listitem"
+              app:MvxBind="ItemsSource Routes; ItemClick ShowDetails"/>
+
+      </MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>
+
+
+    </LinearLayout>
+
+
+  </LinearLayout>
+
+
+</FrameLayout>

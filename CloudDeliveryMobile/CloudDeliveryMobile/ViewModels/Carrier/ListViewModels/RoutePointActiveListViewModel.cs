@@ -37,12 +37,12 @@ namespace CloudDeliveryMobile.Models.Routes
             }
         }
 
-        public IMvxCommand PassPointCommand
+        public IMvxCommand PassPointDialog
         {
             get
             {
 
-                return new MvxCommand(async () =>
+                return new MvxCommand(() =>
                 {
                     this.dialogsService.Confirm(this.passPointDialogConfig);
                 });
@@ -63,10 +63,7 @@ namespace CloudDeliveryMobile.Models.Routes
                     }
                     else
                     {
-                        Task passPoint = routesService.PassPoint(this.Point);
-                        Task deliverOrder = ordersService.Delivered(this.Point.Order);
-
-                        await Task.WhenAll(passPoint, deliverOrder);
+                        await routesService.PassPoint(this.Point);
                     }
 
                     this.Active = false;
@@ -122,9 +119,9 @@ namespace CloudDeliveryMobile.Models.Routes
             this.passPointDialogConfig = new ConfirmConfig();
             this.passPointDialogConfig.OkText = "Tak";
             this.passPointDialogConfig.CancelText = "Nie";
-            this.passPointDialogConfig.Title = "Dostarczenie zamówienia";
-            this.passPointDialogConfig.Message = "Czy na pewno chcesz zakończyć dowóz zamówienia?";
-            this.passPointDialogConfig.OnAction += x=> { };
+            this.passPointDialogConfig.Title = "Zakończ punkt";
+            this.passPointDialogConfig.Message = "Czy na pewno chcesz zakończyć ten punkt?";
+            this.passPointDialogConfig.OnAction += x => PassPoint(x);
         }
 
 

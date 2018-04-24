@@ -1,4 +1,7 @@
 ﻿using CloudDeliveryMobile.Helpers.Exceptions;
+using CloudDeliveryMobile.Models;
+using CloudDeliveryMobile.Models.Enums;
+using CloudDeliveryMobile.Models.Enums.Events;
 using CloudDeliveryMobile.Services;
 using CloudDeliveryMobile.ViewModels.Carrier.SideView;
 using MvvmCross.Core.Navigation;
@@ -22,20 +25,22 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (initialised)
-                        return;
-
-                    initialised = true;
-
-                    if (this.routesService.ActiveRoute != null)
+                    if (!dataInitialised)
                     {
-                        await this.navigationService.Navigate(this.activeRouteVM);
-                        this.currentChildViewModel = this.activeRouteVM;
-                    }
-                    else
-                    {
-                        await this.navigationService.Navigate(this.editRouteVM);
-                        this.currentChildViewModel = this.editRouteVM;
+
+                        if (this.routesService.ActiveRoute != null)
+                        {
+                            await this.navigationService.Navigate(this.activeRouteVM);
+                            this.currentChildViewModel = this.activeRouteVM;
+                        }
+                        else
+                        {
+                            await this.navigationService.Navigate(this.editRouteVM);
+                            this.currentChildViewModel = this.editRouteVM;
+                        }
+
+                        dataInitialised = true;
+
                     }
                 });
             }
@@ -52,35 +57,33 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             this.routesService.ActiveRouteUpdated += onActiveRouteUpdated;
         }
 
-
-        public override void Start()
+        private async void onActiveRouteUpdated(object sender, ServiceEvent<CarrierRouteEvents> e)
         {
-            base.Start();
-        }
-
-        private async void onActiveRouteUpdated(object sender, EventArgs e)
-        {
-            if (!initialised)
+            //first init should be handled by InitializeSideViewContent method, after view load
+            if (!dataInitialised)
                 return;
 
-            BaseViewModel vmToLoad = this.routesService.ActiveRoute != null ? this.activeRouteVM : (BaseViewModel)this.editRouteVM;
+            //handle only major route events
+            if (e.Type == CarrierRouteEvents.CancelledPoint || e.Type == CarrierRouteEvents.PassedPoint)
+                return;
+
+            this.InProgress = true;
+
+            BaseViewModel vmToLoad = e.Type == CarrierRouteEvents.AddedRoute ? this.activeRouteVM : (BaseViewModel)this.editRouteVM;
             Type currentChildType = this.currentChildViewModel?.GetType();
 
             if (currentChildType != vmToLoad.GetType())
             {
-                await this.navigationService.Navigate(vmToLoad);
+                await this.navigationService.Navigate(vmToLoad).ContinueWith(t =>
+                {
+                    this.InProgress = false;
+                });
                 this.currentChildViewModel = vmToLoad;
             }
         }
 
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            base.ViewDestroy(viewFinishing);
-            this.initialised = false;
-        }
-
         public BaseViewModel currentChildViewModel;
-        private bool initialised = false;
+        private bool dataInitialised = false;
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;
     }

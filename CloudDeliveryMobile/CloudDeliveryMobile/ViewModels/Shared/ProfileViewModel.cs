@@ -52,9 +52,10 @@ namespace CloudDeliveryMobile.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     this.sessionProvider.Logout();
-                    this.carrierOrdersService.ClearData();
-                    this.salepointOrdersService.ClearData();
-                    this.routesService.ClearData();
+                    this.carrierOrdersService.CleanData();
+                    this.salepointOrdersService.CleanData();
+                    this.routesService.CleanData();
+                    this.notificationsProvider.CleanData();
 
                     await this.navigationService.Close(this.deviceProvider.RootViewModel).ContinueWith(async t =>
                     {
@@ -64,24 +65,24 @@ namespace CloudDeliveryMobile.ViewModels
             }
         }
 
-        public ProfileViewModel(IMvxNavigationService navigationService, ISessionProvider sessionProvider, IDeviceProvider deviceProvider, ICarrierOrdersService carrierOrdersService, ISalepointOrdersService salepointOrdersService, IRoutesService routesService)
+        public ProfileViewModel(IMvxNavigationService navigationService, ISessionProvider sessionProvider, IDeviceProvider deviceProvider,
+            ICarrierOrdersService carrierOrdersService, ISalepointOrdersService salepointOrdersService, IRoutesService routesService, INotificationsProvider notificationsProvider)
         {
             this.sessionProvider = sessionProvider;
             this.navigationService = navigationService;
             this.deviceProvider = deviceProvider;
-
             this.carrierOrdersService = carrierOrdersService;
             this.salepointOrdersService = salepointOrdersService;
             this.routesService = routesService;
+            this.notificationsProvider = notificationsProvider;
         }
 
         private ISessionProvider sessionProvider;
         private IMvxNavigationService navigationService;
         private IDeviceProvider deviceProvider;
-
-
-        ICarrierOrdersService carrierOrdersService;
-        ISalepointOrdersService salepointOrdersService;
-        IRoutesService routesService;
+        private ICarrierOrdersService carrierOrdersService;
+        private ISalepointOrdersService salepointOrdersService;
+        private IRoutesService routesService;
+        private INotificationsProvider notificationsProvider;
     }
 }

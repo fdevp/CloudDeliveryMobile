@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using CloudDeliveryMobile.Models;
+using Acr.UserDialogs;
+using CloudDeliveryMobile.Models.Enums.Events;
+using System.Threading.Tasks;
 
 namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
 {
@@ -70,40 +73,63 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
                 return new MvxAsyncCommand(async () =>
                {
                    this.InProgress = true;
-                   List<RouteEditModel> newRoute = new List<RouteEditModel>();
 
-                   int index = 0;
-                   foreach (RoutePointEditListItem point in Points)
+                   List<RouteEditModel> newRouteModel = CreateNewRouteModel();
+                   try
                    {
-                        newRoute.Add(new RouteEditModel
-                        {
-                            OrderId = point.OrderId,
-                            Type = point.Type,
-                            Index = index++
-                       });
+                       await this.routesService.Add(newRouteModel);
+                       this.ordersService.CleanAcceptedOrders();
+                   }
+                   catch (HttpUnprocessableEntityException e)
+                   {
+                       this.dialogsService.Toast(e.Message, TimeSpan.FromSeconds(5));
+                   }
+                   catch (HttpRequestException httpException)
+                   {
+                       this.dialogsService.Toast("Problem z połączeniem z serwerem.", TimeSpan.FromSeconds(5));
                    }
 
-                   await this.routesService.Add(newRoute);
                    this.InProgress = false;
                });
             }
         }
 
-        public CarrierSideRouteEditViewModel(IRoutesService routesService, ICarrierOrdersService ordersService, IMvxNavigationService navigationService)
+        public IMvxAsyncCommand ReloadData
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    this.ErrorOccured = false;
+                    await this.InitializeData();
+                });
+            }
+        }
+
+        public CarrierSideRouteEditViewModel(IRoutesService routesService, ICarrierOrdersService ordersService, IMvxNavigationService navigationService, IUserDialogs dialogsService)
         {
             this.routesService = routesService;
             this.navigationService = navigationService;
             this.ordersService = ordersService;
+            this.dialogsService = dialogsService;
 
             this.ordersService.AcceptedOrdersUpdated += UpdatePoints;
         }
-        
+
         public override async void Start()
         {
             base.Start();
 
             if (initialised)
                 return;
+
+            initialised = true;
+
+            await InitializeData();
+        }
+
+        public async Task InitializeData()
+        {
 
             this.InProgress = true;
             try
@@ -119,37 +145,40 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             {
                 this.ErrorOccured = true;
                 this.ErrorMessage = "Problem z połączeniem z serwerem.";
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 this.ErrorOccured = true;
                 this.ErrorMessage = "Wystąpił nieznany błąd.";
             }
-            finally
-            {
-                this.InProgress = false;
-            }
+
+            this.InProgress = false;
+
         }
 
-        private void UpdatePoints(object sender, EventArgs e)
+        private void UpdatePoints(object sender, ServiceEvent<CarrierOrdersEvents> e)
         {
 
-            if (this.ordersService.AcceptedOrders == null)          //points have been cleared
+            switch (e.Type)
             {
-                this.Points = new MvxObservableCollection<RoutePointEditListItem>();
-                RaiseAllPropertiesChanged();
-                return;
+                case CarrierOrdersEvents.AddedList:
+                    foreach (OrderCarrier order in this.ordersService.AcceptedOrders)
+                        this.SetPoints(order);
+                    break;
+                case CarrierOrdersEvents.RemovedList:
+                    this.Points = new MvxObservableCollection<RoutePointEditListItem>();
+                    RaiseAllPropertiesChanged();
+                    break;
+                case CarrierOrdersEvents.AddedOrder:
+                    this.SetPoints((OrderCarrier)e.Resource);
+                    break;
             }
 
-            List<OrderCarrier> addedOrders = this.ordersService.AcceptedOrders.Where(x => this.Points.All(y => y.OrderId != x.Id)).ToList(); //added points
-            foreach (OrderCarrier order in addedOrders)
-            {
-                this.setPoints(order);
-            }
 
             RaiseAllPropertiesChanged();
         }
 
-        private void setPoints(OrderCarrier order)
+        private void SetPoints(OrderCarrier order)
         {
 
             RoutePointEditListItem salepoint = new RoutePointEditListItem(this);
@@ -167,9 +196,28 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             this.Points.Add(endpoint);
         }
 
+        private List<RouteEditModel> CreateNewRouteModel()
+        {
+            List<RouteEditModel> newRoute = new List<RouteEditModel>();
+
+            int index = 0;
+            foreach (RoutePointEditListItem point in Points)
+            {
+                newRoute.Add(new RouteEditModel
+                {
+                    OrderId = point.OrderId,
+                    Type = point.Type,
+                    Index = index++
+                });
+            }
+
+            return newRoute;
+        }
+
         private bool initialised = false;
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;
         private ICarrierOrdersService ordersService;
+        private IUserDialogs dialogsService;
     }
 }

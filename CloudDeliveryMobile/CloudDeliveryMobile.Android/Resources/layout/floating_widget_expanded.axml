@@ -127,14 +127,13 @@
           android:layout_width="match_parent"
           android:gravity="center"
           android:layout_height="40dp"
-          android:layout_marginTop="3dp"
-          android:weightSum="2">
+          android:layout_marginTop="3dp">
 
 
         <LinearLayout
           android:id="@+id/widget_passed_time_container"
           android:layout_height="match_parent"  
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_weight="2">
                 
         <TextView
@@ -143,38 +142,49 @@
             android:layout_height="match_parent"
             android:textSize="18dp"
             android:gravity="center"
+            android:text="SIEMA"
                         />
         
           </LinearLayout>
-        
-        <LinearLayout
-          android:layout_height="match_parent"
-          android:layout_width="match_parent"
-          android:layout_weight="1">
-
-          <Button
-              android:id="@+id/widget_show_app_button"
-              android:layout_margin="3dp"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/ripple_gray_color_rounded"
-              android:text="Lista"/>
-        </LinearLayout>
 
         <LinearLayout
+          android:id="@+id/widget_control_buttons_container"
           android:layout_height="match_parent"
           android:layout_width="match_parent"
-          android:layout_weight="1">
+          android:weightSum="2">
 
-          <Button
-        android:id="@+id/widget_set_gmaps_button"
-          android:layout_margin="3dp"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:background="@drawable/ripple_gray_color_rounded"
-          android:text="Nawiguj"/>
+
+          <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/widget_show_app_button"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ripple_gray_color_rounded"
+                android:text="Lista"/>
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1">
+
+            <Button
+          android:id="@+id/widget_set_gmaps_button"
+            android:layout_margin="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ripple_gray_color_rounded"
+            android:text="Nawiguj"/>
+          </LinearLayout>
+
+
         </LinearLayout>
-
+     
       </LinearLayout>
 
     </LinearLayout>

@@ -1,14 +1,21 @@
-﻿using CloudDeliveryMobile.Models;
+﻿using Acr.UserDialogs;
+using CloudDeliveryMobile.Helpers.Exceptions;
+using CloudDeliveryMobile.Models;
+using CloudDeliveryMobile.Models.Enums.Events;
 using CloudDeliveryMobile.Models.Orders;
+using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Services;
 using CloudDeliveryMobile.ViewModels.SalePoint.SideView;
+using Microsoft.AspNet.SignalR.Client;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
+using MvvmCross.Platform.Core;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,26 +42,73 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
         }
 
 
-        //added orders interaction
-        private MvxInteraction _addedOrdersUpdateInteraction = new MvxInteraction();
-
-        public IMvxInteraction AddedOrdersUpdateInteraction => _addedOrdersUpdateInteraction;
-
-        private void SendAddedOrdersInteraction(object sender, EventArgs e)
+        //signalr
+        public ConnectionState SignalrConnectionStatus
         {
-            this._addedOrdersUpdateInteraction?.Raise();
+            get
+            {
+                return this.notificationsProvider.SocketStatus;
+            }
         }
+
+        public IMvxAsyncCommand SignalrReconnect
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    if (this.notificationsProvider.SocketStatus == ConnectionState.Disconnected)
+                        await this.notificationsProvider.StarListening();
+                });
+            }
+        }
+
+        //refresh data
+        public bool RefreshingDataInProgress { get; set; } = false;
+
+        public IMvxAsyncCommand RefreshData
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    this.RefreshingDataInProgress = true;
+                    RaisePropertyChanged(() => this.RefreshingDataInProgress);
+
+                    Task[] reinitTasks = { this.salepointOrdersService.GetAddedOrders(), this.salepointOrdersService.GetInProgressOrders() };
+
+                    try
+                    {
+                        await Task.WhenAll(reinitTasks);
+                        dialogsService.Toast("Zaktualizowano zamówienia", TimeSpan.FromSeconds(5));
+                    }
+                    catch (HttpUnprocessableEntityException)
+                    {
+                        dialogsService.Toast("Błąd aktualizacji zamówień", TimeSpan.FromSeconds(5));
+                    }
+                    catch (HttpRequestException)
+                    {
+                        dialogsService.Toast("Problem z połączniem z serwerem", TimeSpan.FromSeconds(5));
+                    }
+
+
+                    this.RefreshingDataInProgress = false;
+                    RaisePropertyChanged(() => this.RefreshingDataInProgress);
+                });
+            }
+        }
+
+        //added orders interaction
+        private MvxInteraction<ServiceEvent<SalepointAddedOrdersEvents>> _addedOrdersUpdateInteraction = new MvxInteraction<ServiceEvent<SalepointAddedOrdersEvents>>();
+
+        public IMvxInteraction<ServiceEvent<SalepointAddedOrdersEvents>> AddedOrdersUpdateInteraction => _addedOrdersUpdateInteraction;
 
         //inprogress orders interaction
-        private MvxInteraction _inProgressOrdersUpdateInteraction = new MvxInteraction();
+        private MvxInteraction<ServiceEvent<SalepointInProgressOrdersEvents>> _inProgressOrdersUpdateInteraction = new MvxInteraction<ServiceEvent<SalepointInProgressOrdersEvents>>();
 
-        public IMvxInteraction InProgressOrdersUpdateInteraction => _inProgressOrdersUpdateInteraction;
+        public IMvxInteraction<ServiceEvent<SalepointInProgressOrdersEvents>> InProgressOrdersUpdateInteraction => _inProgressOrdersUpdateInteraction;
 
-        private void SendInProgressOrdersInteraction(object sender, EventArgs e)
-        {
-            this._inProgressOrdersUpdateInteraction?.Raise();
-        }
-
+        //position
         public GeoPosition BasePosition
         {
             get
@@ -80,14 +134,18 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
             }
         }
 
-        public SalepointMapViewModel(IMvxNavigationService navigationService, ISalepointOrdersService salepointOrdersService)
+        public SalepointMapViewModel(IMvxNavigationService navigationService, ISalepointOrdersService salepointOrdersService, INotificationsProvider notificationsProvider, IUserDialogs dialogsService)
         {
             this.navigationService = navigationService;
             this.SideView = Mvx.IocConstruct<SalepointSideViewViewModel>();
             this.salepointOrdersService = salepointOrdersService;
+            this.notificationsProvider = notificationsProvider;
+            this.dialogsService = dialogsService;
 
-            this.salepointOrdersService.AddedOrdersUpdated += SendAddedOrdersInteraction;
-            this.salepointOrdersService.InProgressOrdersUpdated += SendInProgressOrdersInteraction;
+            this.notificationsProvider.SocketStatusUpdated += (sender, value) => RaisePropertyChanged(() => this.SignalrConnectionStatus);
+
+            this.salepointOrdersService.AddedOrdersUpdated += (sender,value) => _addedOrdersUpdateInteraction.Raise(value);
+            this.salepointOrdersService.InProgressOrdersUpdated += (sender, value) => _inProgressOrdersUpdateInteraction.Raise(value);
         }
 
         public MvxAsyncCommand InitSideView
@@ -111,6 +169,8 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
         private GeoPosition basePosition;
         private IMvxNavigationService navigationService;
         private ISalepointOrdersService salepointOrdersService;
+        private INotificationsProvider notificationsProvider;
+        private IUserDialogs dialogsService;
     }
 
 

@@ -13,7 +13,21 @@
                android:layout_height="match_parent"
                class="com.google.android.gms.maps.MapFragment" />
 
-  
+  <ImageButton
+       android:id="@+id/salepoint_refresh_data"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:layout_gravity="top|left"
+       android:layout_margin="15dp"
+       android:background="@drawable/shape_circle"
+       android:scaleType="fitCenter"
+       android:padding="12dp"
+       android:src="@drawable/ic_autorenew_grey_600_48dp"
+       app:MvxBind="Click RefreshData"
+        />
+
+
+  <include layout="@layout/main_signalr_status"/>
   
   <FrameLayout
     android:id="@+id/salepoint_side_view_layout"

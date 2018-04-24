@@ -2,52 +2,62 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:id="@+id/carrier_map_layout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
 
  
 
-  <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-               android:id="@+id/carrier_gmap_fragment"
+  <fragment    android:id="@+id/carrier_gmap_fragment"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                class="com.google.android.gms.maps.MapFragment" />
 
   <ImageButton
         android:id="@+id/floating_orders_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="top|left"
-        android:layout_margin="15dp"
-        android:background="@drawable/shape_circle"
-        android:scaleType="fitCenter"
-        android:padding="12dp"
-        android:src="@drawable/marker_bw"
-        app:MvxBind="Click ShowFloatingOrders"
+        style="@style/Map.Button.TopLeft"
+        app:MvxBind="Click ShowFloatingOrders; Visible !ActiveRouteMode; DrawableName PendingOrders, Converter=PendingOrdersIcon"
         />
 
 
   <ImageButton
-      android:id="@+id/geloc_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom|left"
-        android:layout_margin="15dp"
-        android:background="@drawable/shape_circle"
-        android:scaleType="fitCenter"
-        android:padding="12dp"
+        android:id="@+id/geloc_btn"
+        style="@style/Map.Button.BottomLeft"
         android:src="@drawable/ic_my_location_grey_700_48dp"
         />
 
   <include layout="@layout/main_inprogress"/>
 
+
+  <include layout="@layout/main_signalr_status"/>
+
+  <FrameLayout
+    android:id="@+id/carrier_map_floating_detail_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  >
+  
+</FrameLayout>
+
+
+  
+
+  <!-- SIDE VIEW -->
   <FrameLayout
     android:id="@+id/carrier_side_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
   </FrameLayout>
-  
+
+  <!-- floating list -->
+  <FrameLayout
+    android:id="@+id/carrier_map_floating_list_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  >
+
+  </FrameLayout>
+
 </FrameLayout>

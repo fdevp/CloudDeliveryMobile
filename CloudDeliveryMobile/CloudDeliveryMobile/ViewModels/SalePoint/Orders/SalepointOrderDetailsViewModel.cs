@@ -19,7 +19,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Orders
 
         public IMvxInteraction OrderReadyInteraction => _orderReadyInteraction;
 
-        private void SendAddedOrdersInteraction(object sender, EventArgs e)
+        private void SendOrderReadyInteraction(object sender, EventArgs e)
         {
             this._orderReadyInteraction?.Raise();
         }
@@ -35,6 +35,36 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Orders
             }
         }
 
+        public IMvxAsyncCommand ReloadData
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    this.ErrorOccured = false;
+                    await this.InitializeOrder();
+                });
+            }
+        }
+
+        private async Task InitializeOrder()
+        {
+            this.InProgress = true;
+            try
+            {
+                this.Order = await this.ordersService.Details(this.orderId);
+                RaisePropertyChanged(() => this.Order);
+                SendOrderReadyInteraction(this, null);
+            }
+            catch (Exception e)
+            {
+                this.ErrorOccured = true;
+                this.ErrorMessage = e.Message;
+            }
+
+            this.InProgress = false;
+        }
+
         public SalepointOrderDetailsViewModel(IMvxNavigationService navigationService, ISalepointOrdersService ordersService)
         {
             this.navigationService = navigationService;
@@ -42,25 +72,10 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Orders
         }
 
 
-        public async override void Start()
+        public override async void Start()
         {
             base.Start();
-            this.InProgress = true;
-            await this.ordersService.Details(this.orderId).ContinueWith(t =>
-            {
-                if (t.Exception != null)
-                {
-
-                    this.InProgress = false;
-                    return;
-                }
-
-                this.Order = t.Result;
-                RaisePropertyChanged(() => this.Order);
-                this.InProgress = false;
-                SendAddedOrdersInteraction(this, null);
-            });
-
+            await this.InitializeOrder();
         }
 
         public override void Prepare(int orderId)

@@ -44,6 +44,7 @@ namespace CloudDeliveryMobile.Android.Components.UI
             editPointHolder.handleView.SetOnTouchListener(new TouchListenerHelper(holder, mDragListener));
         }
 
+
         public bool OnItemMove(int fromPosition, int toPosition)
         {
             mDragListener.OnItemMove(fromPosition, toPosition);

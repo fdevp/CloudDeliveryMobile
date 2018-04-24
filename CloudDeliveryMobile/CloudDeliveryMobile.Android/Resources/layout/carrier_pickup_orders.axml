@@ -37,13 +37,7 @@
 
 
       <ImageButton
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="#00ffffff"
-          android:layout_alignParentRight="true"
-          android:scaleType="fitCenter"
-          android:layout_marginRight="5dp"
-          android:src="@drawable/ic_clear_grey_600_48dp"
+          style="@style/Carrier.PickupOrders.CloseButton"
           app:MvxBind="Click CloseFragment"/>
 
     </RelativeLayout>

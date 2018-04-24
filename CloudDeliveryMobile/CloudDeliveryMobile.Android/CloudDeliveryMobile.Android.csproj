@@ -69,6 +69,7 @@
     <Reference Include="Lottie, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Com.Airbnb.Android.Lottie.2.5.0\lib\MonoAndroid41\Lottie.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Mono.Android.Export" />
     <Reference Include="MvvmCross.Binding, Version=5.6.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Binding.5.6.3\lib\MonoAndroid\MvvmCross.Binding.dll</HintPath>
@@ -132,6 +133,12 @@
     </Reference>
     <Reference Include="Plugin.Geolocator.Abstractions, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xam.Plugin.Geolocator.4.2.0\lib\MonoAndroid10\Plugin.Geolocator.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.LocalNotifications, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Notifier.2.1.0\lib\MonoAndroid10\Plugin.LocalNotifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.LocalNotifications.Abstractions, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Notifier.2.1.0\lib\MonoAndroid10\Plugin.LocalNotifications.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.Permissions, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Plugin.Permissions.2.2.1\lib\MonoAndroid10\Plugin.Permissions.dll</HintPath>
@@ -254,23 +261,28 @@
     <Compile Include="Components\FloatingWidget\IFloatingWidgetActivity.cs" />
     <Compile Include="Components\Geolocation\GeolocationProvider.cs" />
     <Compile Include="Components\Geolocation\CurrentPositionCallback.cs" />
+    <Compile Include="Components\Map\CarrierMapMarkersManager.cs" />
     <Compile Include="Components\Map\GmapsIntentsProvider.cs" />
     <Compile Include="Components\Map\MarkerTag.cs" />
     <Compile Include="Components\Map\MarkerType.cs" />
     <Compile Include="Components\Map\PolylineDecoder.cs" />
-    <Compile Include="Components\UI\ActiveRouteItemTemplateSelector.cs" />
+    <Compile Include="Components\Map\SalepointMapMarkersManager.cs" />
+    <Compile Include="Components\UI\RoutePointDetailsExpendableAdapter.cs" />
+    <Compile Include="Components\UI\TemplateSelectors\ActiveRouteItemTemplateSelector.cs" />
     <Compile Include="Components\UI\DraggableAdapter\DraggableRecyclerAdapter.cs" />
     <Compile Include="Components\UI\DraggableAdapter\EditPointViewHolder.cs" />
     <Compile Include="Components\UI\DraggableAdapter\IItemDragListener.cs" />
     <Compile Include="Components\UI\DraggableAdapter\RecyclerItemDragCallback.cs" />
-    <Compile Include="Components\UI\EditRouteItemTemplateSelector.cs" />
+    <Compile Include="Components\UI\TemplateSelectors\EditRouteItemTemplateSelector.cs" />
+    <Compile Include="Components\UI\TemplateSelectors\RoutePointDetailsTemplateSelector.cs" />
     <Compile Include="Components\UI\SideViewTouchListener.cs" />
     <Compile Include="Fragments\Carrier\CarrierPickupOrdersFragment.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierFloatingOrderDetails.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierFloatingOrdersFragment.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierFloatingSalepointLabelFragment.cs" />
     <Compile Include="Fragments\Carrier\Map\CarrierMapFragment.cs" />
-    <Compile Include="Fragments\Carrier\Orders\CarrierOrdersFragment.cs" />
+    <Compile Include="Fragments\Carrier\Routes\CarrierFinishedRoutesFragment.cs" />
+    <Compile Include="Fragments\Carrier\Routes\CarrierRouteDetailsFragment.cs" />
     <Compile Include="Fragments\Carrier\SideView\CarrierSideActiveRouteFragment.cs" />
     <Compile Include="Fragments\Carrier\SideView\CarrierSideRouteEditFragment.cs" />
     <Compile Include="Fragments\Carrier\SideView\CarrierSideViewFragment.cs" />
@@ -279,7 +291,6 @@
     <Compile Include="Fragments\Salepoint\SideView\SalepointSideAddedOrdersFragment.cs" />
     <Compile Include="Fragments\Salepoint\SideView\SalepointSideInProgressOrdersFragment.cs" />
     <Compile Include="Fragments\Salepoint\SideView\SalepointSideViewFragment.cs" />
-    <Compile Include="Fragments\Shared\InProgressFragment.cs" />
     <Compile Include="Fragments\Salepoint\Map\SalepointMapFragment.cs" />
     <Compile Include="Fragments\Salepoint\Orders\SalepointFinishedOrdersFragment.cs" />
     <Compile Include="Fragments\Shared\ProfileFragment.cs" />
@@ -295,6 +306,7 @@
     <AndroidAsset Include="Assets\truck_running.json" />
     <AndroidAsset Include="Assets\round.json" />
     <AndroidAsset Include="Assets\success.json" />
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml">
@@ -314,9 +326,6 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\salepoint_map.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\carrier_orders.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\carrier_floating_orders.axml">
@@ -388,9 +397,6 @@
     <AndroidResource Include="Resources\layout\salepoint_new_order_modal.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\test.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\carrier_floating_salepoint_label.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -401,6 +407,27 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\salepoint_order_details.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\carrier_finished_routes.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\carrier_finished_route_listitem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\carrier_route_details.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\carrier_routepoint_salepoint_details.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\carrier_routepoint_endpoint_details.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\main_signalr_status.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\main_error.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -512,6 +539,14 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_phone_grey_600_48dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_phone_grey_600_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_phone_grey_600_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_phone_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_phone_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_phone_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_phone_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_clear_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_clear_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_clear_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_clear_deep_orange_400_48dp.png" />
     <Content Include="Resources\drawable-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\values\styles_splash.xml">
       <SubType>Designer</SubType>
@@ -584,6 +619,13 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\styles_salepoint.xml" />
+    <AndroidResource Include="Resources\values\styles_carrier.xml" />
+    <AndroidResource Include="Resources\values\styles_map.xml" />
+    <AndroidResource Include="Resources\drawable\animation_rotate.xml" />
+    <AndroidResource Include="Resources\drawable\shape_circle_green.xml" />
+    <AndroidResource Include="Resources\drawable\shape_circle_red.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_phone_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_clear_deep_orange_400_48dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

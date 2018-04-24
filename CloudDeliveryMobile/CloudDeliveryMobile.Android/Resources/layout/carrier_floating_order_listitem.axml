@@ -6,130 +6,110 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="1dp"
     android:layout_width="match_parent">
+
+
   <RelativeLayout
     android:layout_height="wrap_content"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_margin="5dp">
 
-  
-  <LinearLayout
-    android:id="@+id/floating_order_item_body"
-      android:layout_height="wrap_content"
-      android:layout_width="match_parent"
-      android:layout_marginLeft="5dp"
-      android:padding="5dp"
-      android:orientation="vertical"
-      android:weightSum="5">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/floating_order_item_body"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textSize="20dp"
-          android:textStyle="bold"
-          android:paddingLeft="5dp"
-          android:layout_alignParentLeft="true"
-          app:MvxBind="Text AddedTime, Converter=TimeString" />
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:weightSum="5">
+
       <LinearLayout
-          android:layout_alignParentRight="true"
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          app:MvxBind="Visible RequiredPickUpTime!=null">
-
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:paddingTop="2dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_access_time_grey_600_48dp"/>
-
+          android:orientation="horizontal"
+          android:weightSum="10"
+          android:layout_marginBottom="10dp">
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            app:MvxBind="Text RequiredPickUpTime.Value, Converter=TimeString"/>
+            style="@style/Carrier.FloatingOrders.ListItem.SalepointName"
+            app:MvxBind="Text Order.SalepointName"/>
+        
+        <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="7"
+              android:gravity="right|center_vertical">
+          <ImageView
+              android:layout_width="20dp"
+              android:layout_height="20dp"
+              android:src="@drawable/ic_access_time_grey_600_48dp"/>
+          <TextView
+             style="@style/Carrier.FloatingOrders.ListItem.AddedTime"
+              app:MvxBind="Text Order.AddedTime, Converter=TimeString"/>
+        </LinearLayout>
+
+
 
       </LinearLayout>
 
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_weight="5">
-
-      <ImageView
-          android:layout_width="15dp"
-          android:layout_height="15dp"
-          android:src="@drawable/salepoint_bw"/>
-
-      <TextView
+      <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textSize="14dp"
-          android:paddingLeft="5dp"
-          app:MvxBind="Text SalepointName"/>
+          android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5">
+          <ImageView
+              android:layout_width="20dp"
+              android:layout_height="20dp"
+              android:src="@drawable/salepoint_marker"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="16dp"
+              app:MvxBind="Text Order, Converter=SalepointAddress"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_marginTop="5dp">
+          <ImageView
+              android:layout_width="20dp"
+              android:layout_height="20dp"
+              android:src="@drawable/marker"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="16dp"
+              app:MvxBind="Text Order, Converter=DestinationAddress"/>
+        </LinearLayout>
+
+      </LinearLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+        <ProgressBar
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_alignParentRight="true"
+          app:MvxBind="Visible InProgress"
+          />
+        
+        <Button
+          style="@style/Carrier.FloatingOrders.ListItem.AcceptButton"
+            android:text="Zaakceptuj"
+            app:MvxBind="Click AcceptOrder;Visible !InProgress"
+                                    />
+      </RelativeLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14dp"
-        android:paddingLeft="20dp"
-        android:text="..."/>
 
-    <RelativeLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:orientation="horizontal">
-
-
-      <ImageView
-          android:id="@+id/endpoint_image"
-          android:layout_width="15dp"
-          android:layout_height="15dp"
-          android:src="@drawable/endpoint_bw"/>
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textSize="14dp"
-          android:paddingLeft="5dp"
-          android:layout_toRightOf="@+id/endpoint_image"
-          app:MvxBind="Text ., Converter=DestinationAddress" />
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textSize="14dp"
-          android:layout_alignParentRight="true"
-          android:layout_weight="1"
-          app:MvxBind="Text Priority, Converter=PriorityString"/>
-
-
-
-    </RelativeLayout>
-
-
-
-
-  </LinearLayout>
-  
-    <ImageView
-    android:layout_height="30dp"  
-    android:layout_width="30dp"
-    android:layout_toLeftOf="@id/floating_order_item_body"
-    android:src="@drawable/endpoint_marker"
-    />
-    
-  
   </RelativeLayout>
-    
-    
+  
 
 </android.support.v7.widget.CardView>
 

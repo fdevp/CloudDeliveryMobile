@@ -3,6 +3,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using MvvmCross.Droid.Views;
+using Plugin.LocalNotifications;
 
 namespace CloudDeliveryMobile.Android.Activities
 {
@@ -20,6 +21,7 @@ namespace CloudDeliveryMobile.Android.Activities
         {
             base.OnCreate(bundle);
             UserDialogs.Init(this);
+            LocalNotificationsImplementation.NotificationIconId = Resource.Drawable.icon;
         }
 
     }

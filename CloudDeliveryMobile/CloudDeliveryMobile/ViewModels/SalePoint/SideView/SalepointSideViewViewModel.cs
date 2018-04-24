@@ -13,6 +13,5 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
     public class SalepointSideViewViewModel : BaseViewModel
     {
        
-
     }
 }

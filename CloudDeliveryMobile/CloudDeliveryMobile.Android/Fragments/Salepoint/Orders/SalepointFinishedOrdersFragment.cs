@@ -25,6 +25,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
         {
             var ignore = base.OnCreateView(inflater, container, savedInstanceState);
             var view = this.BindingInflate(FragmentId, null);
+
             return view;
         }
 

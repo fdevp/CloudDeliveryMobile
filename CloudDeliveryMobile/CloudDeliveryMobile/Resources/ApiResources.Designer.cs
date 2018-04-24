@@ -80,6 +80,15 @@ namespace CloudDeliveryMobile.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to signalr.
+        /// </summary>
+        internal static string Signalr {
+            get {
+                return ResourceManager.GetString("Signalr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to api/account/UserInfo.
         /// </summary>
         internal static string UserInfo {

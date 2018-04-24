@@ -1,4 +1,6 @@
-﻿using CloudDeliveryMobile.Models.Orders;
+﻿using CloudDeliveryMobile.Models;
+using CloudDeliveryMobile.Models.Enums.Events;
+using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Services;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
@@ -22,9 +24,16 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
             this.Orders = new MvxObservableCollection<SalepointOrderListItemViewModel>();
         }
 
-        private void OrdersPropertyChanged(object sender, EventArgs e)
+        public IMvxAsyncCommand ReloadData
         {
-            CreateOrdersViewModels();
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    this.ErrorOccured = false;
+                    await this.InitializeData();
+                });
+            }
         }
 
         public async override void Start()
@@ -34,7 +43,12 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
             initialised = true;
 
             base.Start();
+            await this.InitializeData();
 
+        }
+
+        private async Task InitializeData()
+        {
             this.InProgress = true;
             try
             {
@@ -45,36 +59,46 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
                 this.ErrorOccured = true;
                 this.ErrorMessage = "Problem z połączeniem z serwerem.";
             }
-            finally
-            {
-                this.InProgress = false;
-            }
+
+            this.InProgress = false;
         }
 
-        private void CreateOrdersViewModels()
+        private void OrdersPropertyChanged(object sender, ServiceEvent<SalepointInProgressOrdersEvents> e)
         {
-            List<OrderSalepoint> updatedOrders = this.salepointOrdersService.InProgressOrders;
-
-            List<OrderSalepoint> removedOrders = this.Orders.Where(x => updatedOrders.All(y => y.Id != x.Order.Id)).Select(x => x.Order).ToList();
-            foreach (var item in removedOrders)
+            switch (e.Type)
             {
-                var toRemove = this.Orders.Where(x => x.Order == item).FirstOrDefault();
-                if (toRemove != null)
-                    this.Orders.Remove(toRemove);
+                case SalepointInProgressOrdersEvents.AddedList:
+                    this.Orders.Clear();
+                    foreach (var item in this.salepointOrdersService.InProgressOrders)
+                        CreateOrderViewModel(item);
+                    break;
+                case SalepointInProgressOrdersEvents.AddedOrder:
+                    this.CreateOrderViewModel((OrderSalepoint)e.Resource);
+                    break;
+                case SalepointInProgressOrdersEvents.RemovedOrder:
+                    var orderToRemove = (OrderSalepoint)e.Resource;
+                    var orderVM = this.Orders.Where(x => x.Order.Id == orderToRemove.Id).FirstOrDefault();
+                    if (orderVM != null)
+                        this.Orders.Remove(orderVM);
+                    break;
+                case SalepointInProgressOrdersEvents.PickedOrder:
+                    var orderToChange = (OrderSalepoint)e.Resource;
+                    var orderPickedVM = this.Orders.Where(x => x.Order.Id == orderToChange.Id).FirstOrDefault();
+                    if (orderPickedVM != null)
+                        orderPickedVM.RaiseAllPropertiesChanged();
+                    break;
             }
-
-            List<OrderSalepoint> newOrders = this.salepointOrdersService.InProgressOrders.Where(x => this.Orders.All(y => y.Order.Id != x.Id))
-                                                                                          .ToList();
-
-            foreach (var item in newOrders)
-            {
-                var orderVM = Mvx.IocConstruct<SalepointOrderListItemViewModel>();
-                orderVM.Order = item;
-                this.Orders.Add(orderVM);
-            }
-
-            this.RaisePropertyChanged(() => this.Orders);
+            RaisePropertyChanged(() => this.Orders);
         }
+
+        private void CreateOrderViewModel(OrderSalepoint order)
+        {
+            var orderVM = Mvx.IocConstruct<SalepointOrderListItemViewModel>();
+            orderVM.Order = order;
+            this.Orders.Add(orderVM);
+        }
+
+
 
         bool initialised = false;
         ISalepointOrdersService salepointOrdersService;

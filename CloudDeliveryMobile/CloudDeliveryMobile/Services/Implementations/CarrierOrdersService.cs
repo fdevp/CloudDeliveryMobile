@@ -1,24 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using CloudDeliveryMobile.Models;
 using CloudDeliveryMobile.Models.Enums;
+using CloudDeliveryMobile.Models.Enums.Events;
 using CloudDeliveryMobile.Models.Orders;
+using CloudDeliveryMobile.Models.Routes;
 using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Resources;
 using Newtonsoft.Json;
+using Plugin.LocalNotifications;
 
 namespace CloudDeliveryMobile.Services.Implementations
 {
     public class CarrierOrdersService : ICarrierOrdersService
     {
-        public CarrierOrdersService(IHttpProvider httpProvider)
+        public CarrierOrdersService(IHttpProvider httpProvider, INotificationsProvider notificationsProvider)
         {
             this.httpProvider = httpProvider;
+            this.notificationsProvider = notificationsProvider;
+
+            this.notificationsProvider.CarrierOrderAddedEvent += (sender, order) => AddPendingOrder(order);
+            this.notificationsProvider.CarrierOrderAcceptedEvent += (sender, id) => RemovePendingOrder(id);
+            this.notificationsProvider.CarrierOrderCancelledEvent += (sender, id) => RemovePendingOrder(id);
         }
 
-        public event EventHandler PendingOrdersUpdated;
+        public event EventHandler<ServiceEvent<CarrierOrdersEvents>> PendingOrdersUpdated;
 
-        public event EventHandler AcceptedOrdersUpdated;
+        public event EventHandler<ServiceEvent<CarrierOrdersEvents>> AcceptedOrdersUpdated;
 
         public List<OrderCarrier> PendingOrders { get; private set; }
 
@@ -27,14 +37,13 @@ namespace CloudDeliveryMobile.Services.Implementations
         public async Task Accept(OrderCarrier order)
         {
             string resource = string.Concat(OrdersApiResources.Accept, "/", order.Id);
-            string id = await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
+            await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
 
-            order.Id = int.Parse(id);
             this.AcceptedOrders.Add(order);
-            this.AcceptedOrdersUpdated?.Invoke(this, null);
+            this.AcceptedOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.AddedOrder,order));
 
             this.PendingOrders.Remove(order);
-            this.PendingOrdersUpdated?.Invoke(this, null);
+            this.PendingOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.RemovedOrder, order));
         }
 
         public async Task Delivered(OrderRoute order)
@@ -58,7 +67,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.AcceptedOrders));
             this.AcceptedOrders = JsonConvert.DeserializeObject<List<OrderCarrier>>(response);
 
-            this.AcceptedOrdersUpdated?.Invoke(this, null);
+            this.AcceptedOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.AddedList));
 
             return this.AcceptedOrders;
         }
@@ -69,7 +78,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.PendingOrders));
             this.PendingOrders = JsonConvert.DeserializeObject<List<OrderCarrier>>(response);
 
-            this.PendingOrdersUpdated?.Invoke(this, null);
+            this.PendingOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.AddedList));
 
             return this.PendingOrders;
         }
@@ -82,12 +91,47 @@ namespace CloudDeliveryMobile.Services.Implementations
             return order;
         }
 
-        public void ClearData()
+        public void CleanData()
         {
             this.AcceptedOrders = null;
             this.PendingOrders = null;
+            this.AcceptedOrdersUpdated = null;
+            this.PendingOrdersUpdated = null;
+        }
+
+        public void CleanAcceptedOrders()
+        {
+            this.AcceptedOrders = null;
+            this.AcceptedOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.RemovedList));
+        }
+
+        private void AddPendingOrder(OrderCarrier order)
+        {
+            if (this.PendingOrders != null && this.PendingOrders.All(x => x.Id != order.Id))
+            {
+                this.PendingOrders.Add(order);
+                this.PendingOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.AddedOrder, order));
+            }
+
+            CrossLocalNotifications.Current.Show("Dodano zamówienie", String.Concat("Od: ", order.SalepointName, "\n", "Do miejsca: ", order.DestinationAddress), order.Id);
+
+        }
+
+        private void RemovePendingOrder(int orderId)
+        {
+            if (this.PendingOrders == null)
+                return;
+
+            var orderToRemove = this.PendingOrders.Where(x => x.Id == orderId).FirstOrDefault();
+            if (orderToRemove != null)
+            {
+                this.PendingOrders.Remove(orderToRemove);
+                this.PendingOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.RemovedOrder, orderToRemove));
+            }
+
         }
 
         private IHttpProvider httpProvider;
+        private INotificationsProvider notificationsProvider;
     }
 }

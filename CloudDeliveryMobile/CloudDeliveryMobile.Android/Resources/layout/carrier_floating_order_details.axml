@@ -3,21 +3,13 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  >
+  android:layout_height="wrap_content">
 
 
   <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="180dp"
-    android:padding="5dp"
-    android:layout_margin="10dp"
-    android:layout_alignParentBottom="true"
-    android:orientation="vertical"
-    android:clickable="true"
-    android:background="#fff">
+    style="@style/Carrier.FloatingOrderDetails.Container">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,11 +22,7 @@
 
         <com.airbnb.lottie.LottieAnimationView
                  android:id="@+id/float_details_salepoint_icon"
-                 android:layout_width="40dp"
-                 android:layout_height="40dp"
-                 app:lottie_fileName="round.json"
-                 app:lottie_loop="true"
-                 app:lottie_autoPlay="true"/>
+                 style="@style/Carrier.FloatingOrderDetails.PointAnimation"/>
 
         <LinearLayout
                    android:layout_width="wrap_content"
@@ -59,23 +47,14 @@
         </LinearLayout>
 
         <ImageButton
-           android:layout_width="25dp"
-           android:layout_height="25dp"
-           android:background="#00ffffff"
-           android:layout_alignParentRight="true"
-           android:layout_alignParentTop="true"
-           android:scaleType="fitCenter"
+          style="@style/Carrier.FloatingOrderDetails.CloseButton"
            android:src="@drawable/ic_clear_grey_600_48dp"
            app:MvxBind="Click CloseFragment"/>
 
       </RelativeLayout>
 
       <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="20dp"
-          android:layout_weight="1"
-          android:layout_marginLeft="18dp"
-          android:background="@drawable/shape_dotted_left_border">
+         style="@style/Carrier.FloatingOrderDetails.DottedLeftBorder">
 
         
       </RelativeLayout>
@@ -86,11 +65,7 @@
 
         <com.airbnb.lottie.LottieAnimationView
          android:id="@+id/float_details_endpoint_icon"
-         android:layout_width="40dp"
-         android:layout_height="40dp"
-         app:lottie_fileName="round.json"
-         app:lottie_loop="true"
-         app:lottie_autoPlay="true"/>
+        style="@style/Carrier.FloatingOrderDetails.PointAnimation"/>
 
         <LinearLayout
                   android:layout_width="wrap_content"
@@ -126,38 +101,22 @@
 
       <com.airbnb.lottie.LottieAnimationView
              android:id="@+id/animation_view"
-             app:lottie_fileName="truck_running.json"
-             app:lottie_loop="true"
-             app:lottie_autoPlay="true"
-             android:layout_width="70dp"
-             android:layout_height="70dp"
-             android:layout_centerHorizontal="true"
+             style="@style/Carrier.FloatingOrderDetails.LoadingAnimation"
              app:MvxBind="Visible InProgress"
            />
       
       <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/float_details_success"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        app:lottie_fileName="success.json"
-        app:lottie_loop="false"
-        android:layout_centerHorizontal="true"
+        style="@style/Carrier.FloatingOrderDetails.SuccessAnimation"
         android:visibility="gone"/>
-
 
       <Button
           android:id="@+id/float_details_accept_order"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="10dp"
-          android:layout_marginRight="10dp"
-          android:text="Zaakcepuj"
-          android:textColor="#fff"
-          android:padding="3dp"
-          android:layout_centerHorizontal="true"
-          android:background="@color/primaryColor"/>
+          style="@style/Carrier.FloatingOrderDetails.AcceptButton"
+          android:text="Zaakcepuj"/>
 
     </RelativeLayout>
+    
 
   </LinearLayout>
 

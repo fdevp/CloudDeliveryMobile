@@ -9,7 +9,7 @@ using Android.Support.V4.View;
 using CloudDeliveryMobile.Android.Components;
 using CloudDeliveryMobile.Android.Components.FloatingWidget;
 using CloudDeliveryMobile.Android.Fragments.Carrier;
-using CloudDeliveryMobile.Android.Fragments.Carrier.Orders;
+using CloudDeliveryMobile.Android.Fragments.Carrier.Routes;
 using CloudDeliveryMobile.ViewModels;
 using CloudDeliveryMobile.ViewModels.Carrier;
 using MvvmCross.Droid.Support.V4;
@@ -43,7 +43,7 @@ namespace CloudDeliveryMobile.Android.Activities
             {
                 var fragments = new List<MvxViewPagerFragmentInfo>();
                 fragments.Add(new MvxViewPagerFragmentInfo("Mapa", typeof(CarrierMapFragment), typeof(CarrierMapViewModel)));
-                fragments.Add(new MvxViewPagerFragmentInfo("Zakończone", typeof(CarrierOrdersFragment), typeof(CarrierRoutesViewModel)));
+                fragments.Add(new MvxViewPagerFragmentInfo("Zakończone", typeof(CarrierFinishedRoutesFragment), typeof(CarrierFinishedRoutesViewModel)));
                 fragments.Add(new MvxViewPagerFragmentInfo("Profil", typeof(ProfileFragment), typeof(ProfileViewModel)));
                 viewPager.Adapter = new MvxCachingFragmentStatePagerAdapter(this, this.SupportFragmentManager, fragments);
                 viewPager.OffscreenPageLimit = 2;
@@ -56,6 +56,10 @@ namespace CloudDeliveryMobile.Android.Activities
 
         }
 
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+        }
 
         protected override void OnResume()
         {

@@ -13,8 +13,7 @@
   <android.support.v7.widget.CardView
       android:id="@+id/finished_order_listitem_header"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-       >
+      android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +29,7 @@
           android:layout_centerVertical="true"
           android:weightSum="100">
 
-        <!-- TEXT -->
+        
 
         <RelativeLayout
             android:minHeight="60dp"
@@ -38,17 +37,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="20">
 
-          <!-- pending -->
+         
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center_vertical">
 
-
             <LinearLayout
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:background="@color/primaryColor"
                 android:gravity="center">
               <LinearLayout
                   android:layout_height="wrap_content"
@@ -59,7 +56,6 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     app:MvxBind="Text AddedTime, Converter=MonthShortText"/>
@@ -67,16 +63,20 @@
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_width="wrap_content"
-                    android:textColor="#fff"
+                    android:textColor="@color/primaryColor"
                     android:textStyle="bold"
-                    android:textSize="18dp"
+                    android:textSize="25dp"
                     app:MvxBind="Text AddedTime.Day"/>
 
+                <TextView
+                   android:layout_height="match_parent"
+                   android:layout_width="wrap_content"
+                   android:textStyle="bold"
+                   android:textSize="18dp"
+                   app:MvxBind="Text AddedTime.Year"/>
+                
+
               </LinearLayout>
-
-
-
-
 
             </LinearLayout>
 

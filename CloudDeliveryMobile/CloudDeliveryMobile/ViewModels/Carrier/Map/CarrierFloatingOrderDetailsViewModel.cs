@@ -1,8 +1,12 @@
-﻿using CloudDeliveryMobile.Models.Orders;
+﻿using Acr.UserDialogs;
+using CloudDeliveryMobile.Helpers.Exceptions;
+using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Services;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
+using System;
 using System.Linq;
+using System.Net.Http;
 
 namespace CloudDeliveryMobile.ViewModels.Carrier
 {
@@ -17,7 +21,19 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
                 return new MvxAsyncCommand(async () =>
                 {
                     this.InProgress = true;
-                    await this.ordersService.Accept(this.Order);
+                    try
+                    {
+                        await this.ordersService.Accept(this.Order);
+                    }
+                    catch(HttpUnprocessableEntityException ex)
+                    {
+                        this.dialogsService.Toast(ex.Message, TimeSpan.FromSeconds(5));
+                    }
+                    catch (HttpRequestException e)
+                    {
+                        this.dialogsService.Toast("Problem z połączeniem z serwerem.", TimeSpan.FromSeconds(5));
+                    }
+
                     this.InProgress = false;
                 });
             }
@@ -34,10 +50,11 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        public CarrierFloatingOrderDetailsViewModel(IMvxNavigationService navigationService, ICarrierOrdersService ordersService)
+        public CarrierFloatingOrderDetailsViewModel(IMvxNavigationService navigationService, ICarrierOrdersService ordersService, IUserDialogs dialogsService)
         {
             this.ordersService = ordersService;
             this.navigationService = navigationService;
+            this.dialogsService = dialogsService;
         }
 
         public override void Prepare(int orderId)
@@ -54,5 +71,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 
         private IMvxNavigationService navigationService;
         private ICarrierOrdersService ordersService;
+        private IUserDialogs dialogsService;
     }
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="#00000000">
+
+  <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:padding="5dp"
+      android:background="#fff"
+      android:clickable="true"
+      app:MvxBind="Click SignalrReconnect">
+
+
+    <LinearLayout
+        android:id="@+id/signalr_status_icon"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_centerVertical="true">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@drawable/shape_circle_green"
+          app:MvxBind="Visible SignalrConnectionStatus,Converter=SignalrConnected">
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@drawable/shape_circle_red"
+          app:MvxBind="Visible !SignalrConnected(SignalrConnectionStatus)">
+      </LinearLayout>
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/signalr_status_text"
+        android:layout_toRightOf="@id/signalr_status_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        app:MvxBind="Text SignalrConnectionStatus, Converter=SignalrConnectionText" />
+
+    <ImageButton
+      android:id="@+id/signalr_reconnect_button"
+        android:layout_toRightOf="@id/signalr_status_text"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_autorenew_grey_600_48dp"
+        app:MvxBind="Visible !SignalrConnected(SignalrConnectionStatus)"/>
+
+  </RelativeLayout>
+
+</RelativeLayout>

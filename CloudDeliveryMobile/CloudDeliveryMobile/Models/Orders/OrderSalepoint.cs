@@ -19,5 +19,19 @@ namespace CloudDeliveryMobile.Models.Orders
 
         public DateTime? PickUpTime { get; set; }
 
+        public static explicit operator OrderFinishedListItem(OrderSalepoint obj)
+        {
+            OrderFinishedListItem output = new OrderFinishedListItem
+            {
+                Id = obj.Id,
+                Status = obj.Status,
+                AddedTime = obj.AddedTime,
+                CarrierName = obj.CarrierName,
+                DestinationAddress = obj.DestinationAddress,
+                DestinationCity = obj.DestinationCity
+            };
+            return output;
+        }
+
     }
 }

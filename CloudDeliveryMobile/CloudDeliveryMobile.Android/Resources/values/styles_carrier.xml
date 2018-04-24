@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <style name="Carrier"></style>
+  
+  
+  <style name="Carrier.FloatingOrderDetails"></style>
+  <style name="Carrier.FloatingOrderDetails.Container">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">180dp</item>
+    <item name="android:padding">5dp</item>
+    <item name="android:layout_margin">10dp</item>
+    <item name="android:layout_alignParentBottom">true</item>
+    <item name="android:orientation">vertical</item>
+    <item name="android:clickable">true</item>
+    <item name="android:background">#fff</item>
+  </style>
+  <style name="Carrier.FloatingOrderDetails.AcceptButton">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginLeft">10dp</item>
+    <item name="android:layout_marginRight">10dp</item>
+    <item name="android:textColor">#fff</item>
+    <item name="android:padding">3dp</item>
+    <item name="android:layout_centerHorizontal">true</item>
+    <item name="android:background">@color/primaryColor</item>
+  </style>
+  <style name="Carrier.FloatingOrderDetails.PointAnimation">
+    <item name="android:layout_width">40dp</item>
+    <item name="android:layout_height">40dp</item>
+    <item name="lottie_fileName">round.json</item>
+    <item name="lottie_loop">true</item>
+    <item name="lottie_autoPlay">true</item>
+
+  </style>
+  <style name="Carrier.FloatingOrderDetails.CloseButton">
+    <item name="android:layout_width">25dp</item>
+    <item name="android:layout_height">25dp</item>
+    <item name="android:background">#00000000</item>
+    <item name="android:layout_alignParentRight">true</item>
+    <item name="android:layout_alignParentTop">true</item>
+    <item name="android:scaleType">fitCenter</item>
+  </style>
+  <style name="Carrier.FloatingOrderDetails.LoadingAnimation">
+    <item name="android:layout_width">70dp</item>
+    <item name="android:layout_height">70dp</item>
+    <item name="android:layout_centerHorizontal">true</item>
+    <item name="lottie_fileName">truck_running.json</item>
+    <item name="lottie_loop">true</item>
+    <item name="lottie_autoPlay">true</item>
+  </style>
+  <style name="Carrier.FloatingOrderDetails.SuccessAnimation">
+    <item name="android:layout_width">90dp</item>
+    <item name="android:layout_height">90dp</item>
+    <item name="android:layout_centerHorizontal">true</item>
+    <item name="lottie_fileName">success.json</item>
+    <item name="lottie_loop">false</item>
+  </style>
+  <style name="Carrier.FloatingOrderDetails.DottedLeftBorder">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">20dp</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:layout_marginLeft">18dp</item>
+    <item name="android:background">@drawable/shape_dotted_left_border</item>
+  </style>
+
+
+  <style name="Carrier.FloatingOrders"></style>
+  <style name="Carrier.FloatingOrders.Overlay">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_marginTop">60dp</item>
+    <item name="android:orientation">vertical</item>
+    <item name="android:background">#00000000</item>
+
+  </style>
+  <style name="Carrier.FloatingOrders.AngleUp">
+    <item name="android:layout_width">15dp</item>
+    <item name="android:layout_height">15dp</item>
+    <item name="android:layout_marginLeft">32dp</item>
+    <item name="android:background">@drawable/shape_triangle</item>
+
+  </style>
+  <style name="Carrier.FloatingOrders.FloatingElement">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">350dp</item>
+    <item name="android:layout_marginLeft">15dp</item>
+    <item name="android:layout_marginRight">15dp</item>
+    <item name="android:layout_marginBottom">15dp</item>
+    <item name="android:orientation">vertical</item>
+    <item name="android:background">@drawable/floating_element_style</item>
+    
+  </style>
+  <style name="Carrier.FloatingOrders.RefreshButton">
+    <item name="android:layout_width">30dp</item>
+    <item name="android:layout_height">30dp</item>
+    <item name="android:src">@drawable/ic_autorenew_grey_600_48dp</item>
+    <item name="android:scaleType">fitCenter</item>
+    <item name="android:padding">0dp</item>
+    <item name="android:layout_marginLeft">8dp</item>
+    <item name="android:layout_alignParentLeft">true</item>
+    <item name="android:background">#00ffffff</item>
+  </style>
+  <style name="Carrier.FloatingOrders.CloseButton">
+    <item name="android:layout_width">30dp</item>
+    <item name="android:layout_height">30dp</item>
+    <item name="android:src">@drawable/ic_clear_grey_600_48dp</item>
+    <item name="android:scaleType">fitCenter</item>
+    <item name="android:padding">0dp</item>
+    <item name="android:layout_marginRight">8dp</item>
+    <item name="android:layout_alignParentRight">true</item>
+    <item name="android:background">#00ffffff</item>
+  </style>
+
+  <style name="Carrier.FloatingOrders.ListItem"></style>
+  <style name="Carrier.FloatingOrders.ListItem.SalepointName">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_alignParentLeft">true</item>
+    <item name="android:textSize">18dp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:layout_weight">3</item>
+  </style>
+  <style name="Carrier.FloatingOrders.ListItem.AddedTime">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textSize">20dp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:paddingLeft">5dp</item>
+    <item name="android:gravity">right</item>
+  </style>
+  <style name="Carrier.FloatingOrders.ListItem.AcceptButton">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">30dp</item>
+    <item name="android:paddingLeft">10dp</item>
+    <item name="android:paddingRight">10dp</item>
+    <item name="android:background">@drawable/shape_rounded_empty_button</item>
+    <item name="android:layout_alignParentRight">true</item>
+    <item name="android:textColor">@color/primaryColor</item>
+  </style>
+
+
+  <style name="Carrier.FloatingSalepointLabel"></style>
+  <style name="Carrier.FloatingSalepointLabel.Container">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:background">@drawable/floating_element_style</item>
+    <item name="android:orientation">horizontal</item>
+    <item name="android:layout_alignParentRight">true</item>
+    <item name="android:layout_marginRight">10dp</item>
+    <item name="android:layout_marginTop">10dp</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:clickable">true</item>
+  </style>
+  <style name="Carrier.FloatingSalepointLabel.CloseButton">
+    <item name="android:layout_width">25dp</item>
+    <item name="android:layout_height">25dp</item>
+    <item name="android:background">#00000000</item>
+    <item name="android:src">@drawable/ic_clear_grey_600_48dp</item>
+    <item name="android:layout_marginRight">10dp</item>
+    <item name="android:scaleType">fitCenter</item>
+  </style>
+
+
+
+  <style name="Carrier.PickupOrders"></style>
+  <style name="Carrier.PickupOrders.CloseButton">
+    <item name="android:layout_width">30dp</item>
+    <item name="android:layout_height">30dp</item>
+    <item name="android:background">#00ffffff</item>
+    <item name="android:src">@drawable/ic_clear_grey_600_48dp</item>
+    <item name="android:layout_marginRight">5dp</item>
+    <item name="android:scaleType">fitCenter</item>
+    <item name="android:layout_alignParentRight">true</item>
+  </style>
+  
+  
+  
+</resources>

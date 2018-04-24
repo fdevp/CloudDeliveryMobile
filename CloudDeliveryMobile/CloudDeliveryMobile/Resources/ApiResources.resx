@@ -124,6 +124,10 @@
     <value>token</value>
     <comment>Get token</comment>
   </data>
+  <data name="Signalr" xml:space="preserve">
+    <value>signalr</value>
+    <comment>Signalr connection url</comment>
+  </data>
   <data name="UserInfo" xml:space="preserve">
     <value>api/account/UserInfo</value>
     <comment>User info path (for token validation check)</comment>

@@ -18,6 +18,10 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.Map
 {
     public class CarrierFloatingSalepointLabelFragment : MvxFragment
     {
+        public CarrierFloatingSalepointLabelFragment()
+        {
+
+        }
 
         public CarrierFloatingSalepointLabelFragment(Action closeButtonClickCallback)
         {
@@ -37,7 +41,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.Map
             return view;
         }
 
-
         public override void OnResume()
         {
             base.OnResume();
@@ -55,7 +58,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.Map
             set
             {
                 this.salepointName = value;
-                
             }
         }
 

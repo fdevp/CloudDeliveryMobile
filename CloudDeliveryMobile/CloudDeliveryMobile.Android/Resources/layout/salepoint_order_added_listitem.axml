@@ -37,7 +37,7 @@
            android:layout_height="wrap_content"
            android:layout_weight="20">
 
-          <!-- pending -->
+  
           <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
@@ -119,6 +119,26 @@
                         />
       </LinearLayout>
 
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Dodano: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order.AddedTime"
+                        />
+      </LinearLayout>
 
       <LinearLayout
           android:layout_width="wrap_content"

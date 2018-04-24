@@ -1,10 +1,13 @@
 ﻿using CloudDeliveryMobile.Helpers.Exceptions;
 using CloudDeliveryMobile.Models;
+using CloudDeliveryMobile.Models.Enums;
+using CloudDeliveryMobile.Models.Enums.Events;
 using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Models.Routes;
 using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Services;
 using CloudDeliveryMobile.ViewModels.Carrier.SideView;
+using Microsoft.AspNet.SignalR.Client;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
@@ -14,56 +17,59 @@ using System.Globalization;
 
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace CloudDeliveryMobile.ViewModels.Carrier
 {
     public class CarrierMapViewModel : BaseViewModel
     {
-        public CarrierSideViewViewModel SideView { get; set; }
+        public bool ActiveRouteMode
+        {
+            get
+            {
+                return this.activeRouteMode;
+            }
+            set
+            {
+                this.activeRouteMode = value;
+                RaisePropertyChanged(() => this.ActiveRouteMode);
+            }
+        }
 
         //collections
-        public IMvxAsyncCommand InitializeData
+        public bool DataInitialised { get; set; } = false;
+
+        public IMvxAsyncCommand InitializeSideView
         {
             get
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (initialised)
-                        return;
+                    if (!DataInitialised)
+                    {
+                        this.InProgress = true;
+                        try
+                        {
+                            await this.routesService.ActiveRouteDetails();
+                            this.ActiveRouteMode = true;
+                        }
+                        catch (HttpRequestException) //no connection
+                        {
+                            this.sideView.ErrorOccured = true;
+                            this.sideView.ErrorMessage = "Problem z połączeniem z serwerem.";
+                        }
+                        catch (HttpUnprocessableEntityException)
+                        {
+                            await this.ordersService.GetPendingOrders();
+                        }
 
-                    initialised = true;
+                        await this.navigationService.Navigate(this.sideView);
 
-                    //init data
-                    this.InProgress = true;
-                    try
-                    {
-                        await this.routesService.ActiveRouteDetails();
-                    }
-                    catch (HttpUnprocessableEntityException) // no active route
-                    {
-                        await this.ordersService.GetPendingOrders();
-                    }
-                    catch (HttpRequestException httpException) //no connection
-                    {
-                        this.ErrorOccured = true;
-                        this.ErrorMessage = "Problem z połączeniem z serwerem.";
-                    }
-                    finally
-                    {
                         this.InProgress = false;
-                        await this.navigationService.Navigate(this.SideView);
+                        DataInitialised = true;
                     }
                 });
             }
-        }
-
-        private MvxInteraction _ordersUpdateInteraction = new MvxInteraction();
-
-        public IMvxInteraction OrdersUpdateInteraction => _ordersUpdateInteraction;
-
-        private void SendInteraction(object sender, EventArgs e)
-        {
-            this._ordersUpdateInteraction?.Raise();
         }
 
         public List<OrderCarrier> PendingOrders
@@ -82,6 +88,63 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
+        //interactions
+        private MvxInteraction<ServiceEvent<CarrierOrdersEvents>> _ordersUpdateInteraction = new MvxInteraction<ServiceEvent<CarrierOrdersEvents>>();
+        public IMvxInteraction<ServiceEvent<CarrierOrdersEvents>> OrdersUpdateInteraction => _ordersUpdateInteraction;
+
+
+        private MvxInteraction<ServiceEvent<CarrierRouteEvents>> _routeUpdateInteraction = new MvxInteraction<ServiceEvent<CarrierRouteEvents>>();
+        public IMvxInteraction<ServiceEvent<CarrierRouteEvents>> RouteUpdateInteraction => _routeUpdateInteraction;
+
+
+        //SelectedSalepointId
+        private MvxInteraction<int?> _selectedSalepointUpdateInteraction = new MvxInteraction<int?>();
+        public IMvxInteraction<int?> SelectedSalepointUpdate => _selectedSalepointUpdateInteraction;
+
+
+        private void ActiveRouteEventHandler(object sender, ServiceEvent<CarrierRouteEvents> e)
+        {
+            switch (e.Type)
+            {
+                case CarrierRouteEvents.FinishedRoute:
+                    this.ActiveRouteMode = false;
+                    this.ordersService.GetPendingOrders();
+                    break;
+                case CarrierRouteEvents.AddedRoute:
+                    this.ActiveRouteMode = true;
+                    break;
+            }
+
+            _routeUpdateInteraction.Raise(e);
+        }
+
+        private void PendingOrdersEventHandler(object sender, ServiceEvent<CarrierOrdersEvents> e)
+        {
+            _ordersUpdateInteraction.Raise(e);
+            RaisePropertyChanged(() => this.PendingOrders);
+        }
+
+        //signalr
+        public ConnectionState SignalrConnectionStatus
+        {
+            get
+            {
+                return this.notificationsProvider.SocketStatus;
+            }
+        }
+
+        public IMvxAsyncCommand SignalrReconnect
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    if (this.notificationsProvider.SocketStatus == ConnectionState.Disconnected)
+                        await this.notificationsProvider.StarListening();
+                });
+            }
+        }
+
         //floating elements
         public int? SelectedSalepointId
         {
@@ -94,7 +157,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
                 if (this.selectedSalepointId != value)
                 {
                     this.selectedSalepointId = value;
-                    this.SendInteraction(this, null);
+                    this._selectedSalepointUpdateInteraction.Raise(value);
                 }
             }
         }
@@ -105,7 +168,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             {
                 return new MvxCommand(() =>
                 {
-                    this.navigationService.Navigate<CarrierFloatingOrdersViewModel>();
+                    this.navigationService.Navigate(this.floatingOrdersViewModel);
                 });
             }
         }
@@ -146,34 +209,38 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        public CarrierMapViewModel(IDeviceProvider deviceProvider, IMvxNavigationService navigationService, ICarrierOrdersService ordersService, IRoutesService routesService)
+        public CarrierMapViewModel(IDeviceProvider deviceProvider, IMvxNavigationService navigationService, ICarrierOrdersService ordersService, IRoutesService routesService, INotificationsProvider notificationsProvider)
         {
             this.deviceProvider = deviceProvider;
             this.navigationService = navigationService;
             this.ordersService = ordersService;
             this.routesService = routesService;
+            this.notificationsProvider = notificationsProvider;
 
-            this.ordersService.PendingOrdersUpdated += this.SendInteraction;
-            this.routesService.ActiveRouteUpdated += this.SendInteraction;
+            this.notificationsProvider.SocketStatusUpdated += (sender, value) => RaisePropertyChanged(() => this.SignalrConnectionStatus);
 
-            this.SideView = Mvx.IocConstruct<CarrierSideViewViewModel>();
+
+            this.ordersService.PendingOrdersUpdated += this.PendingOrdersEventHandler;
+            this.routesService.ActiveRouteUpdated += this.ActiveRouteEventHandler;
+
+            this.sideView = Mvx.IocConstruct<CarrierSideViewViewModel>();
+            this.floatingOrdersViewModel = Mvx.IocConstruct<CarrierFloatingOrdersViewModel>();
         }
 
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            base.ViewDestroy(viewFinishing);
-            this.initialised = false;
-        }
+        private bool activeRouteMode = false;
 
         private int? selectedSalepointId;
-        private bool initialised = false;
         private float? baseZoom;
         private GeoPosition basePosition;
         private GeoPosition currentPosition = new GeoPosition();
 
+        private CarrierFloatingOrdersViewModel floatingOrdersViewModel;
+        private CarrierSideViewViewModel sideView;
+
+
         private IDeviceProvider deviceProvider;
         private IMvxNavigationService navigationService;
+        private INotificationsProvider notificationsProvider;
         private ICarrierOrdersService ordersService;
         private IRoutesService routesService;
     }

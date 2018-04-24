@@ -22,8 +22,11 @@ namespace CloudDeliveryMobile
             var httpProvider = new HttpProvider();
             Mvx.RegisterSingleton<IHttpProvider>(httpProvider);
 
-            Mvx.RegisterSingleton<IUserDialogs>(UserDialogs.Instance);
+            var notificationsProvider = new NotificationsProvider();
+            Mvx.RegisterSingleton<INotificationsProvider>(notificationsProvider);
 
+            Mvx.RegisterSingleton<IUserDialogs>(UserDialogs.Instance);
+            
             //db
             string externalDirPath = deviceProvider.DataPath();
             string dbPath = PortablePath.Combine(externalDirPath, FilesNames.databaseFile);
@@ -36,13 +39,13 @@ namespace CloudDeliveryMobile
             var sessionProvider = new SessionProvider(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<IStorageProvider>());
             Mvx.RegisterSingleton<ISessionProvider>(sessionProvider);
 
-            var carrierOrdersService = new CarrierOrdersService(Mvx.Resolve<IHttpProvider>());
+            var carrierOrdersService = new CarrierOrdersService(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<INotificationsProvider>());
             Mvx.RegisterSingleton<ICarrierOrdersService>(carrierOrdersService);
 
-            var salepointOrdersService = new SalepointOrdersService(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<IStorageProvider>());
+            var salepointOrdersService = new SalepointOrdersService(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<IStorageProvider>(), Mvx.Resolve<INotificationsProvider>());
             Mvx.RegisterSingleton<ISalepointOrdersService>(salepointOrdersService);
 
-            var routesService = new RoutesService(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<IStorageProvider>());
+            var routesService = new RoutesService(Mvx.Resolve<IHttpProvider>(), Mvx.Resolve<INotificationsProvider>());
             Mvx.RegisterSingleton<IRoutesService>(routesService);
 
             RegisterNavigationServiceAppStart<SignInViewModel>();

@@ -1,5 +1,8 @@
 ﻿using Acr.UserDialogs;
+using CloudDeliveryMobile.Helpers.Exceptions;
+using CloudDeliveryMobile.Models;
 using CloudDeliveryMobile.Models.Enums;
+using CloudDeliveryMobile.Models.Enums.Events;
 using CloudDeliveryMobile.Models.Routes;
 using CloudDeliveryMobile.Services;
 using MvvmCross.Core.Navigation;
@@ -9,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 
 namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
 {
@@ -62,13 +66,31 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
                     {
                         await this.routesService.FinishActiveRoute();
                     }
-                    catch (Exception e)
+                    catch (HttpUnprocessableEntityException ex)
                     {
-                        this.dialogsService.Toast(e.Message, TimeSpan.FromSeconds(5));
+                        this.dialogsService.Toast(ex.Message, TimeSpan.FromSeconds(5));
+                    }
+                    catch (HttpRequestException httpException)
+                    {
+                        this.dialogsService.Toast("Problem z połączeniem z serwerem.", TimeSpan.FromSeconds(5));
                     }
 
                     this.FinishingInProgress = false;
                     RaisePropertyChanged(() => this.FinishButtonVisible);
+                });
+            }
+        }
+
+        public IMvxAsyncCommand ReloadData
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    this.ErrorOccured = false;
+                    this.InProgress = true;
+                    await this.routesService.ActiveRouteDetails();
+                    this.InProgress = false;
                 });
             }
         }
@@ -78,8 +100,9 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             this.routesService = routesService;
             this.navigationService = navigationService;
             this.ordersService = ordersService;
+            this.dialogsService = dialogsService;
 
-           
+            this.routesService.ActiveRouteUpdated += UpdateActiveRoute;
         }
 
         public override void Start()
@@ -91,6 +114,22 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
 
             this.initialised = true;
             CreatePointsViewModel();
+        }
+
+
+        private void UpdateActiveRoute(object sender, ServiceEvent<CarrierRouteEvents> e)
+        {
+            switch (e.Type)
+            {
+                case CarrierRouteEvents.AddedRoute:
+                    this.FinishingInProgress = false;
+                    this.AllPointsPassed = false;
+                    CreatePointsViewModel();
+                    break;
+                case CarrierRouteEvents.FinishedRoute:
+                    this.Points.Clear();
+                    break;
+            }
         }
 
         private void CreatePointsViewModel()
@@ -125,7 +164,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
                 foreach (RoutePointActiveListViewModel point in pickedPoints)
                     point.RaisePropertyChanged(() => point.Point);
             }
-            
+
         }
 
         private void SetActivePoint()
@@ -152,7 +191,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
         private bool initialised = false;
         private bool _allPointsPassed = false;
         private bool _finishingInProgress = false;
-        
+
         private IMvxNavigationService navigationService;
         private IRoutesService routesService;
         private ICarrierOrdersService ordersService;

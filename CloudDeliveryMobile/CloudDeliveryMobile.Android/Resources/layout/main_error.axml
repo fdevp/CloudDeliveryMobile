@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+  android:orientation="vertical"
+   app:MvxBind="Visible ErrorOccured">
+
+  <!-- ERROR -->
+  <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:paddingTop="100dp"
+     android:orientation="vertical"
+     android:gravity="center_horizontal">
+
+    <TextView
+     android:id="@+id/txt_err"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_centerHorizontal="true"
+     android:textSize="27dp"
+     android:text="Błąd"/>
+    
+    <TextView
+        android:id="@+id/txt_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_err"
+        android:layout_centerHorizontal="true"
+        app:MvxBind="Text ErrorMessage"
+        />
+
+    <Button
+        android:id="@+id/btn_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Odśwież"
+        android:background="#ccc"
+        android:layout_below="@id/txt_message"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        app:MvxBind="Click ReloadData"
+        />
+
+  </LinearLayout>
+
+</LinearLayout>

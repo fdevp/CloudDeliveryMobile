@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"  
+    android:id="@+id/finished_orders_container">
+  
+<LinearLayout 
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+  
+  <include layout="@layout/main_inprogress"/>
+  <include layout="@layout/main_error"/>
+  
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:MvxBind="Visible ShowContent"
     android:orientation="vertical">
 
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="right"
-    android:background="#fff"
-    android:layout_margin="5dp">
+    <MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout
+        android:id="@+id/salepoint_finished_orders_swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         app:MvxBind="Refreshing RefreshingInProgress; RefreshCommand RefreshList">
 
-      <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filtruj"/>
+      <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+          android:id="@+id/salepoint_finished_orders_list"
+          android:layout_height="match_parent"
+          android:layout_width="match_parent"
+          android:layout_weight="12"
+          app:MvxItemTemplate="@layout/salepoint_finished_order_listitem"
+          app:MvxBind="ItemsSource Orders; ItemClick ShowDetails"/>
 
-    </LinearLayout>
+    </MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>
 
-    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
-            android:id="@+id/salepoint_finished_orders_list"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_weight="12"
-            app:MvxItemTemplate="@layout/salepoint_finished_order_listitem"
-            app:MvxBind="ItemsSource Orders; ItemClick ShowDetails"/>
+    
 
 
   </LinearLayout>
 
-  <include layout="@layout/main_inprogress"/>
+  
   
 </LinearLayout>
+
+
+</FrameLayout>

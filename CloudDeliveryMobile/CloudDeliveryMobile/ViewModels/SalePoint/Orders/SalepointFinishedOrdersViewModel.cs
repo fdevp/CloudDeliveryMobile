@@ -34,6 +34,46 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
             }
         }
 
+        public bool RefreshingInProgress
+        {
+            get
+            {
+                return this.refreshingInProgress;
+            }
+            set
+            {
+                this.refreshingInProgress = value;
+                RaisePropertyChanged(() => this.RefreshingInProgress);
+            }
+        }
+
+        public IMvxAsyncCommand RefreshList
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    this.RefreshingInProgress = true;
+                    await this.InitializeData();
+                    this.RefreshingInProgress = false;
+                });
+            }
+        }
+
+        public IMvxAsyncCommand ReloadData
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    this.ErrorOccured = false;
+                    this.InProgress = true;
+                    await this.InitializeData();
+                    this.InProgress = false;
+                });
+            }
+        }
+
         public SalepointFinishedOrdersViewModel(IMvxNavigationService navigationService, ISalepointOrdersService salepointOrdersService)
         {
             this.navigationService = navigationService;
@@ -45,8 +85,13 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
         public async override void Start()
         {
             base.Start();
-
             this.InProgress = true;
+            await this.InitializeData();
+            this.InProgress = false;
+        }
+
+        private async Task InitializeData()
+        {
             try
             {
                 await this.salepointOrdersService.GetFinishedOrders();
@@ -66,13 +111,9 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
                 this.ErrorOccured = true;
                 this.ErrorMessage = "Wystąpił nieznany błąd.";
             }
-            finally
-            {
-                this.InProgress = false;
-            }
-
         }
 
+        private bool refreshingInProgress = false;
         private IMvxNavigationService navigationService;
         private ISalepointOrdersService salepointOrdersService;
     }

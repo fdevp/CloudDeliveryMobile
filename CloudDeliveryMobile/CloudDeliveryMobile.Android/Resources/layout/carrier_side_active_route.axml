@@ -79,6 +79,6 @@
 
 
   <include layout="@layout/main_inprogress"/>
-
+  <include layout="@layout/main_error"/>
 
 </RelativeLayout>

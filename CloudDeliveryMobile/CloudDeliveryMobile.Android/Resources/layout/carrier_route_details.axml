@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee"
+    android:orientation="vertical"
+    android:clickable="true">
+
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp"
+      android:background="@drawable/floating_element_header_style">
+
+    <TextView
+        android:id="@+id/route_pickup_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:text="Szczegóły trasy"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/route_pickup_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        app:MvxBind="Text Route.AddedTime; Visible Route, Converter=NullVisibility" />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="#00ffffff"
+        android:layout_alignParentRight="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_clear_grey_600_48dp"
+        android:layout_marginRight="5dp"
+         app:MvxBind="Click CloseFragment"/>
+
+
+  </RelativeLayout>
+
+  <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:MvxBind="Visible ShowContent">
+
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:orientation="vertical"
+          android:background="#fff">
+
+        <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textSize="22dp"
+             android:textStyle="bold"
+             android:text="Trasa"
+                />
+
+        <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:text="Dodano: "
+                    />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:MvxBind="Text Route.AddedTime"
+                    />
+
+        </LinearLayout>
+
+        <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:text="Zakończono: "
+                    />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:MvxBind="Text Route.FinishTime"
+                    />
+
+        </LinearLayout>
+
+        <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:text="Ilość punktów: "
+                    />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:MvxBind="Text Route.RoutePointsCount"
+                    />
+
+        </LinearLayout>
+
+        <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:MvxBind="Visible Route.Duration!=null">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:text="Czas trwania: "
+                    />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:MvxBind="Text Duration"/>
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+
+      <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:background="#fff">
+
+        <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="22dp"
+           android:textStyle="bold"
+           android:padding="10dp"
+           android:text="Punkty"
+            />
+
+
+        <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+            android:id="@+id/carrier_route_routepoints_list"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="12"
+            app:MvxBind="ItemsSource Route.Points; ItemClick ShowDetails"/>
+        
+      
+
+
+      </LinearLayout>
+
+
+    </LinearLayout>
+
+
+  </ScrollView>
+  <include layout="@layout/main_inprogress"/>
+  <include layout="@layout/main_error"/>
+
+
+</LinearLayout>

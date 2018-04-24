@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentLeft="true">
+      <ImageView
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:src="@drawable/salepoint_marker"
+                            />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:textSize="20dp"
+          app:MvxBind="Text Order, Converter=DestinationAddress"
+                            />
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/routepoint_details_endpoint_toggle_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="25dp"
+        android:layout_marginRight="10dp"
+        android:text="+"
+                        />
+
+
+  </RelativeLayout>
+
+  <LinearLayout
+    android:id="@+id/routepoint_details_endpoint_body"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:visibility="gone"
+    android:background="#fff"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <View
+     android:layout_width="match_parent"
+     android:layout_height="1dp"
+     android:background="#ddd"
+      />
+    
+    <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="2dp"
+          android:orientation="vertical">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textStyle="bold"
+          android:textSize="15dp"
+          android:text="Z punktu: "
+                        />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="15dp"
+          app:MvxBind="Text Order.SalepointName"
+                        />
+    </LinearLayout>
+
+    <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="2dp"
+         android:orientation="vertical">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textStyle="bold"
+          android:textSize="15dp"
+          android:text="Adres punktu: "
+                        />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="15dp"
+          app:MvxBind="Text Order, Converter=SalepointAddress"
+                        />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:orientation="vertical">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textStyle="bold"
+          android:textSize="15dp"
+          android:text="Adres dostawy: "
+                        />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="15dp"
+          app:MvxBind="Text Order, Converter=DestinationAddress"
+                        />
+    </LinearLayout>
+
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:weightSum="2">
+      <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="2dp"
+           android:layout_weight="1"
+           android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Koszt: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order.Price, Converter=PriceText"
+                        />
+      </LinearLayout>
+
+      <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="2dp"
+           android:layout_weight="1"
+           android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Telefon klienta: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order.CustomerPhone"
+                        />
+      </LinearLayout>
+
+    </LinearLayout>
+             
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:weightSum="2">
+      <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="2dp"
+           android:layout_weight="1"
+           android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Dodano: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order.AddedTime"
+                        />
+      </LinearLayout>
+
+      <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="2dp"
+           android:layout_weight="1"
+           android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Zaakceptowano: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order.AcceptedTime"
+                        />
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:weightSum="2">
+      <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="2dp"
+           android:layout_weight="1"
+           android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Odebrano: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order.PickUpTime"
+                        />
+      </LinearLayout>
+
+      <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="2dp"
+           android:layout_weight="1"
+           android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Dostarczono: "
+                        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            app:MvxBind="Text Order.DeliveredTime"
+                        />
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginTop="5dp"
+      android:layout_marginBottom="10dp"
+      android:background="#ddd"
+      />
+  
+  </LinearLayout>
+
+
+</LinearLayout>

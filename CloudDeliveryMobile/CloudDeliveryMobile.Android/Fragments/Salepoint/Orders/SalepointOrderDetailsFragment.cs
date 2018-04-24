@@ -23,7 +23,11 @@ using MvvmCross.Droid.Views.Attributes;
 
 namespace CloudDeliveryMobile.Android.Fragments.Salepoint
 {
-    [MvxFragmentPresentation(AddToBackStack = true, EnterAnimation = Resource.Drawable.animation_fade_in, PopEnterAnimation = Resource.Drawable.animation_fade_in, ExitAnimation = Resource.Drawable.animation_fade_out, PopExitAnimation = Resource.Drawable.animation_fade_out)]
+    //kopia z backupem
+    //dodano id finished_orders_container
+    // zmiana FragmentContentId w TYM fragmencie
+
+    [MvxFragmentPresentation(FragmentContentId = Resource.Id.finished_orders_container, AddToBackStack = true, EnterAnimation = Resource.Drawable.animation_slide_in_left, PopEnterAnimation = Resource.Drawable.animation_slide_in_left, ExitAnimation = Resource.Drawable.animation_slide_out_right, PopExitAnimation = Resource.Drawable.animation_slide_out_right)]
     public class SalepointOrderDetailsFragment : MvxFragment<SalepointOrderDetailsViewModel>, IOnMapReadyCallback
     {
         private bool setMarkersAfterMapInitialisation = false;
@@ -96,7 +100,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
 
         private void SetAddedMarkers(object sender, EventArgs e)
         {
-            if (this.ViewModel.Order.EndLatLng == null)
+            if (this.ViewModel.Order.EndLatLng == null || this.Activity == null)
                 return;
 
             if (this.map == null)

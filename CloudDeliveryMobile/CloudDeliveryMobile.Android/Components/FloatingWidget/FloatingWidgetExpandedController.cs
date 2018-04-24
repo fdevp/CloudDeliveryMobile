@@ -30,6 +30,7 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
         //buttons
         private ImageButton nextPointButton;
         private ImageButton previousPointButton;
+        private LinearLayout controlButtonsContainer;
         private Button showAppButton;
         private Button gmapsIntentButton;
 
@@ -68,6 +69,9 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
             previousPointButton = expandedView.FindViewById<ImageButton>(Resource.Id.widget_previous_point_button);
             previousPointButton.Click += PreviousPointClick;
 
+
+            controlButtonsContainer = expandedView.FindViewById<LinearLayout>(Resource.Id.widget_control_buttons_container);
+
             showAppButton = expandedView.FindViewById<Button>(Resource.Id.widget_show_app_button);
             showAppButton.Click += ShowAppClick;
 
@@ -97,11 +101,12 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
             pointTypeIcon.Visibility = ViewStates.Gone;
             pointTypeHeader.SetTextColor(ContextCompat.GetColorStateList(this.service.BaseContext, Resource.Color.grayColor));
 
-            showAppButton.Visibility = ViewStates.Gone;
-            gmapsIntentButton.Visibility = ViewStates.Gone;
+            controlButtonsContainer.Visibility = ViewStates.Gone;
 
             passedContainer.Visibility = ViewStates.Visible;
+
             string time = currentPoint.Point.PassedTime.Value.ToString("H:mm");
+            
             if (currentPoint.Point.Type == RoutePointType.EndPoint)
                 passedTimeText.Text = string.Concat("Dostarczono: ", time);
             else if (currentPoint.Point.Type == RoutePointType.SalePoint)
@@ -114,9 +119,7 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
             pointTypeIcon.SetImageResource(Resource.Drawable.marker);
             pointTypeHeader.SetTextColor(ContextCompat.GetColorStateList(this.service.BaseContext, Resource.Color.primaryColor));
 
-            showAppButton.Visibility = ViewStates.Visible;
-            gmapsIntentButton.Visibility = ViewStates.Visible;
-
+            controlButtonsContainer.Visibility = ViewStates.Visible;
             passedContainer.Visibility = ViewStates.Gone;
         }
 
@@ -127,9 +130,7 @@ namespace CloudDeliveryMobile.Android.Components.FloatingWidget
             pointTypeIcon.SetImageResource(Resource.Drawable.marker_bw);
             pointTypeHeader.SetTextColor(ContextCompat.GetColorStateList(this.service.BaseContext, Resource.Color.blackColor));
 
-            showAppButton.Visibility = ViewStates.Visible;
-            gmapsIntentButton.Visibility = ViewStates.Visible;
-
+            controlButtonsContainer.Visibility = ViewStates.Visible;
             passedContainer.Visibility = ViewStates.Gone;
         }
 

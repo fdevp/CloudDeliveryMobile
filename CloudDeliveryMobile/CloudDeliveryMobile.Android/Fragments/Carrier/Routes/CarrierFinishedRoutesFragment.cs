@@ -4,9 +4,9 @@ using CloudDeliveryMobile.ViewModels.Carrier;
 using MvvmCross.Binding.Droid.BindingContext;
 using MvvmCross.Droid.Support.V4;
 
-namespace CloudDeliveryMobile.Android.Fragments.Carrier.Orders
+namespace CloudDeliveryMobile.Android.Fragments.Carrier.Routes
 {
-    public class CarrierOrdersFragment : MvxFragment<CarrierRoutesViewModel>
+    public class CarrierFinishedRoutesFragment : MvxFragment<CarrierFinishedRoutesViewModel>
     {
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -15,6 +15,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.Orders
             return view;
         }
 
-        private int FragmentId { get; } = Resource.Layout.carrier_orders;
+        private int FragmentId { get; } = Resource.Layout.carrier_finished_routes;
     }
 }
