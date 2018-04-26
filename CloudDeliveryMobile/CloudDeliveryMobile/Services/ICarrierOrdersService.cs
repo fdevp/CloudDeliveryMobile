@@ -82,12 +82,12 @@ namespace CloudDeliveryMobile.Services
         /// <summary>
         /// 
         /// </summary>
-        void CleanData();
+        void ClearData();
 
 
         /// <summary>
         /// 
         /// </summary>
-        void CleanAcceptedOrders();
+        void ClearAcceptedOrders();
     }
 }

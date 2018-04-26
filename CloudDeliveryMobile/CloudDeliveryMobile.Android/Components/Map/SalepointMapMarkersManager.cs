@@ -35,7 +35,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
             switch (e.Value.Type)
             {
                 case SalepointAddedOrdersEvents.AddedList:
-                    CleanAddedOrdersMarkers();
+                    ClearAddedOrdersMarkers();
                     SetAddedOrdersMarkers();
                     break;
                 case SalepointAddedOrdersEvents.AddedOrder:
@@ -44,7 +44,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
                     break;
                 case SalepointAddedOrdersEvents.RemovedOrder:
                     OrderSalepoint orderToRemove = (OrderSalepoint)e.Value.Resource;
-                    CleanMarker(MarkerType.AddedOrder, orderToRemove.Id);
+                    ClearMarker(MarkerType.AddedOrder, orderToRemove.Id);
                     break;
             }
         }
@@ -54,7 +54,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
             switch (e.Value.Type)
             {
                 case SalepointInProgressOrdersEvents.AddedList:
-                    CleanInProgressOrdersMarkers();
+                    ClearInProgressOrdersMarkers();
                     SetInProgressOrdersMarkers();
                     break;
                 case SalepointInProgressOrdersEvents.AddedOrder:
@@ -63,7 +63,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
                     break;
                 case SalepointInProgressOrdersEvents.RemovedOrder:
                     OrderSalepoint orderToRemove = (OrderSalepoint)e.Value.Resource;
-                    CleanMarker(MarkerType.InProgressOrder, orderToRemove.Id);
+                    ClearMarker(MarkerType.InProgressOrder, orderToRemove.Id);
                     break;
             }
         }
@@ -97,7 +97,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
                 SetInProgressOrdersMarker(item);
         }
 
-        private void CleanAddedOrdersMarkers()
+        private void ClearAddedOrdersMarkers()
         {
             foreach (var item in addedOrdersMarkers)
             {
@@ -107,7 +107,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
             addedOrdersMarkers.Clear();
         }
 
-        private void CleanInProgressOrdersMarkers()
+        private void ClearInProgressOrdersMarkers()
         {
             foreach (var item in inprogressOrdersMarkers)
             {
@@ -167,7 +167,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
             });
         }
 
-        private void CleanMarker(MarkerType type, int dictKey)
+        private void ClearMarker(MarkerType type, int dictKey)
         {
             switch (type)
             {

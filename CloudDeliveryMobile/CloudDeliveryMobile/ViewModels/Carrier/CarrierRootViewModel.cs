@@ -24,15 +24,6 @@ namespace CloudDeliveryMobile.ViewModels
             });
         }
 
-        public async override void Start()
-        {
-            //set root viewmodel
-            this.deviceProvider.RootViewModel = this;
-            //this.notificationsProvider.SetAuthHeader(this.sessionProvider.SessionData.access_token);
-            //this.notificationsProvider.InitEvents(Roles.salepoint);
-            //await this.notificationsProvider.StarListening();
-        }
-
         private IDeviceProvider deviceProvider;
         private INotificationsProvider notificationsProvider;
         private ISessionProvider sessionProvider;

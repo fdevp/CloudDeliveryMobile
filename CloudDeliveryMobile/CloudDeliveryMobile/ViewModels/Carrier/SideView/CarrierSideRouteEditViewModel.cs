@@ -79,7 +79,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
                    try
                    {
                        await this.routesService.Add(newRouteModel);
-                       this.ordersService.CleanAcceptedOrders();
+                       this.ordersService.ClearAcceptedOrders();
                    }
                    catch (ApiException e)
                    {

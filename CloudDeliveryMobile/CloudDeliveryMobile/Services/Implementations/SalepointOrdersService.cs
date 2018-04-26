@@ -134,7 +134,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             return new List<string>();
         }
 
-        public void CleanData()
+        public void ClearData()
         {
             this.AddedOrders = null;
             this.InProgressOrders = null;

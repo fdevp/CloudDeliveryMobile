@@ -77,7 +77,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             this.ActiveRouteUpdated?.Invoke(this, new ServiceEvent<CarrierRouteEvents>(CarrierRouteEvents.FinishedRoute));
         }
 
-        public void CleanData()
+        public void ClearData()
         {
             this.ActiveRoute = null;
             this.ActiveRouteUpdated = null;

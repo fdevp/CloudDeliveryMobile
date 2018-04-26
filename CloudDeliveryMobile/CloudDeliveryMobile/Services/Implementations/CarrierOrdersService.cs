@@ -84,7 +84,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             return order;
         }
 
-        public void CleanData()
+        public void ClearData()
         {
             this.AcceptedOrders = null;
             this.PendingOrders = null;
@@ -92,7 +92,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             this.PendingOrdersUpdated = null;
         }
 
-        public void CleanAcceptedOrders()
+        public void ClearAcceptedOrders()
         {
             this.AcceptedOrders = null;
             this.AcceptedOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.RemovedList));

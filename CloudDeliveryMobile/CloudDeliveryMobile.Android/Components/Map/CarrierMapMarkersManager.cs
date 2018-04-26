@@ -35,7 +35,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
 
         public void HandleSelectedSalepointMarkers(object sender, MvxValueEventArgs<int?> e)
         {
-            CleanOrdersMarkers();
+            ClearOrdersMarkers();
 
             if (e.Value.HasValue)
                 SetOrdersMarkers();
@@ -49,7 +49,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
             switch (e.Value.Type)
             {
                 case CarrierOrdersEvents.AddedList:
-                    CleanPendingMarkers();
+                    ClearPendingMarkers();
                     SetPendingMarkers();
                     break;
                 case CarrierOrdersEvents.AddedOrder:
@@ -69,11 +69,11 @@ namespace CloudDeliveryMobile.Android.Components.Map
                     break;
                 case CarrierOrdersEvents.RemovedOrder:
                     OrderCarrier orderToRemove = (OrderCarrier)e.Value.Resource;
-                    CleanMarker(MarkerType.Order, orderToRemove.Id);
+                    ClearMarker(MarkerType.Order, orderToRemove.Id);
 
                     //if removed order was last order of salepoint
                     if (this.viewModel.PendingOrders.All(x => x.SalepointId != orderToRemove.SalepointId))
-                        CleanMarker(MarkerType.Salepoint, orderToRemove.SalepointId);
+                        ClearMarker(MarkerType.Salepoint, orderToRemove.SalepointId);
 
                     break;
             }
@@ -84,23 +84,23 @@ namespace CloudDeliveryMobile.Android.Components.Map
             switch (e.Value.Type)
             {
                 case CarrierRouteEvents.AddedRoute:
-                    CleanPendingMarkers();
+                    ClearPendingMarkers();
                     SetRouteMarkers();
                     break;
                 case CarrierRouteEvents.FinishedRoute:
-                    CleanRoutePointsMarkers();
+                    ClearRoutePointsMarkers();
                     break;
                 case CarrierRouteEvents.PassedPoint:
                     //remove point
                     RoutePoint routePoint = (RoutePoint)e.Value.Resource;
-                    CleanMarker(MarkerType.ActiveRoutePoint, routePoint.Id);
+                    ClearMarker(MarkerType.ActiveRoutePoint, routePoint.Id);
 
                     //get next active
                     RoutePoint nextActivePoint = this.viewModel.ActiveRoute.Points.Where(x => x.PassedTime == null && x.Order.Status != OrderStatus.Cancelled).FirstOrDefault();
                     if (nextActivePoint == null)
                         return;
                     //remove next point
-                    CleanMarker(MarkerType.PendingRoutePoint, nextActivePoint.Id);
+                    ClearMarker(MarkerType.PendingRoutePoint, nextActivePoint.Id);
 
                     //add next point as active point
                     if (nextActivePoint.Type == RoutePointType.EndPoint)
@@ -111,7 +111,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
                     break;
                 case CarrierRouteEvents.CancelledPoint:
                     RoutePoint point = (RoutePoint)e.Value.Resource;
-                    this.CleanMarker(MarkerType.PendingRoutePoint, point.Id);
+                    this.ClearMarker(MarkerType.PendingRoutePoint, point.Id);
                     break;
             }
         }
@@ -189,7 +189,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
 
         }
 
-        private void CleanPendingMarkers()
+        private void ClearPendingMarkers()
         {
             foreach (var item in salepointsMarkers)
             {
@@ -198,10 +198,10 @@ namespace CloudDeliveryMobile.Android.Components.Map
 
             salepointsMarkers.Clear();
 
-            CleanOrdersMarkers();
+            ClearOrdersMarkers();
         }
 
-        private void CleanOrdersMarkers()
+        private void ClearOrdersMarkers()
         {
             foreach (var item in ordersMarkers)
             {
@@ -211,7 +211,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
             ordersMarkers.Clear();
         }
 
-        private void CleanRoutePointsMarkers()
+        private void ClearRoutePointsMarkers()
         {
             foreach (var item in routePointsMarkers)
             {
@@ -342,7 +342,7 @@ namespace CloudDeliveryMobile.Android.Components.Map
             });
         }
 
-        private void CleanMarker(MarkerType type, int dictKey)
+        private void ClearMarker(MarkerType type, int dictKey)
         {
             switch (type)
             {

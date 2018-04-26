@@ -30,6 +30,6 @@ namespace CloudDeliveryMobile.Services
 
         Task PassPoint(RoutePoint point);
 
-        void CleanData();
+        void ClearData();
     }
 }

@@ -45,6 +45,8 @@ namespace CloudDeliveryMobile.Providers.Implementations
             connection = new HubConnection(ApiResources.Host);
             notificationProxy = connection.CreateHubProxy("NotificationsHub");
 
+            connection.Received += Connection_Received;
+
             connection.StateChanged += state =>
             {
                 this.SocketStatus = connection.State;
@@ -53,7 +55,12 @@ namespace CloudDeliveryMobile.Providers.Implementations
 
         }
 
-        public void CleanEventHandlers()
+        private void Connection_Received(string obj)
+        {
+            int asd = 5;
+        }
+
+        public void ClearEventHandlers()
         {
             this.CarrierOrderAcceptedHandler?.Dispose();
             this.CarrierOrderCancelledHandler?.Dispose();
@@ -69,16 +76,16 @@ namespace CloudDeliveryMobile.Providers.Implementations
             this.connection.Headers["Authorization"] = string.Concat("Bearer ", token);
         }
 
-        public void CleanData()
+        public void ClearData()
         {
-            this.CleanEventHandlers();
+            this.ClearEventHandlers();
             this.StopListening();
             this.connection.Headers.Remove("Authorization");
         }
 
         public void SetEventHandlers(Roles role)
         {
-            this.CleanEventHandlers();
+            this.ClearEventHandlers();
 
             switch (role)
             {

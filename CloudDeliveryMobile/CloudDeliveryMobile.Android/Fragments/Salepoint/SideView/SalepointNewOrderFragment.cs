@@ -26,7 +26,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
         {
             HasOptionsMenu = true;
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
-            this.view = this.BindingInflate(FragmentId, null);
+            this.view = this.BindingInflate(FragmentId,container,false);
 
             Button addOrder = this.view.FindViewById<Button>(Resource.Id.salepoint_add_order_search_address);
             addOrder.Click += CreateOrderButtonClicked;
@@ -89,6 +89,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
 
         private Geocoder geocoder;
         private View view;
-        private int FragmentId { get; } = Resource.Layout.salepoint_new_order_modal;
+        private int FragmentId { get; } = Resource.Layout.salepoint_side_new_order;
     }
 }

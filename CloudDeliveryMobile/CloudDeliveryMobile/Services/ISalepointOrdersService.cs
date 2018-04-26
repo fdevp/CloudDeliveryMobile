@@ -116,6 +116,6 @@ namespace CloudDeliveryMobile.Services
         /// <summary>
         /// 
         /// </summary>
-        void CleanData();
+        void ClearData();
     }
 }

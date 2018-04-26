@@ -25,13 +25,13 @@ namespace CloudDeliveryMobile.Providers
 
         void SetEventHandlers(Roles role);
 
-        void CleanEventHandlers();
+        void ClearEventHandlers();
 
         void SetAuthHeader(string token);
 
         Task StarListening();
 
-        void CleanData();
+        void ClearData();
 
         void StopListening();
     }

@@ -63,7 +63,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
             {
                 MainTable item = ctx.Table<MainTable>().Where(x => x.Key == key).FirstOrDefault();
 
-                //clear current value
+                //Clear current value
                 if (item != null)
                     ctx.Delete(item);
 

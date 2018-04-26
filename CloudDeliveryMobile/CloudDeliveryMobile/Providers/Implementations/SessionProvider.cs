@@ -43,6 +43,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
             if (response.IsSuccessStatusCode)
             {
                 this.SessionData = JsonConvert.DeserializeObject<SessionData>(responseContent);
+                this.SessionData.access_token = token;
                 return true;
             }
             else

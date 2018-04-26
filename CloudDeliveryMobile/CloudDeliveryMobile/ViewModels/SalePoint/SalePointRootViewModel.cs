@@ -14,21 +14,14 @@ namespace CloudDeliveryMobile.ViewModels
 
             this.notificationsProvider.SetAuthHeader(this.sessionProvider.SessionData.access_token);
             this.notificationsProvider.SetEventHandlers(Roles.salepoint);
+
             Task.Run(async () =>
             {
                 await this.notificationsProvider.StarListening();
             });
         }
 
-        public async override void Start()
-        {
-            //set root viewmodel
-            this.deviceProvider.RootViewModel = this;
-            /*
-            this.notificationsProvider.SetAuthHeader(this.sessionProvider.SessionData.access_token);
-            this.notificationsProvider.InitEvents(Roles.salepoint);
-            await this.notificationsProvider.StarListening();*/
-        }
+
 
         private IDeviceProvider deviceProvider;
         private INotificationsProvider notificationsProvider;
