@@ -49,10 +49,13 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Orders
 
         private async Task InitializeOrder()
         {
+            if (!this.orderId.HasValue)
+                return;
+
             this.InProgress = true;
             try
             {
-                this.Order = await this.ordersService.Details(this.orderId);
+                this.Order = await this.ordersService.Details(this.orderId.Value);
                 RaisePropertyChanged(() => this.Order);
                 SendOrderReadyInteraction(this, null);
             }
@@ -83,7 +86,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Orders
             this.orderId = orderId;
         }
 
-        int orderId;
+        int? orderId;
         IMvxNavigationService navigationService;
         ISalepointOrdersService ordersService;
     }

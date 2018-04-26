@@ -2,7 +2,6 @@
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platform.Platform;
-using WitkacMobile.Droid;
 
 namespace CloudDeliveryMobile.Android
 {

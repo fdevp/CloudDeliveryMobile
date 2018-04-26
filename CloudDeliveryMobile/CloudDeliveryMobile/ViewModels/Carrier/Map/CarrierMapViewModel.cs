@@ -11,6 +11,7 @@ using Microsoft.AspNet.SignalR.Client;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -58,7 +59,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
                             this.sideView.ErrorOccured = true;
                             this.sideView.ErrorMessage = "Problem z połączeniem z serwerem.";
                         }
-                        catch (HttpUnprocessableEntityException)
+                        catch (ApiException e)
                         {
                             await this.ordersService.GetPendingOrders();
                         }

@@ -11,6 +11,7 @@ using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Core;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -82,7 +83,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
                         await Task.WhenAll(reinitTasks);
                         dialogsService.Toast("Zaktualizowano zamówienia", TimeSpan.FromSeconds(5));
                     }
-                    catch (HttpUnprocessableEntityException)
+                    catch (ApiException ex)
                     {
                         dialogsService.Toast("Błąd aktualizacji zamówień", TimeSpan.FromSeconds(5));
                     }

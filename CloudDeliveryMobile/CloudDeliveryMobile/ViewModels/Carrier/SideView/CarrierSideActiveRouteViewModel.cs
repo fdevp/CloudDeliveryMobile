@@ -8,6 +8,7 @@ using CloudDeliveryMobile.Services;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -66,7 +67,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
                     {
                         await this.routesService.FinishActiveRoute();
                     }
-                    catch (HttpUnprocessableEntityException ex)
+                    catch (ApiException ex)
                     {
                         this.dialogsService.Toast(ex.Message, TimeSpan.FromSeconds(5));
                     }

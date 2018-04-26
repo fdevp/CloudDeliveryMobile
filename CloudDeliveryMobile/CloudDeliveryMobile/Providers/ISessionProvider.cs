@@ -1,10 +1,12 @@
 ﻿using CloudDeliveryMobile.Models.Account;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CloudDeliveryMobile.Providers
 {
     public interface ISessionProvider
     {
+        HttpClient HttpClient { get;}
 
         SessionData SessionData { get; }
 

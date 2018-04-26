@@ -19,7 +19,7 @@ using MvvmCross.Droid.Views.Attributes;
 
 namespace CloudDeliveryMobile.Android.Fragments.Salepoint
 {
-    [MvxFragmentPresentation(AddToBackStack = true, EnterAnimation = Resource.Drawable.animation_fade_in, PopEnterAnimation = Resource.Drawable.animation_fade_in, ExitAnimation = Resource.Drawable.animation_fade_out, PopExitAnimation = Resource.Drawable.animation_fade_out)]
+    [MvxFragmentPresentation(FragmentContentId = Resource.Id.salepoint_side_view_content, AddToBackStack = true, EnterAnimation = Resource.Drawable.animation_slide_in_up, PopEnterAnimation = Resource.Drawable.animation_slide_in_up, ExitAnimation = Resource.Drawable.animation_slide_out_down, PopExitAnimation = Resource.Drawable.animation_slide_out_down)]
     public class SalepointNewOrderFragment : MvxFragment<SalepointNewOrderViewModel>
     {
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

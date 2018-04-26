@@ -4,6 +4,7 @@ using CloudDeliveryMobile.Services;
 using CloudDeliveryMobile.ViewModels.Carrier.Routes;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -98,7 +99,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             {
                 await this.routesService.GetFinishedRoutes();
             }
-            catch (HttpUnprocessableEntityException e)
+            catch (ApiException e)
             {
                 this.ErrorOccured = true;
                 this.ErrorMessage = e.Message;

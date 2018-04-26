@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using MvvmCross.Platform.Platform;
 
-namespace WitkacMobile.Droid
+namespace CloudDeliveryMobile.Android
 {
     public class DebugTrace : IMvxTrace
     {

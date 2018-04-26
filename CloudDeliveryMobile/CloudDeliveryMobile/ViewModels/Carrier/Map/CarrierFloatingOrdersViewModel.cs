@@ -9,6 +9,7 @@ using CloudDeliveryMobile.ViewModels.Carrier.ListViewModels;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
                         await this.ordersService.GetPendingOrders();
                         dialogsService.Toast("Zaktualizowano zamówienia", TimeSpan.FromSeconds(5));
                     }
-                    catch (HttpUnprocessableEntityException)
+                    catch (ApiException ex)
                     {
                         dialogsService.Toast("Błąd aktualizacji zamówień", TimeSpan.FromSeconds(5));
                     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudDeliveryMobile.ApiInterfaces;
 using CloudDeliveryMobile.Models;
 using CloudDeliveryMobile.Models.Enums;
 using CloudDeliveryMobile.Models.Enums.Events;
@@ -16,9 +17,9 @@ namespace CloudDeliveryMobile.Services.Implementations
 {
     public class CarrierOrdersService : ICarrierOrdersService
     {
-        public CarrierOrdersService(IHttpProvider httpProvider, INotificationsProvider notificationsProvider)
+        public CarrierOrdersService(ICarrierOrdersApi carrierOrdersApi, INotificationsProvider notificationsProvider)
         {
-            this.httpProvider = httpProvider;
+            this.carrierOrdersApi = carrierOrdersApi;
             this.notificationsProvider = notificationsProvider;
 
             this.notificationsProvider.CarrierOrderAddedEvent += (sender, order) => AddPendingOrder(order);
@@ -36,8 +37,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task Accept(OrderCarrier order)
         {
-            string resource = string.Concat(OrdersApiResources.Accept, "/", order.Id);
-            await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
+            await this.carrierOrdersApi.AcceptOrder(order.Id);
 
             this.AcceptedOrders.Add(order);
             this.AcceptedOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.AddedOrder,order));
@@ -48,24 +48,21 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task Delivered(OrderRoute order)
         {
-            string resource = string.Concat(OrdersApiResources.Delivered, "/", order.Id);
-            await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
+            await this.carrierOrdersApi.DeliverOrder(order.Id);
             order.DeliveredTime = DateTime.Now;
             order.Status = OrderStatus.Delivered;
         }
 
         public async Task Pickup(OrderRoute order)
         {
-            string resource = string.Concat(OrdersApiResources.Pickup, "/", order.Id);
-            await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
+            await this.carrierOrdersApi.PickupOrder(order.Id);
             order.PickUpTime = DateTime.Now;
             order.Status = OrderStatus.InDelivery;
         }
 
         public async Task<List<OrderCarrier>> GetAcceptedOrders()
         {
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.AcceptedOrders));
-            this.AcceptedOrders = JsonConvert.DeserializeObject<List<OrderCarrier>>(response);
+            this.AcceptedOrders = await this.carrierOrdersApi.AcceptedOrdersList();
 
             this.AcceptedOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.AddedList));
 
@@ -74,9 +71,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task<List<OrderCarrier>> GetPendingOrders()
         {
-
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.PendingOrders));
-            this.PendingOrders = JsonConvert.DeserializeObject<List<OrderCarrier>>(response);
+            this.PendingOrders = await this.carrierOrdersApi.PendingOrdersList();
 
             this.PendingOrdersUpdated?.Invoke(this, new ServiceEvent<CarrierOrdersEvents>(CarrierOrdersEvents.AddedList));
 
@@ -85,9 +80,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task<OrderDetails> Details(int orderId)
         {
-            string resource = string.Concat(OrdersApiResources.Details, "/", orderId);
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(resource));
-            OrderDetails order = JsonConvert.DeserializeObject<OrderDetails>(response);
+            OrderDetails order = await this.carrierOrdersApi.OrderDetails(orderId);
             return order;
         }
 
@@ -131,7 +124,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         }
 
-        private IHttpProvider httpProvider;
+        private ICarrierOrdersApi carrierOrdersApi;
         private INotificationsProvider notificationsProvider;
     }
 }

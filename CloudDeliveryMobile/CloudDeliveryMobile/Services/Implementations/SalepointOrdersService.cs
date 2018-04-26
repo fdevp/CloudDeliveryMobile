@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using CloudDeliveryMobile.ApiInterfaces;
 using CloudDeliveryMobile.Helpers.Exceptions;
 using CloudDeliveryMobile.Models;
 using CloudDeliveryMobile.Models.Enums;
@@ -18,9 +19,9 @@ namespace CloudDeliveryMobile.Services.Implementations
 {
     public class SalepointOrdersService : ISalepointOrdersService
     {
-        public SalepointOrdersService(IHttpProvider httpProvider, IStorageProvider storageProvider, INotificationsProvider notificationsProvider)
+        public SalepointOrdersService(ISalepointOrdersApi salepointOrdersApi, IStorageProvider storageProvider, INotificationsProvider notificationsProvider)
         {
-            this.httpProvider = httpProvider;
+            this.salepointOrdersApi = salepointOrdersApi;
             this.storageProvider = storageProvider;
             this.notificationsProvider = notificationsProvider;
 
@@ -43,8 +44,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task<OrderSalepoint> Add(OrderEditModel order)
         {
-            string response = await this.httpProvider.PostAsync(httpProvider.AbsoluteUri(OrdersApiResources.Add), order);
-            OrderSalepoint newOrder = JsonConvert.DeserializeObject<OrderSalepoint>(response);
+            OrderSalepoint newOrder = await this.salepointOrdersApi.AddOrder(order);
 
             this.AddedOrders.Add(newOrder);
 
@@ -55,8 +55,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task Cancel(OrderSalepoint order)
         {
-            string resource = string.Concat(OrdersApiResources.Cancel, "/", order.Id);
-            await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
+            await this.salepointOrdersApi.CancelOrder(order.Id);
 
             order.Status = OrderStatus.Cancelled;
             OrderFinishedListItem finished = (OrderFinishedListItem)order;
@@ -80,18 +79,14 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task<OrderDetails> Details(int orderId)
         {
-            string resource = string.Concat(OrdersApiResources.Details, "/", orderId);
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(resource));
-            OrderDetails order = JsonConvert.DeserializeObject<OrderDetails>(response);
+            OrderDetails order = await this.salepointOrdersApi.OrderDetails(orderId);
             return order;
         }
 
         public async Task<List<OrderSalepoint>> GetAddedOrders()
         {
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.AddedOrders));
-            this.AddedOrders = JsonConvert.DeserializeObject<List<OrderSalepoint>>(response);
-
-
+            this.AddedOrders = await this.salepointOrdersApi.AddedOrdersList();
+            
             this.AddedOrdersUpdated?.Invoke(this, new ServiceEvent<SalepointAddedOrdersEvents>(SalepointAddedOrdersEvents.AddedList));
 
             return this.AddedOrders;
@@ -99,8 +94,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task<List<OrderSalepoint>> GetInProgressOrders()
         {
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.InProgressOrders));
-            this.InProgressOrders = JsonConvert.DeserializeObject<List<OrderSalepoint>>(response);
+            this.InProgressOrders = await this.salepointOrdersApi.InProgressOrdersList();
 
             this.InProgressOrdersUpdated?.Invoke(this, new ServiceEvent<SalepointInProgressOrdersEvents>(SalepointInProgressOrdersEvents.AddedList));
 
@@ -109,8 +103,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task<List<OrderFinishedListItem>> GetFinishedOrders()
         {
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(OrdersApiResources.FinishedOrders));
-            this.FinishedOrders = JsonConvert.DeserializeObject<List<OrderFinishedListItem>>(response);
+            this.FinishedOrders = await this.salepointOrdersApi.FinishedOrdersList();
 
             this.FinishedOrdersUpdated?.Invoke(this, null);
 
@@ -131,10 +124,9 @@ namespace CloudDeliveryMobile.Services.Implementations
             catch (Exception e) { }
 
             try
-            {
-                string streetsJson = await this.httpProvider.GetAsync(OrdersApiResources.Streets);
-                this.storageProvider.Insert(DataKeys.Streets, streetsJson);
-                this.streets = JsonConvert.DeserializeObject<List<string>>(streetsJson);
+            {   
+                this.streets = await this.salepointOrdersApi.Streets();
+                this.storageProvider.Insert(DataKeys.Streets, JsonConvert.SerializeObject(this.streets));
                 return this.streets;
             }
             catch (Exception e) { }
@@ -208,7 +200,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         private List<string> streets;
 
-        private IHttpProvider httpProvider;
+        private ISalepointOrdersApi salepointOrdersApi;
         private IStorageProvider storageProvider;
         private INotificationsProvider notificationsProvider;
     }

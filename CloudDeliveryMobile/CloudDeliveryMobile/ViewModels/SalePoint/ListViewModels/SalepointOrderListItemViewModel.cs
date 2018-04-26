@@ -4,6 +4,7 @@ using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Services;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Plugins.PhoneCall;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,7 +91,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
                     await this.salepointOrdersService.Cancel(this.Order);
                     return;
                 }
-                catch (HttpUnprocessableEntityException e)
+                catch (ApiException e)
                 {
                     this.ErrorOccured = true;
                     this.ErrorMessage = e.Message;

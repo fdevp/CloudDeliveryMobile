@@ -53,10 +53,13 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.Routes
 
         public async Task InitializeRoute()
         {
+            if (!this.orderId.HasValue)
+                return;
+
             this.InProgress = true;
             try
             {
-                this.Route = await this.routesService.Details(this.orderId);
+                this.Route = await this.routesService.Details(this.orderId.Value);
                 RaisePropertyChanged(() => this.Route);
             }
             catch (Exception e)
@@ -73,7 +76,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.Routes
             this.orderId = orderId;
         }
 
-        int orderId;
+        int? orderId;
         IMvxNavigationService navigationService;
         IRoutesService routesService;
     }

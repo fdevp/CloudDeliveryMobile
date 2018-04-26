@@ -4,6 +4,7 @@ using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Services;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
+using Refit;
 using System;
 using System.Linq;
 using System.Net.Http;
@@ -25,7 +26,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
                     {
                         await this.ordersService.Accept(this.Order);
                     }
-                    catch(HttpUnprocessableEntityException ex)
+                    catch(ApiException ex)
                     {
                         this.dialogsService.Toast(ex.Message, TimeSpan.FromSeconds(5));
                     }

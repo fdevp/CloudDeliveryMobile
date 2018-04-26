@@ -13,6 +13,7 @@ using CloudDeliveryMobile.Models;
 using Acr.UserDialogs;
 using CloudDeliveryMobile.Models.Enums.Events;
 using System.Threading.Tasks;
+using Refit;
 
 namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
 {
@@ -80,7 +81,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
                        await this.routesService.Add(newRouteModel);
                        this.ordersService.CleanAcceptedOrders();
                    }
-                   catch (HttpUnprocessableEntityException e)
+                   catch (ApiException e)
                    {
                        this.dialogsService.Toast(e.Message, TimeSpan.FromSeconds(5));
                    }
@@ -136,7 +137,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
             {
                 await this.ordersService.GetAcceptedOrders();
             }
-            catch (HttpUnprocessableEntityException e) // server error
+            catch (ApiException e) // server error
             {
                 this.ErrorOccured = true;
                 this.ErrorMessage = e.Message;

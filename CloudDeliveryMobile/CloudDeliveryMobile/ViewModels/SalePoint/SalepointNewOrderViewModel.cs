@@ -7,6 +7,7 @@ using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform.Platform;
 using Newtonsoft.Json;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -45,7 +46,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
                         await this.navigationService.Close(this);
                         return;
                     }
-                    catch (HttpUnprocessableEntityException e) // server error
+                    catch (ApiException e) // server error
                     {
                         this.ErrorOccured = true;
                         this.ErrorMessage = e.Message;

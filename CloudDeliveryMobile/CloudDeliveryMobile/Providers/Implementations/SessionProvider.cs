@@ -1,18 +1,24 @@
 ﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CloudDeliveryMobile.Helpers.Exceptions;
 using CloudDeliveryMobile.Models.Account;
 using CloudDeliveryMobile.Resources;
 using Newtonsoft.Json;
+using Refit;
 
 namespace CloudDeliveryMobile.Providers.Implementations
 {
     public class SessionProvider : ISessionProvider
     {
-        public SessionProvider(IHttpProvider httpProvider, IStorageProvider storageProvider)
+        public HttpClient HttpClient { get; private set; }
+
+        public SessionProvider(IStorageProvider storageProvider)
         {
-            this.httpProvider = httpProvider;
             this.storageProvider = storageProvider;
+            this.HttpClient = new HttpClient();
+            this.HttpClient.BaseAddress = new Uri(ApiResources.Host);
         }
 
         public SessionData SessionData { get; private set; }
@@ -23,41 +29,47 @@ namespace CloudDeliveryMobile.Providers.Implementations
             try
             {
                 token = this.storageProvider.Select(DataKeys.Token);
-                this.httpProvider.SetAuthorizationHeader(token);
+                this.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
             catch (Exception)
             {
                 throw new NullReferenceException("Brak danych do logowania.");
             }
 
-            try
+            string url = string.Concat(ApiResources.Host, "/", ApiResources.UserInfo);
+            HttpResponseMessage response = await this.HttpClient.GetAsync(url);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            
+            if (response.IsSuccessStatusCode)
             {
-                string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(ApiResources.UserInfo));
-                this.SessionData = JsonConvert.DeserializeObject<SessionData>(response);
+                this.SessionData = JsonConvert.DeserializeObject<SessionData>(responseContent);
+                return true;
             }
-            catch (HttpUnprocessableEntityException e)
+            else
             {
-                throw new InvalidTokenException("Sesja wygasła");
+                this.HttpClient.DefaultRequestHeaders.Authorization = null;
+                this.storageProvider.Delete(DataKeys.Token);
+                throw new InvalidTokenException("Sesja wygasła.");
             }
-
-            this.SessionData.access_token = token;
-
-            return true;
         }
 
         public async Task<bool> SignIn(LoginModel form)
         {
-            try
+            string jsonString = JsonConvert.SerializeObject(form);
+            string url = string.Concat(ApiResources.Host, "/", ApiResources.Login);
+            HttpResponseMessage response = await this.HttpClient.PostAsync(url, new FormUrlEncodedContent(form.ToDict()));
+            string responseContent = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
             {
-                string response = await this.httpProvider.PostAsync(httpProvider.AbsoluteUri(ApiResources.Login), form.ToDict(),true);
-                this.SessionData = JsonConvert.DeserializeObject<SessionData>(response);
+                this.SessionData = JsonConvert.DeserializeObject<SessionData>(responseContent);
             }
-            catch (HttpUnprocessableEntityException e)
+            else
             {
-                throw new SignInException("Podano nieprawidłowe dane");
+                throw new SignInException(responseContent);
             }
 
-            this.httpProvider.SetAuthorizationHeader(this.SessionData.access_token);
+
+            this.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.SessionData.access_token);
             this.storageProvider.Insert(DataKeys.Token, this.SessionData.access_token);
             return true;
         }
@@ -65,7 +77,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
         public void Logout()
         {
             this.SessionData = null;
-            this.httpProvider.SetAuthorizationHeader(string.Empty);
+            this.HttpClient.DefaultRequestHeaders.Authorization = null;
             this.storageProvider.ClearData();
         }
 
@@ -78,8 +90,6 @@ namespace CloudDeliveryMobile.Providers.Implementations
         {
             return this.SessionData.InRole("carrier");
         }
-
-        private IHttpProvider httpProvider;
         private IStorageProvider storageProvider;
     }
 }

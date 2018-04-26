@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudDeliveryMobile.ApiInterfaces;
 using CloudDeliveryMobile.Models;
 using CloudDeliveryMobile.Models.Enums;
 using CloudDeliveryMobile.Models.Enums.Events;
@@ -10,6 +11,7 @@ using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Resources;
 using Newtonsoft.Json;
 using Plugin.LocalNotifications;
+using Refit;
 
 namespace CloudDeliveryMobile.Services.Implementations
 {
@@ -23,12 +25,13 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public event EventHandler FinishedRoutesUpdated;
 
-        public RoutesService(IHttpProvider httpProvider, INotificationsProvider notificationsProvider)
+        public RoutesService(IRoutesApi routesApi, INotificationsProvider notificationsProvider, ISessionProvider sessionProvider)
         {
-            this.httpProvider = httpProvider;
+            this.routesApi = routesApi;
             this.notificationsProvider = notificationsProvider;
+            this.sessionProvider = sessionProvider;
 
-            this.notificationsProvider.CarrierOrderCancelledEvent += (sender, orderId) => this.CancelOrderFromRoute(orderId);
+            this.notificationsProvider.CarrierOrderCancelledEvent += (sender, orderId) => this.CancelOrderInRoute(orderId);
         }
 
         public async Task<RouteDetails> ActiveRouteDetails(bool refresh = false)
@@ -36,8 +39,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             if (this.ActiveRoute != null && !refresh)
                 return this.ActiveRoute;
 
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(RoutesApiResources.ActiveRouteDetails));
-            this.ActiveRoute = JsonConvert.DeserializeObject<RouteDetails>(response);
+            this.ActiveRoute = await this.routesApi.ActiveRouteDetails();
 
             if (this.ActiveRoute != null)
                 this.ActiveRouteUpdated?.Invoke(this, new ServiceEvent<CarrierRouteEvents>(CarrierRouteEvents.AddedRoute));
@@ -47,9 +49,7 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task<RouteDetails> Add(List<RouteEditModel> model)
         {
-            string response = await this.httpProvider.PostAsync(httpProvider.AbsoluteUri(RoutesApiResources.Add), model);
-
-            this.ActiveRoute = JsonConvert.DeserializeObject<RouteDetails>(response);
+            this.ActiveRoute = await this.routesApi.Add(model);
 
             this.ActiveRouteUpdated?.Invoke(this, new ServiceEvent<CarrierRouteEvents>(CarrierRouteEvents.AddedRoute));
             return this.ActiveRoute;
@@ -57,24 +57,22 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task<RouteDetails> Details(int routeId)
         {
-            string resource = string.Concat(RoutesApiResources.Details, "/", routeId);
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(resource));
-            RouteDetails order = JsonConvert.DeserializeObject<RouteDetails>(response);
-            return order;
+
+            return await RestService.For<IRoutesApi>(this.sessionProvider.HttpClient).Details(routeId);
         }
 
         public async Task<List<RouteListItem>> GetFinishedRoutes()
         {
-            string response = await this.httpProvider.GetAsync(httpProvider.AbsoluteUri(RoutesApiResources.List));
-            this.FinishedRoutes = JsonConvert.DeserializeObject<List<RouteListItem>>(response);
+            this.FinishedRoutes = await this.routesApi.FinishedRoutesList();
             this.FinishedRoutesUpdated?.Invoke(this, null);
             return this.FinishedRoutes;
         }
 
         public async Task FinishActiveRoute()
         {
-            string resource = string.Concat(RoutesApiResources.Finish, "/", ActiveRoute.Id);
-            await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
+            if (this.ActiveRoute == null)
+                throw new NullReferenceException("Brak aktywnej trasy");
+            await this.routesApi.FinishRoute(this.ActiveRoute.Id);
             this.ActiveRoute = null;
             this.ActiveRouteUpdated?.Invoke(this, new ServiceEvent<CarrierRouteEvents>(CarrierRouteEvents.FinishedRoute));
         }
@@ -88,8 +86,8 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         public async Task PassPoint(RoutePoint point)
         {
-            string resource = string.Concat(RoutesApiResources.PassPoint, "/", point.Id);
-            await this.httpProvider.PutAsync(httpProvider.AbsoluteUri(resource));
+            await this.routesApi.PassPoint(point.Id);
+            
             point.PassedTime = DateTime.Now;
 
             if (point.Type == RoutePointType.EndPoint && point.Order.Status == OrderStatus.InDelivery)
@@ -101,7 +99,7 @@ namespace CloudDeliveryMobile.Services.Implementations
             this.ActiveRouteUpdated?.Invoke(this, new ServiceEvent<CarrierRouteEvents>(CarrierRouteEvents.PassedPoint, point));
         }
 
-        private void CancelOrderFromRoute(int orderId)
+        private void CancelOrderInRoute(int orderId)
         {
             if (this.ActiveRoute == null)
                 return;
@@ -116,7 +114,9 @@ namespace CloudDeliveryMobile.Services.Implementations
 
         }
 
-        private IHttpProvider httpProvider;
+        private IRoutesApi routesApi;
         private INotificationsProvider notificationsProvider;
+        private ISessionProvider sessionProvider;
+
     }
 }

@@ -4,6 +4,7 @@ using CloudDeliveryMobile.Services;
 using CloudDeliveryMobile.ViewModels.SalePoint.Orders;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,7 +97,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
             {
                 await this.salepointOrdersService.GetFinishedOrders();
             }
-            catch (HttpUnprocessableEntityException e)
+            catch (ApiException e)
             {
                 this.ErrorOccured = true;
                 this.ErrorMessage = e.Message;
