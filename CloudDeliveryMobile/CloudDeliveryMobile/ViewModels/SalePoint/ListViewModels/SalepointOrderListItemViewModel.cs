@@ -66,6 +66,19 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
             }
         }
 
+        public SalepointOrderListItemViewModel(IMvxPhoneCallTask phoneCallService, ISalepointOrdersService salepointOrdersService, IUserDialogs dialogsService)
+        {
+            this.phoneCallService = phoneCallService;
+            this.salepointOrdersService = salepointOrdersService;
+            this.dialogsService = dialogsService;
+
+            this.cancelationDialogConfig = new ConfirmConfig();
+            this.cancelationDialogConfig.OkText = "Tak";
+            this.cancelationDialogConfig.CancelText = "Nie";
+            this.cancelationDialogConfig.Title = "Anulowanie zamówienia";
+            this.cancelationDialogConfig.Message = "Czy na pewno chcesz anulować zamówienie?";
+            this.cancelationDialogConfig.OnAction += OrderCancellation;
+        }
 
         private void MakeCall(string phoneNumber)
         {
@@ -102,7 +115,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
                     this.ErrorOccured = true;
                     this.ErrorMessage = "Problem z połączniem z serwerem";
                 }
-                catch(Exception unknownException)
+                catch (Exception unknownException)
                 {
                     this.ErrorOccured = true;
                     this.ErrorMessage = string.Concat(unknownException.Message);
@@ -116,20 +129,6 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
                 this.dialogsService.Toast(string.Concat("Błąd, ", this.ErrorMessage), TimeSpan.FromSeconds(4));
 
             }
-        }
-
-        public SalepointOrderListItemViewModel(IMvxPhoneCallTask phoneCallService, ISalepointOrdersService salepointOrdersService, IUserDialogs dialogsService)
-        {
-            this.phoneCallService = phoneCallService;
-            this.salepointOrdersService = salepointOrdersService;
-            this.dialogsService = dialogsService;
-
-            this.cancelationDialogConfig = new ConfirmConfig();
-            this.cancelationDialogConfig.OkText = "Tak";
-            this.cancelationDialogConfig.CancelText = "Nie";
-            this.cancelationDialogConfig.Title = "Anulowanie zamówienia";
-            this.cancelationDialogConfig.Message = "Czy na pewno chcesz anulować zamówienie?";
-            this.cancelationDialogConfig.OnAction += OrderCancellation;
         }
 
         private ConfirmConfig cancelationDialogConfig;

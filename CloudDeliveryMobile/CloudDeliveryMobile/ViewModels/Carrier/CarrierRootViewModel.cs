@@ -8,7 +8,6 @@ namespace CloudDeliveryMobile.ViewModels
 {
     public class CarrierRootViewModel : BaseViewModel
     {
-
         public CarrierRootViewModel(ISessionProvider sessionProvider, IDeviceProvider deviceProvide, INotificationsProvider notificationsProvider)
         {
             this.deviceProvider = deviceProvide;

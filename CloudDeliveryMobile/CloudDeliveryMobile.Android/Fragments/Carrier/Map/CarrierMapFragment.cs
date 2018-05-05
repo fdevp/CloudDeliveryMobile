@@ -30,18 +30,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(CarrierRootViewModel))]
     public class CarrierMapFragment : MvxFragment<CarrierMapViewModel>, IOnMapReadyCallback
     {
-        private GoogleMap map;
-        private MapFragment mapFragment;
-        private Marker mCurrentPosition;
-        private GeolocationProvider geolocationProvider;
-
-        private ImageButton geoLocButton;
-
-        private ImageButton signalrReconnectButton;
-        private Animation refreshingInProgressAnimation;
-
-        private CarrierMapMarkersManager mapMarkersManager;
-
+      
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
@@ -79,7 +68,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
             return view;
         }
 
-
         public override void OnStart()
         {
             base.OnStart();
@@ -94,7 +82,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
             this.ViewModel.SelectedSalepointId = null;
             base.OnSaveInstanceState(outState);
         }
-
 
         public override void OnDestroy()
         {
@@ -334,6 +321,18 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier
 
         private bool selectedSalepointLabelActive = false;
         private CarrierFloatingSalepointLabelFragment carrierFloatingSalepointLabelFragment;
+
+        private GoogleMap map;
+        private MapFragment mapFragment;
+        private Marker mCurrentPosition;
+        private GeolocationProvider geolocationProvider;
+
+        private ImageButton geoLocButton;
+
+        private ImageButton signalrReconnectButton;
+        private Animation refreshingInProgressAnimation;
+
+        private CarrierMapMarkersManager mapMarkersManager;
 
         private View view;
 

@@ -86,7 +86,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
 
         }
 
-
         private Geocoder geocoder;
         private View view;
         private int FragmentId { get; } = Resource.Layout.salepoint_side_new_order;

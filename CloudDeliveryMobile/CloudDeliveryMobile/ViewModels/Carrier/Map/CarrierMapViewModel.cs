@@ -103,28 +103,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
         public IMvxInteraction<int?> SelectedSalepointUpdate => _selectedSalepointUpdateInteraction;
 
 
-        private void ActiveRouteEventHandler(object sender, ServiceEvent<CarrierRouteEvents> e)
-        {
-            switch (e.Type)
-            {
-                case CarrierRouteEvents.FinishedRoute:
-                    this.ActiveRouteMode = false;
-                    this.ordersService.GetPendingOrders();
-                    break;
-                case CarrierRouteEvents.AddedRoute:
-                    this.ActiveRouteMode = true;
-                    break;
-            }
-
-            _routeUpdateInteraction.Raise(e);
-        }
-
-        private void PendingOrdersEventHandler(object sender, ServiceEvent<CarrierOrdersEvents> e)
-        {
-            _ordersUpdateInteraction.Raise(e);
-            RaisePropertyChanged(() => this.PendingOrders);
-        }
-
         //signalr
         public ConnectionState SignalrConnectionStatus
         {
@@ -227,6 +205,30 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             this.sideView = Mvx.IocConstruct<CarrierSideViewViewModel>();
             this.floatingOrdersViewModel = Mvx.IocConstruct<CarrierFloatingOrdersViewModel>();
         }
+
+
+        private void ActiveRouteEventHandler(object sender, ServiceEvent<CarrierRouteEvents> e)
+        {
+            switch (e.Type)
+            {
+                case CarrierRouteEvents.FinishedRoute:
+                    this.ActiveRouteMode = false;
+                    this.ordersService.GetPendingOrders();
+                    break;
+                case CarrierRouteEvents.AddedRoute:
+                    this.ActiveRouteMode = true;
+                    break;
+            }
+
+            _routeUpdateInteraction.Raise(e);
+        }
+
+        private void PendingOrdersEventHandler(object sender, ServiceEvent<CarrierOrdersEvents> e)
+        {
+            _ordersUpdateInteraction.Raise(e);
+            RaisePropertyChanged(() => this.PendingOrders);
+        }
+
 
         private bool activeRouteMode = false;
 

@@ -31,17 +31,6 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(SalePointRootViewModel), IsCacheableFragment = true)]
     public class SalepointMapFragment : MvxFragment<SalepointMapViewModel>, IOnMapReadyCallback
     {
-        private GoogleMap map;
-        private MapFragment mapFragment;
-
-        private ImageButton refreshButton;
-        private Animation refreshingInProgressAnimation;
-
-        private ImageButton signalrReconnectButton;
-
-        private SalepointMapMarkersManager mapMarkersManager;
-
-
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
@@ -62,8 +51,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
             return view;
 
         }
-
-
+        
         public override void OnDestroy()
         {
             if (this.mapMarkersManager != null)
@@ -179,6 +167,17 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
             };
 
         }
+
+
+        private GoogleMap map;
+        private MapFragment mapFragment;
+
+        private ImageButton refreshButton;
+        private Animation refreshingInProgressAnimation;
+
+        private ImageButton signalrReconnectButton;
+
+        private SalepointMapMarkersManager mapMarkersManager;
 
         private View view;
         private int FragmentId { get; } = Resource.Layout.salepoint_map;

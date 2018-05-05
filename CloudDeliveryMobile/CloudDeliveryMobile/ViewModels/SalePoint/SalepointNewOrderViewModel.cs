@@ -21,6 +21,88 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
 {
     public class SalepointNewOrderViewModel : BaseViewModel
     {
+        //street auto complete
+        public string DestinationAdddress
+        {
+            get
+            {
+                return this.Model.DestinationAddress;
+            }
+            set
+            {
+                this.Model.DestinationAddress = value;
+                this.RaisePropertyChanged(() => this.DestinationAdddress);
+            }
+        }
+
+        private string _currentStreetHint;
+        public string CurrentStreetHint
+        {
+            get
+            { return _currentStreetHint; }
+            set
+            {
+                if (value == "")
+                {
+                    _currentStreetHint = null;
+                    ClearStreetSuggestions();
+                    return;
+                }
+                else
+                {
+                    _currentStreetHint = value;
+                }
+
+                if (this.Model.DestinationCity != ConstantValues.default_city)
+                    return;
+
+                if (_currentStreetHint.Trim().Length < 2)
+                {
+                    ClearStreetSuggestions();
+                    return;
+                }
+
+                var list = CompleteStreetsList.Where(i => (i ?? "").ToUpper()
+                                                                   .Contains(_currentStreetHint.ToUpper()));
+                if (list.Count() > 0)
+                {
+                    StreetSuggestions = list.ToList();
+                }
+                else
+                {
+                    ClearStreetSuggestions();
+                }
+            }
+        }
+
+        private List<string> _streetSuggestions = new List<string>();
+        public List<string> StreetSuggestions
+        {
+            get
+            {
+                if (_streetSuggestions == null)
+                {
+                    _streetSuggestions = new List<string>();
+                }
+                return _streetSuggestions;
+            }
+            set { _streetSuggestions = value; RaisePropertyChanged(() => StreetSuggestions); }
+        }
+
+        private List<string> CompleteStreetsList;
+
+        private async void LoadStreetsList()
+        {
+            CompleteStreetsList = await this.salepointOrdersService.StreetsList();
+        }
+
+        private void ClearStreetSuggestions()
+        {
+            StreetSuggestions = new List<string>();
+        }
+        //
+
+
         public OrderEditModel Model { get; set; }
 
         public string FullLocationName
@@ -191,87 +273,5 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
         private ISalepointOrdersService salepointOrdersService;
         private IMvxNavigationService navigationService;
 
-
-
-
-        //street auto complete
-        public string DestinationAdddress
-        {
-            get
-            {
-                return this.Model.DestinationAddress;
-            }
-            set
-            {
-                this.Model.DestinationAddress = value;
-                this.RaisePropertyChanged(() => this.DestinationAdddress);
-            }
-        }
-
-
-        private string _currentStreetHint;
-        public string CurrentStreetHint
-        {
-            get
-            { return _currentStreetHint; }
-            set
-            {
-                if (value == "")
-                {
-                    _currentStreetHint = null;
-                    ClearStreetSuggestions();
-                    return;
-                }
-                else
-                {
-                    _currentStreetHint = value;
-                }
-
-                if (this.Model.DestinationCity != ConstantValues.default_city)
-                    return;
-
-                if (_currentStreetHint.Trim().Length < 2)
-                {
-                    ClearStreetSuggestions();
-                    return;
-                }
-
-                var list = CompleteStreetsList.Where(i => (i ?? "").ToUpper().Contains(_currentStreetHint.ToUpper()));
-                if (list.Count() > 0)
-                {
-                    StreetSuggestions = list.ToList();
-                }
-                else
-                {
-                    ClearStreetSuggestions();
-                }
-            }
-        }
-
-        private List<string> _streetSuggestions = new List<string>();
-        public List<string> StreetSuggestions
-        {
-            get
-            {
-                if (_streetSuggestions == null)
-                {
-                    _streetSuggestions = new List<string>();
-                }
-                return _streetSuggestions;
-            }
-            set { _streetSuggestions = value; RaisePropertyChanged(() => StreetSuggestions); }
-        }
-
-        private List<string> CompleteStreetsList;
-
-        private async void LoadStreetsList()
-        {
-            CompleteStreetsList = await this.salepointOrdersService.StreetsList();
-        }
-
-        private void ClearStreetSuggestions()
-        {
-            StreetSuggestions = new List<string>();
-        }
     }
 }

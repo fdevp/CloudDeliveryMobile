@@ -19,11 +19,6 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Orders
 
         public IMvxInteraction OrderReadyInteraction => _orderReadyInteraction;
 
-        private void SendOrderReadyInteraction(object sender, EventArgs e)
-        {
-            this._orderReadyInteraction?.Raise();
-        }
-
         public MvxAsyncCommand CloseFragment
         {
             get
@@ -47,6 +42,23 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Orders
             }
         }
 
+        public SalepointOrderDetailsViewModel(IMvxNavigationService navigationService, ISalepointOrdersService ordersService)
+        {
+            this.navigationService = navigationService;
+            this.ordersService = ordersService;
+        }
+
+        public override void Prepare(int orderId)
+        {
+            this.orderId = orderId;
+        }
+
+        public override async void Start()
+        {
+            base.Start();
+            await this.InitializeOrder();
+        }
+
         private async Task InitializeOrder()
         {
             if (!this.orderId.HasValue)
@@ -68,22 +80,9 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Orders
             this.InProgress = false;
         }
 
-        public SalepointOrderDetailsViewModel(IMvxNavigationService navigationService, ISalepointOrdersService ordersService)
+        private void SendOrderReadyInteraction(object sender, EventArgs e)
         {
-            this.navigationService = navigationService;
-            this.ordersService = ordersService;
-        }
-
-
-        public override async void Start()
-        {
-            base.Start();
-            await this.InitializeOrder();
-        }
-
-        public override void Prepare(int orderId)
-        {
-            this.orderId = orderId;
+            this._orderReadyInteraction?.Raise();
         }
 
         int? orderId;

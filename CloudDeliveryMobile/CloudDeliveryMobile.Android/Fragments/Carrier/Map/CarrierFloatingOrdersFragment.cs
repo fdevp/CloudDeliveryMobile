@@ -14,9 +14,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.Map
     [MvxFragmentPresentation(fragmentContentId: Resource.Id.carrier_map_floating_list_container, AddToBackStack = true, IsCacheableFragment = true)]
     public class CarrierFloatingOrdersFragment : MvxFragment<CarrierFloatingOrdersViewModel>
     {
-        private ImageButton refreshButton;
-        private Animation refreshingInProgressAnimation;
-
+     
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
@@ -46,7 +44,8 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.Map
             return view;
         }
 
-
+        private ImageButton refreshButton;
+        private Animation refreshingInProgressAnimation;
         private int FragmentId { get; } = Resource.Layout.carrier_floating_orders;
     }
 }

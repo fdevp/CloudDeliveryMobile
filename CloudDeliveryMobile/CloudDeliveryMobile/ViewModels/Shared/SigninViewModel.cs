@@ -181,7 +181,6 @@ namespace CloudDeliveryMobile.ViewModels
             }
         }
 
-
         private bool tokenInProgres = false;
         private LoginModel model = new LoginModel { Username = "pointpunkt", Password = "Admin1!" };
         private ISessionProvider sessionProvider;

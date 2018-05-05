@@ -30,11 +30,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
     [MvxFragmentPresentation(FragmentContentId = Resource.Id.finished_orders_container, AddToBackStack = true, EnterAnimation = Resource.Drawable.animation_slide_in_left, PopEnterAnimation = Resource.Drawable.animation_slide_in_left, ExitAnimation = Resource.Drawable.animation_slide_out_right, PopExitAnimation = Resource.Drawable.animation_slide_out_right)]
     public class SalepointOrderDetailsFragment : MvxFragment<SalepointOrderDetailsViewModel>, IOnMapReadyCallback
     {
-        private bool setMarkersAfterMapInitialisation = false;
-        private GoogleMap map;
-        private SupportMapFragment mapSupportFragment;
-        private LinearLayout mapContainer;
-
+      
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var ignore = base.OnCreateView(inflater, container, savedInstanceState);
@@ -134,6 +130,10 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
             });
         }
 
+        private bool setMarkersAfterMapInitialisation = false;
+        private GoogleMap map;
+        private SupportMapFragment mapSupportFragment;
+        private LinearLayout mapContainer;
 
         private int FragmentId { get; } = Resource.Layout.salepoint_order_details;
     }

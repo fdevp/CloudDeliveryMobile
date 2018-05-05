@@ -21,9 +21,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.SideView
     [MvxFragmentPresentation(fragmentContentId: Resource.Id.carrier_side_view_content, IsCacheableFragment = true)]
     public class CarrierSideRouteEditFragment : MvxFragment<CarrierSideRouteEditViewModel>, IItemDragStartListener
     {
-        private ItemTouchHelper mItemTouchHelper;
-        private MvxRecyclerView recyclerView;
-
+      
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View ignore = base.OnCreateView(inflater, container, savedInstanceState);
@@ -55,6 +53,8 @@ namespace CloudDeliveryMobile.Android.Fragments.Carrier.SideView
             return true;
         }
 
+        private ItemTouchHelper mItemTouchHelper;
+        private MvxRecyclerView recyclerView;
         private int FragmentId { get; } = Resource.Layout.carrier_side_route_edit;
     }
 

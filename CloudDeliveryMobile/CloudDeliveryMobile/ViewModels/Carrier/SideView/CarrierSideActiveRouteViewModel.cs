@@ -150,6 +150,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
 
         }
 
+        //method that is called from RoutePointActiveListViewModel after point pass
         private void UpdateActivePoint(int? salepointId)
         {
             this.SetActivePoint();

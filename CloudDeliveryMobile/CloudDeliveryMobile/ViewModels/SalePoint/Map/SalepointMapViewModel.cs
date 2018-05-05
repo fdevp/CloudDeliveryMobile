@@ -26,6 +26,22 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
     {
         public SalepointSideViewViewModel SideView { get; set; }
 
+        public MvxAsyncCommand InitSideView
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    if (this.sideViewInitialised)
+                        return;
+
+                    this.sideViewInitialised = true;
+                    await this.navigationService.Navigate(this.SideView);
+                });
+
+            }
+        }
+
         public List<OrderSalepoint> InProgressOrders
         {
             get
@@ -41,7 +57,6 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
                 return this.salepointOrdersService.AddedOrders;
             }
         }
-
 
         //signalr
         public ConnectionState SignalrConnectionStatus
@@ -147,22 +162,6 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.Map
 
             this.salepointOrdersService.AddedOrdersUpdated += (sender,value) => _addedOrdersUpdateInteraction.Raise(value);
             this.salepointOrdersService.InProgressOrdersUpdated += (sender, value) => _inProgressOrdersUpdateInteraction.Raise(value);
-        }
-
-        public MvxAsyncCommand InitSideView
-        {
-            get
-            {
-                return new MvxAsyncCommand(async () =>
-                {
-                    if (this.sideViewInitialised)
-                        return;
-
-                    this.sideViewInitialised = true;
-                    await this.navigationService.Navigate(this.SideView);
-                });
-
-            }
         }
 
         private bool sideViewInitialised = false;

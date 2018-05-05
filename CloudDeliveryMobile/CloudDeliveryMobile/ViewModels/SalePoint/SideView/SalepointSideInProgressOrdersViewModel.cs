@@ -16,14 +16,6 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
     {
         public MvxObservableCollection<SalepointOrderListItemViewModel> Orders { get; set; }
 
-        public SalepointSideInProgressOrdersViewModel(ISalepointOrdersService salepointOrdersService)
-        {
-            this.salepointOrdersService = salepointOrdersService;
-            this.salepointOrdersService.InProgressOrdersUpdated += OrdersPropertyChanged;
-
-            this.Orders = new MvxObservableCollection<SalepointOrderListItemViewModel>();
-        }
-
         public IMvxAsyncCommand ReloadData
         {
             get
@@ -36,6 +28,14 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
             }
         }
 
+        public SalepointSideInProgressOrdersViewModel(ISalepointOrdersService salepointOrdersService)
+        {
+            this.salepointOrdersService = salepointOrdersService;
+            this.salepointOrdersService.InProgressOrdersUpdated += OrdersPropertyChanged;
+
+            this.Orders = new MvxObservableCollection<SalepointOrderListItemViewModel>();
+        }
+  
         public async override void Start()
         {
             if (initialised)
@@ -97,8 +97,6 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
             orderVM.Order = order;
             this.Orders.Add(orderVM);
         }
-
-
 
         bool initialised = false;
         ISalepointOrdersService salepointOrdersService;

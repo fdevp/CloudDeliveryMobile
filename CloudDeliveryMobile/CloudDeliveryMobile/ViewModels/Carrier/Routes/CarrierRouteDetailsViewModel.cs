@@ -37,19 +37,18 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.Routes
                 });
             }
         }
+
         public CarrierRouteDetailsViewModel(IMvxNavigationService navigationService, IRoutesService routesService)
         {
             this.navigationService = navigationService;
             this.routesService = routesService;
         }
 
-
         public async override void Start()
         {
             base.Start();
             await this.InitializeRoute();
         }
-
 
         public async Task InitializeRoute()
         {
@@ -69,7 +68,6 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.Routes
             }
             this.InProgress = false;
         }
-
 
         public override void Prepare(int orderId)
         {
