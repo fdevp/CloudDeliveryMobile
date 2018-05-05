@@ -23,7 +23,7 @@ is based on the Refit library. Instances of the refit objects were created in Ap
 Services use injeceted refit objects to communicate with a backend server. I needed to share data between a few viewmodels and handle changes in the data structure. I decided to use thread safe events with a generic event model argument (/Models/ServiceEvent.cs). Each of the event from service layer passes in arguments an object that describes event's type and passes information about resources.
 
 #### Websockets
-applied a Signalr library that has a support for PCL. There is only one hub - for notifications. Hub - a service layer data exchange is handled by the thread-safe events. Either authorization token and events are set up in the root view models.
+applied a Signalr library that has a support for PCL. There is only one hub - for notifications. Hub and a service layer data exchange is handled by the thread-safe events. Either authorization token and events are set up in the root view models.
 
 ## Android
 Application based primarly on fragments. There are only three activities: CarrierRoot, SalepointRoot, SignIn. The interaface was created on the base of the Material theme. The main interface element is a viewpager that contains three fragments. A fragments' management is handled by MvvmCross (except SalepointFloatingLabelFragment). 
