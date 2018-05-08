@@ -48,6 +48,7 @@ Unfortunately, due to changes required by the client, I have got no time to impl
 
 ## ToDos
 - TESTS!
+- styles 
 - Endless scroll in the finished elements list  
 - android version >= 6 permissions handling
 - Profile fragment
