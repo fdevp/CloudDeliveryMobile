@@ -44,12 +44,12 @@
            android:layout_centerVertical="true"
            app:MvxBind="Visible Active">
 
-             <ImageView
-              android:layout_width="25dp"
-              android:layout_height="25dp"
-              android:layout_marginLeft="10dp"
-              android:src="@drawable/marker"/>
-              
+            <ImageView
+             android:layout_width="25dp"
+             android:layout_height="25dp"
+             android:layout_marginLeft="10dp"
+             android:src="@drawable/marker"/>
+
 
             <TextView
                 android:layout_marginLeft="5dp"
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             app:MvxBind="Visible PointIsPassed(Point,Active)">
-            
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -148,6 +148,7 @@
     android:layout_width="match_parent"
     android:layout_below="@id/active_route_point_header"
     android:layout_height="wrap_content"
+    android:background="#fff"
     app:MvxBind="Visible ShowDetails">
 
     <LinearLayout
@@ -155,12 +156,12 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:orientation="vertical">
-      
-    <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_margin="2dp"
-          android:orientation="horizontal">
+
+      <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -169,14 +170,14 @@
             android:text="Punkt dostawy"
                         />
       </LinearLayout>
-         
-      
-        
+
+
+
       <LinearLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="2dp"
-          android:orientation="horizontal">
+          android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -193,55 +194,63 @@
       </LinearLayout>
 
 
-
-
       <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_margin="2dp"
-          android:orientation="horizontal"
-          app:MvxBind="Visible Order.CustomerPhone,Converter=StringNullEmptyVisibility">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:text="Telefon klienta: "
-                        />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            app:MvxBind="Text Point.Order.CustomerPhone"
-                        />
-      </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
 
-      <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_margin="2dp"
-          android:orientation="horizontal"
-          app:MvxBind="Visible Point.Order.Price, Converter=NullVisibility">
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:text="Koszt: "
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:MvxBind="Visible Order.CustomerPhone,Converter=StringNullEmptyVisibility">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:textSize="15dp"
+              android:text="Telefon klienta: "
                         />
-        <TextView
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="15dp"
+              app:MvxBind="Text Point.Order.CustomerPhone"
+                        />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            app:MvxBind="Text Point.Order.Price, Converter=PriceText"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:MvxBind="Visible Point.Order.Price, Converter=NullVisibility">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:textSize="15dp"
+              android:text="Koszt: "
                         />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="15dp"
+              app:MvxBind="Text Point.Order.Price, Converter=PriceText"
+                        />
+        </LinearLayout>
+
+
       </LinearLayout>
 
       <LinearLayout
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_margin="2dp"
-         android:orientation="horizontal">
+         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -257,47 +266,59 @@
                         />
       </LinearLayout>
 
+
       <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:weightSum="2">
+
+        <LinearLayout
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:layout_margin="2dp"
+   android:layout_weight="1"
+   android:orientation="vertical">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:textSize="15dp"
+              android:text="Zaakceptowano: "
+                        />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="15dp"
+              app:MvxBind="Text Point.Order.AcceptedTime, Converter=TimeString"
+                        />
+        </LinearLayout>
+
+        <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:text="Zaakceptowano: "
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:MvxBind="Visible Point.Order.PickUpTime, Converter=NullVisibility">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:textSize="15dp"
+              android:text="Odebrano: "
                         />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            app:MvxBind="Text Point.Order.AcceptedTime, Converter=TimeString"
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="15dp"
+              app:MvxBind="Text Point.Order.PickUpTime, Converter=TimeString"
                         />
+        </LinearLayout>
+
+
       </LinearLayout>
 
-      <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="2dp"
-      android:orientation="horizontal"
-      app:MvxBind="Visible Point.Order.PickUpTime, Converter=NullVisibility">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:text="Odebrano: "
-                        />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            app:MvxBind="Text Point.Order.PickUpTime, Converter=TimeString"
-                        />
-      </LinearLayout>
 
 
       <View
@@ -314,16 +335,16 @@
 
       <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="40dp"
+          android:layout_height="wrap_content"
           android:orientation="horizontal"
           android:layout_marginTop="5dp"
           android:weightSum="7">
 
         <!-- passed time -->
         <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_weight="2"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_weight="5"
            app:MvxBind="Visible PointIsPassed(Point,Active)"
            android:gravity="center"
            >
@@ -344,36 +365,81 @@
         </LinearLayout>
 
         <!-- call button -->
-        <Button
-                   android:layout_weight="5"
-                   android:layout_height="match_parent"
-                   android:layout_width="match_parent"
-                   android:textAlignment="center"
-                   android:background="#ccc"
-                   android:gravity="center"
-                   android:textColor="#111"
-                   android:textSize="11dp"
-                   android:layout_margin="3dp"
-                   android:text="ZADZWOŃ"
-                   app:MvxBind="Click MakeCall"/>
+
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="2"
+          android:orientation="vertical">
+
+          <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:MvxBind="Click MakeCustomerCall; Visible Point.Order.CustomerPhone, Converter=StringNullEmptyVisibility">
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/ic_phone_deep_orange_400_48dp"
+                                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="klient"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/primaryColor"/>
+
+          </LinearLayout>
+
+          <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:gravity="center_vertical"
+           app:MvxBind="Click MakeSalepointCall; Visible Point.Order.SalepointPhone, Converter=StringNullEmptyVisibility">
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/ic_phone_deep_orange_400_48dp"
+                                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="punkt sprzedaży"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/primaryColor"/>
+
+          </LinearLayout>
+
+        </LinearLayout>
+       
 
         <!-- control buttons -->
         <LinearLayout
-          android:layout_height="match_parent"
-          android:layout_width="match_parent"
-          android:layout_weight="2"
-          android:weightSum="2"
-          app:MvxBind="Visible Active">
+          android:layout_height="wrap_content"
+          android:layout_width="wrap_content"
+          android:layout_weight="5"
+          app:MvxBind="Visible Active"
+           android:gravity="center_vertical|right"
+           android:orientation="vertical"
+          >
 
-          
+
           <!-- empty space -->
-          <LinearLayout 
+          <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
-            
+
           </LinearLayout>
-          
+
           <!-- passing point in progress -->
           <RelativeLayout
             android:layout_width="match_parent"
@@ -386,16 +452,29 @@
               android:layout_centerInParent="true"/>
           </RelativeLayout>
 
-          <Button
-             android:layout_weight="1"
-             android:layout_height="match_parent"
-             android:layout_width="match_parent"
-             android:background="@color/primaryColor"
-             android:layout_margin="3dp"
-             android:textSize="11dp"
-             android:textColor="@color/whiteColor"
-             android:text="Dostarczono"
-             app:MvxBind="Click PassPointDialog; Visible !InProgress"/>
+
+          <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:gravity="center_vertical|right"
+             app:MvxBind="Click PassPointDialog; Visible !InProgress">
+
+            <ImageView
+              android:layout_width="21dp"
+              android:layout_height="21dp"
+              android:src="@drawable/ic_done_all_deep_orange_400_48dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="odebrano"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/primaryColor"/>
+
+          </LinearLayout>
+
 
         </LinearLayout>
 

@@ -87,7 +87,7 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
                 var correctNumber = Regex.Replace(phoneNumber, "[^0-9.]", ""); ;
                 this.phoneCallService.MakePhoneCall(correctNumber, Order.CustomerPhone); ;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 this.dialogsService.Toast("Wystąpił problem przy wybieraniu numeru", TimeSpan.FromSeconds(4));
             }
@@ -120,11 +120,6 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
                     this.ErrorOccured = true;
                     this.ErrorMessage = string.Concat(unknownException.Message);
                 }
-                finally
-                {
-                    this.InProgress = false;
-                }
-
 
                 this.dialogsService.Toast(string.Concat("Błąd, ", this.ErrorMessage), TimeSpan.FromSeconds(4));
 

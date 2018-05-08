@@ -577,6 +577,10 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_clear_deep_orange_400_48dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_clear_deep_orange_400_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_clear_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_done_all_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_done_all_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_done_all_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_done_all_deep_orange_400_48dp.png" />
     <Content Include="Resources\drawable-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\values\styles_splash.xml">
       <SubType>Designer</SubType>
@@ -649,13 +653,14 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\styles_salepoint.xml" />
-    <AndroidResource Include="Resources\values\styles_carrier.xml" />
     <AndroidResource Include="Resources\values\styles_map.xml" />
     <AndroidResource Include="Resources\drawable\animation_rotate.xml" />
     <AndroidResource Include="Resources\drawable\shape_circle_green.xml" />
     <AndroidResource Include="Resources\drawable\shape_circle_red.xml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_phone_deep_orange_400_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_clear_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_done_all_deep_orange_400_48dp.png" />
+    <AndroidResource Include="Resources\values\styles.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

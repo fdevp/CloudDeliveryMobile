@@ -28,7 +28,12 @@
           android:weightSum="10"
           android:layout_marginBottom="10dp">
         <TextView
-            style="@style/Carrier.FloatingOrders.ListItem.SalepointName"
+        android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+        android:layout_weight="3"
+        android:textSize="18dp"
+        android:textStyle="bold"
             app:MvxBind="Text Order.SalepointName"/>
         
         <LinearLayout
@@ -41,8 +46,13 @@
               android:layout_height="20dp"
               android:src="@drawable/ic_access_time_grey_600_48dp"/>
           <TextView
-             style="@style/Carrier.FloatingOrders.ListItem.AddedTime"
-              app:MvxBind="Text Order.AddedTime, Converter=TimeString"/>
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="20dp"
+          android:textStyle="bold"
+          android:paddingLeft="5dp"
+          android:gravity="right"
+          app:MvxBind="Text Order.AddedTime, Converter=TimeString"/>
         </LinearLayout>
 
 
@@ -99,9 +109,15 @@
           />
         
         <Button
-          style="@style/Carrier.FloatingOrders.ListItem.AcceptButton"
-            android:text="Zaakceptuj"
-            app:MvxBind="Click AcceptOrder;Visible !InProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/shape_rounded_empty_button"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/primaryColor"
+        android:text="Zaakceptuj"
+        app:MvxBind="Click AcceptOrder;Visible !InProgress"
                                     />
       </RelativeLayout>
 

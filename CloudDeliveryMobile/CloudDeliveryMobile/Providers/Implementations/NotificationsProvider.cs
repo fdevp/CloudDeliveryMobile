@@ -45,19 +45,12 @@ namespace CloudDeliveryMobile.Providers.Implementations
             connection = new HubConnection(ApiResources.Host);
             notificationProxy = connection.CreateHubProxy("NotificationsHub");
 
-            connection.Received += Connection_Received;
-
             connection.StateChanged += state =>
             {
                 this.SocketStatus = connection.State;
                 SocketStatusUpdated?.Invoke(this, null);
             };
 
-        }
-
-        private void Connection_Received(string obj)
-        {
-            int asd = 5;
         }
 
         public void ClearEventHandlers()

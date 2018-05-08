@@ -145,6 +145,7 @@
   <!-- BODY -->
   <RelativeLayout
       android:id="@+id/active_route_point_body"
+      android:background="#fff"
       android:layout_width="match_parent"
       android:layout_below="@id/active_route_point_header"
       android:layout_height="wrap_content"
@@ -175,7 +176,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="2dp"
-          android:orientation="horizontal">
+          android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -191,14 +192,11 @@
                         />
       </LinearLayout>
 
-
-
-
       <LinearLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="2dp"
-          android:orientation="horizontal">
+          android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -214,8 +212,6 @@
                         />
       </LinearLayout>
 
-   
-
       <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
@@ -230,7 +226,7 @@
 
       <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="40dp"
+          android:layout_height="wrap_content"
           android:orientation="horizontal"
           android:layout_marginTop="5dp"
           android:weightSum="7">
@@ -238,9 +234,9 @@
         
           <!-- passed time -->
         <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_weight="2"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_weight="5"
            app:MvxBind="Visible PointIsPassed(Point,Active)"
            android:gravity="center">
           
@@ -261,62 +257,99 @@
         
         
           <!-- call button -->
-         
-          <Button
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:textAlignment="center"
-            android:background="#ccc"
-            android:gravity="center"
-            android:textColor="#111"
-            android:textSize="11dp"
-            android:layout_margin="3dp"
-            android:text="ZADZWOŃ"
-            android:layout_weight="5"
-            app:MvxBind="Click MakeCall"/>
-        
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+           app:MvxBind="Click MakeSalepointCall">
+
+          <ImageView
+              android:layout_width="21dp"
+              android:layout_height="21dp"
+              android:src="@drawable/ic_phone_deep_orange_400_48dp"
+                                />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="18dp"
+              android:text="zadzwoń"
+              android:layout_marginLeft="5dp"
+              android:textColor="@color/primaryColor"/>
+
+
+        </LinearLayout>
+        
         <!-- control buttons -->
         <LinearLayout
-           android:layout_height="match_parent"
-           android:layout_width="match_parent"
-           android:layout_weight="2"
-           android:weightSum="2"
-           app:MvxBind="Visible Active">
+           android:layout_height="wrap_content"
+           android:layout_width="wrap_content"
+           android:layout_weight="5"
+           app:MvxBind="Visible Active"
+           android:gravity="center_vertical|right"
+           android:orientation="vertical">
 
           
             <!-- passing point in progress -->
           <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:MvxBind="Visible InProgress">
               <ProgressBar
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"/>
             </RelativeLayout>
-            
-          <Button
-           android:layout_weight="1"
-           android:layout_height="match_parent"
-           android:layout_width="match_parent"
-           android:layout_margin="3dp"
-           android:background="#ccc"
-           android:textColor="#111"
-           android:textSize="11dp"
-           android:text="Odbiór"
-           app:MvxBind="Click ShowPickupModal; Visible !InProgress"/>
 
-          <Button
-              android:layout_weight="1"
-              android:layout_height="match_parent"
-              android:layout_width="match_parent"
-              android:background="@color/primaryColor"
-              android:layout_margin="3dp"
-              android:textSize="11dp"
-              android:textColor="@color/whiteColor"
-              android:text="odebrano"
-              app:MvxBind="Click PassPointDialog; Visible !InProgress"/>
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              app:MvxBind="Click ShowPickupModal; Visible !InProgress">
+
+            <ImageView
+               android:layout_width="21dp"
+               android:layout_height="21dp"
+               android:src="@drawable/endpoint"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="odbiór"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/primaryColor"/>
+            
+            
+          </LinearLayout>
+
+          <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:gravity="center_vertical|right"
+           android:layout_marginTop="15dp"
+           app:MvxBind="Click PassPointDialog; Visible !InProgress">
+
+            <ImageView
+              android:layout_width="21dp"
+              android:layout_height="21dp"
+              android:src="@drawable/ic_done_all_deep_orange_400_48dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="odebrano"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/primaryColor"/>
+
+          </LinearLayout>
 
         </LinearLayout>
 

@@ -85,8 +85,11 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint.SideView
             {
                 case SalepointAddedOrdersEvents.AddedList:
                     this.Orders.Clear();
-                    foreach (var item in this.salepointOrdersService.AddedOrders)
-                        CreateOrderViewModel(item);
+                    foreach (OrderSalepoint addedOrder in this.salepointOrdersService.AddedOrders)
+                    {
+                        CreateOrderViewModel(addedOrder);
+                    }
+                        
                     break;
                 case SalepointAddedOrdersEvents.AddedOrder:
                     this.CreateOrderViewModel((OrderSalepoint)e.Resource);

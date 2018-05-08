@@ -85,7 +85,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
                    {
                        this.dialogsService.Toast(e.Message, TimeSpan.FromSeconds(5));
                    }
-                   catch (HttpRequestException httpException)
+                   catch (HttpRequestException)
                    {
                        this.dialogsService.Toast("Problem z połączeniem z serwerem.", TimeSpan.FromSeconds(5));
                    }
@@ -142,12 +142,12 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
                 this.ErrorOccured = true;
                 this.ErrorMessage = e.Message;
             }
-            catch (HttpRequestException httpException) //no connection
+            catch (HttpRequestException) //no connection
             {
                 this.ErrorOccured = true;
                 this.ErrorMessage = "Problem z połączeniem z serwerem.";
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 this.ErrorOccured = true;
                 this.ErrorMessage = "Wystąpił nieznany błąd.";

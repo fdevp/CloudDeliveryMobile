@@ -121,7 +121,7 @@ namespace CloudDeliveryMobile.Services.Implementations
                 this.streets = JsonConvert.DeserializeObject<List<string>>(streetsJson);
                 return this.streets;
             }
-            catch (Exception e) { }
+            catch (Exception) { }
 
             try
             {   
@@ -129,7 +129,7 @@ namespace CloudDeliveryMobile.Services.Implementations
                 this.storageProvider.Insert(DataKeys.Streets, JsonConvert.SerializeObject(this.streets));
                 return this.streets;
             }
-            catch (Exception e) { }
+            catch (Exception) { }
 
             return new List<string>();
         }

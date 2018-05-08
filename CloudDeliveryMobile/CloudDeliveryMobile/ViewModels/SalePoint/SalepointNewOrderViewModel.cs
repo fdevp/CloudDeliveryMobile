@@ -119,7 +119,6 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    string asd = JsonConvert.SerializeObject(this.Model);
                     this.InProgress = true;
                     try
                     {
@@ -133,19 +132,15 @@ namespace CloudDeliveryMobile.ViewModels.SalePoint
                         this.ErrorOccured = true;
                         this.ErrorMessage = e.Message;
                     }
-                    catch (HttpRequestException httpException) //no connection
+                    catch (HttpRequestException) //no connection
                     {
                         this.ErrorOccured = true;
                         this.ErrorMessage = "Problem z połączeniem z serwerem.";
                     }
-                    catch (Exception unknownException)
+                    catch (Exception)
                     {
                         this.ErrorOccured = true;
                         this.ErrorMessage = "Wystąpił nieznany błąd.";
-                    }
-                    finally
-                    {
-                        this.InProgress = false;
                     }
 
                     this.dialogsService.Toast(string.Concat("Błąd, ", this.ErrorMessage), TimeSpan.FromSeconds(5));

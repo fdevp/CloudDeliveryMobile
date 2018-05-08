@@ -61,7 +61,7 @@ namespace CloudDeliveryMobile.Android.Fragments.Salepoint
                 {
                     addressesList = this.geocoder.GetFromLocationName(this.ViewModel.FullLocationName, 5);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Snackbar.Make(this.view, "Wyszukiwanie wymaga połączenia z internetem", 5000).Show();
                 }

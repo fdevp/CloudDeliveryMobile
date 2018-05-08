@@ -40,8 +40,7 @@ namespace CloudDeliveryMobile.Android.Components
         public void SetViewModel(CarrierSideActiveRouteViewModel viewModel)
         {
             this.viewModel = viewModel;
-            this.viewModel.PropertyChanged += ViewModel_PropertyChanged;
-            this.controller = new FloatingWidgetExpandedController(this, viewModel);
+            controller = new FloatingWidgetExpandedController(this, viewModel);
             this.controller.UpdateLayout();
         }
 
@@ -97,11 +96,6 @@ namespace CloudDeliveryMobile.Android.Components
                     expandedView.Visibility = ViewStates.Gone;
                     break;
             }
-        }
-
-        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            var asd = 5;
         }
 
     }

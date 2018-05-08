@@ -136,13 +136,13 @@ namespace CloudDeliveryMobile.ViewModels.Carrier.SideView
         private void CreatePointsViewModel()
         {
             this.Points = new MvxObservableCollection<RoutePointActiveListViewModel>();
-            foreach (var item in this.routesService.ActiveRoute.Points)
+            foreach (RoutePoint point in this.routesService.ActiveRoute.Points)
             {
                 var pointVM = Mvx.IocConstruct<RoutePointActiveListViewModel>();
 
                 pointVM.OnActiveChange += UpdateActivePoint;
 
-                pointVM.Point = item;
+                pointVM.Point = point;
                 this.Points.Add(pointVM);
             }
 

@@ -84,8 +84,8 @@ namespace CloudDeliveryMobile.Android.Components.Map
             if (this.viewModel.AddedOrders == null)
                 return;
 
-            foreach (var item in this.viewModel.AddedOrders)
-                SetAddedOrdersMarker(item);
+            foreach (OrderSalepoint addedOrder in this.viewModel.AddedOrders)
+                SetAddedOrdersMarker(addedOrder);
         }
 
         private void SetInProgressOrdersMarkers()
@@ -93,15 +93,15 @@ namespace CloudDeliveryMobile.Android.Components.Map
             if (this.viewModel.InProgressOrders == null)
                 return;
 
-            foreach (var item in this.viewModel.InProgressOrders)
-                SetInProgressOrdersMarker(item);
+            foreach (OrderSalepoint inProgressOrder in this.viewModel.InProgressOrders)
+                SetInProgressOrdersMarker(inProgressOrder);
         }
 
         private void ClearAddedOrdersMarkers()
         {
-            foreach (var item in addedOrdersMarkers)
+            foreach (var markerElement in addedOrdersMarkers)
             {
-                RemoveMarkerOnUIThread(item.Value);
+                RemoveMarkerOnUIThread(markerElement.Value);
             }
 
             addedOrdersMarkers.Clear();
@@ -109,9 +109,9 @@ namespace CloudDeliveryMobile.Android.Components.Map
 
         private void ClearInProgressOrdersMarkers()
         {
-            foreach (var item in inprogressOrdersMarkers)
+            foreach (var markerElement in inprogressOrdersMarkers)
             {
-                RemoveMarkerOnUIThread(item.Value);
+                RemoveMarkerOnUIThread(markerElement.Value);
             }
 
             inprogressOrdersMarkers.Clear();

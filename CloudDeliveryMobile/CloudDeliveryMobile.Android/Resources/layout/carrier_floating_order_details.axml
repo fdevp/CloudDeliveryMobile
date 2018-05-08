@@ -7,9 +7,14 @@
 
 
   <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Carrier.FloatingOrderDetails.Container">
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:padding="5dp"
+    android:layout_margin="10dp"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:background="#fff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +27,10 @@
 
         <com.airbnb.lottie.LottieAnimationView
                  android:id="@+id/float_details_salepoint_icon"
-                 style="@style/Carrier.FloatingOrderDetails.PointAnimation"/>
+                 style="@style/Lottie.AutoPlay"
+                  android:layout_width="40dp"
+                  android:layout_height="40dp"
+                  app:lottie_fileName="round.json"/>
 
         <LinearLayout
                    android:layout_width="wrap_content"
@@ -47,14 +55,24 @@
         </LinearLayout>
 
         <ImageButton
-          style="@style/Carrier.FloatingOrderDetails.CloseButton"
-           android:src="@drawable/ic_clear_grey_600_48dp"
-           app:MvxBind="Click CloseFragment"/>
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="#00000000"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_clear_grey_600_48dp"
+        app:MvxBind="Click CloseFragment"
+          style="@style/Background.Transparent"/>
 
       </RelativeLayout>
 
       <RelativeLayout
-         style="@style/Carrier.FloatingOrderDetails.DottedLeftBorder">
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="18dp"
+        android:background="@drawable/shape_dotted_left_border">
 
         
       </RelativeLayout>
@@ -65,7 +83,11 @@
 
         <com.airbnb.lottie.LottieAnimationView
          android:id="@+id/float_details_endpoint_icon"
-        style="@style/Carrier.FloatingOrderDetails.PointAnimation"/>
+          app:lottie_autoPlay="true"
+          app:lottie_loop="true"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          app:lottie_fileName="round.json"/>
 
         <LinearLayout
                   android:layout_width="wrap_content"
@@ -101,18 +123,33 @@
 
       <com.airbnb.lottie.LottieAnimationView
              android:id="@+id/animation_view"
-             style="@style/Carrier.FloatingOrderDetails.LoadingAnimation"
+            style="@style/Lottie.AutoPlay"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            app:lottie_fileName="truck_running.json"
              app:MvxBind="Visible InProgress"
            />
       
       <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/float_details_success"
-        style="@style/Carrier.FloatingOrderDetails.SuccessAnimation"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerHorizontal="true"
+        app:lottie_fileName="success.json"
+        style="@style/Lottie.AutoPlay"
         android:visibility="gone"/>
 
       <Button
           android:id="@+id/float_details_accept_order"
-          style="@style/Carrier.FloatingOrderDetails.AcceptButton"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:textColor="#fff"
+          android:padding="3dp"
+          android:layout_centerHorizontal="true"
+          android:background="@color/primaryColor"
           android:text="Zaakcepuj"/>
 
     </RelativeLayout>

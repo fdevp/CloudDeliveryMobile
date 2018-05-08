@@ -100,7 +100,7 @@ namespace CloudDeliveryMobile.Android.Activities
             {
                 /*
                         askPermission();
-                         Toast.makeText(this, "You need System Alert Window Permission to do this", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(this, "Musisz przyznać uprawnieni, żeby widget działał.", Toast.LENGTH_SHORT).show();
                          */
             }
         }

@@ -94,19 +94,44 @@ namespace CloudDeliveryMobile.Models.Routes
             }
         }
 
-        public IMvxCommand MakeCall
+        public IMvxCommand MakeSalepointCall
         {
             get
             {
                 return new MvxCommand(() =>
                 {
-                    if (Point.Type == RoutePointType.EndPoint)
-                        this.phoneCallService.MakePhoneCall("", Point.Order.CustomerPhone);
-                    else if (Point.Type == RoutePointType.SalePoint)
+                    try
+                    {
                         this.phoneCallService.MakePhoneCall("", Point.Order.SalepointPhone);
+                    }
+                    catch (Exception)
+                    {
+                        dialogsService.Toast("Wystąpił błąd przy wybieraniu numeru", TimeSpan.FromSeconds(5));
+                    }
                 });
             }
         }
+
+
+        public IMvxCommand MakeCustomerCall
+        {
+            get
+            {
+                return new MvxCommand(() =>
+                {
+                    try
+                    {
+                        this.phoneCallService.MakePhoneCall("", Point.Order.CustomerPhone);
+                    }
+                    catch (Exception)
+                    {
+                        dialogsService.Toast("Wystąpił błąd przy wybieraniu numeru", TimeSpan.FromSeconds(5));
+                    }
+                    
+                });
+            }
+        }
+
 
         public RoutePointActiveListViewModel(IRoutesService routesService, ICarrierOrdersService ordersService, IMvxNavigationService navigationService, IUserDialogs dialogsService, IMvxPhoneCallTask phoneCallService)
         {

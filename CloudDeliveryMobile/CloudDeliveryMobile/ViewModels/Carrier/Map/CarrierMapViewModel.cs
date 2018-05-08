@@ -158,7 +158,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             {
                 return new MvxCommand<int>(id =>
                 {
-                    var asd = this.navigationService.Navigate<CarrierFloatingOrderDetailsViewModel, int>(id);
+                    this.navigationService.Navigate<CarrierFloatingOrderDetailsViewModel, int>(id);
                 });
             }
         }

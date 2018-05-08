@@ -162,10 +162,10 @@ namespace CloudDeliveryMobile.Android.Components.Map
                 return;
 
             //add new salepoint markers
-            foreach (var item in this.viewModel.PendingOrders)
+            foreach (OrderCarrier pendingOrder in this.viewModel.PendingOrders)
             {
-                if (!this.salepointsMarkers.ContainsKey(item.SalepointId))
-                    SetSalepointMarker(item);
+                if (!this.salepointsMarkers.ContainsKey(pendingOrder.SalepointId))
+                    SetSalepointMarker(pendingOrder);
             }
 
             //if active salepoint has not orders
@@ -191,9 +191,9 @@ namespace CloudDeliveryMobile.Android.Components.Map
 
         private void ClearPendingMarkers()
         {
-            foreach (var item in salepointsMarkers)
+            foreach (var markerElement in salepointsMarkers)
             {
-                RemoveMarkerOnUIThread(item.Value);
+                RemoveMarkerOnUIThread(markerElement.Value);
             }
 
             salepointsMarkers.Clear();
@@ -203,9 +203,9 @@ namespace CloudDeliveryMobile.Android.Components.Map
 
         private void ClearOrdersMarkers()
         {
-            foreach (var item in ordersMarkers)
+            foreach (var markerElement in ordersMarkers)
             {
-                RemoveMarkerOnUIThread(item.Value);
+                RemoveMarkerOnUIThread(markerElement.Value);
             }
 
             ordersMarkers.Clear();
@@ -213,9 +213,9 @@ namespace CloudDeliveryMobile.Android.Components.Map
 
         private void ClearRoutePointsMarkers()
         {
-            foreach (var item in routePointsMarkers)
+            foreach (var markerElement in routePointsMarkers)
             {
-                RemoveMarkerOnUIThread(item.Value);
+                RemoveMarkerOnUIThread(markerElement.Value);
             }
 
             routePointsMarkers.Clear();

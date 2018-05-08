@@ -79,8 +79,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             switch (e.Type)
             {
                 case CarrierOrdersEvents.AddedList:
-                    foreach (var item in this.ordersService.PendingOrders)
-                        CreateOrderViewModelsList();
+                    CreateOrderViewModelsList();
                     break;
                 case CarrierOrdersEvents.AddedOrder:
                     AddOrderViewModel((OrderCarrier)e.Resource);
@@ -95,15 +94,18 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
 
             }
 
-            RaisePropertyChanged(()=>this.Orders);
+            RaisePropertyChanged(() => this.Orders);
         }
 
         private void CreateOrderViewModelsList()
         {
             this.Orders = new MvxObservableCollection<FloatingPendingOrderViewModel>();
-            if(this.ordersService.PendingOrders != null)
-                foreach (var item in this.ordersService.PendingOrders)
-                    AddOrderViewModel(item);
+
+            if (this.ordersService.PendingOrders == null)
+                return;
+
+            foreach (OrderCarrier pendingOrder in this.ordersService.PendingOrders)
+                AddOrderViewModel(pendingOrder);
         }
 
         private void AddOrderViewModel(OrderCarrier order)
