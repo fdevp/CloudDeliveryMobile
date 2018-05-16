@@ -2,8 +2,8 @@
 a mobile application for the CloudDelivery system. 
 
 <p align="center">
-  <img src="https://imgur.com/tx2Tm6f" width="200"/>
-  <img src="https://imgur.com/MwOtHVJ" width="200"/>
+  <img src="https://i.imgur.com/tx2Tm6f.png" width="200"/>
+  <img src="https://i.imgur.com/MwOtHVJ.png" width="200"/>
 </p>
 
 ## Framework
