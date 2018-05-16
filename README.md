@@ -2,8 +2,26 @@
 a mobile application for the CloudDelivery system. 
 
 <p align="center">
-  <img src="https://i.imgur.com/tx2Tm6f.png" width="200"/>
-  <img src="https://i.imgur.com/MwOtHVJ.png" width="200"/>
+  <img src="https://i.imgur.com/tx2Tm6f.png" width="100"/>
+  <img src="https://i.imgur.com/MwOtHVJ.png" width="100"/>
+  <img src="https://i.imgur.com/qkz3bjF.png" width="100"/>
+  <img src="https://i.imgur.com/c1MPclA.png" width="100"/>
+  <img src="https://i.imgur.com/qRwP9Zy.png" width="100"/>
+  <img src="https://i.imgur.com/O1V7u2q.png" width="100"/>
+  <img src="https://i.imgur.com/5PW6WMf.png" width="100"/>
+  <img src="https://i.imgur.com/iRBYfON.png" width="100"/>
+  <img src="https://i.imgur.com/8O6PlYQ.png" width="100"/>
+  <img src="https://i.imgur.com/v3sHQOk.png" width="100"/>
+  <img src="https://i.imgur.com/EdeVbMX.png" width="100"/>
+  <img src="https://i.imgur.com/lclnnmW.png" width="100"/>
+  <img src="https://i.imgur.com/rNhKijR.png" width="100"/>
+  <img src="https://i.imgur.com/KfhorHN.png" width="100"/>
+  <img src="https://i.imgur.com/Yz6KKA7.png" width="100"/>
+  <img src="https://i.imgur.com/FPGSZ6z.png" width="100"/>
+  <img src="https://i.imgur.com/KzTsfuM.png" width="100"/>
+  <img src="https://i.imgur.com/rsKkJ4q.png" width="100"/>
+  <img src="https://i.imgur.com/nnCWfOU.png" width="100"/>
+  <img src="https://i.imgur.com/BSoz34y.png" width="100"/>
 </p>
 
 ## Framework
