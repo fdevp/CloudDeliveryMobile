@@ -18,6 +18,9 @@ using Plugin.Permissions;
 using Android.Provider;
 using AndroidNet = Android.Net;
 using CloudDeliveryMobile.Android.Fragments.Shared;
+using Android.Net;
+using Android.Support.V4.App;
+using Android;
 
 namespace CloudDeliveryMobile.Android.Activities
 {
@@ -86,6 +89,7 @@ namespace CloudDeliveryMobile.Android.Activities
         {
             Intent floatingWidgetIntent = new Intent(this, typeof(FloatingWidgetService));
 
+
             if (Build.VERSION.SdkInt < BuildVersionCodes.M)
             {
                 this.BindService(floatingWidgetIntent, FloatingWidgetConnection, Bind.AutoCreate);
@@ -98,10 +102,10 @@ namespace CloudDeliveryMobile.Android.Activities
             }
             else
             {
-                /*
-                        askPermission();
-                         Toast.makeText(this, "Musisz przyznać uprawnieni, żeby widget działał.", Toast.LENGTH_SHORT).show();
-                         */
+                ActivityCompat.RequestPermissions(this, new string[] { Settings.ActionManageOverlayPermission }, 99);
+                //askPermission();
+                //Toast.makeText(this, "Musisz przyznać uprawnieni, żeby widget działał.", Toast.LENGTH_SHORT).show();
+
             }
         }
 

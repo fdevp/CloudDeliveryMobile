@@ -78,7 +78,6 @@
     <Compile Include="Mocks\DbConnectionFactoryMocks.cs" />
     <Compile Include="Resources\ApiResources.Designer.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
-    <Compile Include="Mocks\HttpProviderMocks.cs" />
     <Compile Include="Mocks\StorageProviderMocks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\HttpProviderTests.cs" />

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="CloudDeliveryMobile.Android.CloudDeliveryMobile.Android" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="19" />
+	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="27" />
 	<uses-feature android:glEsVersion="0x00020000" android:required="true" />
 	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 	<uses-permission android:name="android.permission.INTERNET" />
@@ -11,13 +11,9 @@
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 	<application android:allowBackup="true" android:label="@string/app_name" android:icon="@drawable/icon">
-    <receiver android:name="localnotifications.plugin.ScheduledAlarmHandler" android:enabled="true"></receiver>
+		<receiver android:name="localnotifications.plugin.ScheduledAlarmHandler" android:enabled="true"></receiver>
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="@string/gmaps_key" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-    <service
-           android:name=".FloatingWidgetService"
-           android:enabled="true"
-           android:exported="false" />
-
-  </application>
+		<service android:name=".FloatingWidgetService" android:enabled="true" android:exported="false" />
+	</application>
 </manifest>
