@@ -51,6 +51,8 @@ namespace CloudDeliveryMobile.ViewModels
             }
         }
 
+        public string ClientId => ConstantValues.google_auth_client_id;
+
         public SignInViewModel(ISessionProvider sessionProvider, IStorageProvider storageProvider, IMvxNavigationService navigationService, IDeviceProvider deviceProvider)
         {
             this.sessionProvider = sessionProvider;
@@ -70,39 +72,16 @@ namespace CloudDeliveryMobile.ViewModels
                 this.ErrorMessage = "Podano nieprawidłowe dane";
                 return;
             }
-
             this.ClearError();
+            this.model.Device = this.deviceProvider.DeviceName();
+            await sessionProvider.CredentialsSignIn(this.model).ContinueWith(async t => await HandleSignInResult(t));
 
+        }
 
-            await this.sessionProvider.SignIn(this.model).ContinueWith(async t =>
-            {
-                this.Password = string.Empty;
-
-                //sign in failed
-                if (t.Exception != null)
-                {
-                    this.InProgress = false;
-                    this.ErrorOccured = true;
-                    if (t.Exception.InnerException.GetType() == typeof(SignInException))
-                    {
-                        this.ErrorMessage = t.Exception.InnerException.Message;
-                    }
-                    else if (t.Exception.InnerException.GetType() == typeof(HttpRequestException))
-                    {
-                        this.ErrorMessage = "Problem z połączeniem z serwerem.";
-                    }
-                    else
-                    {
-                        this.ErrorMessage = "Wystąpił nieznany błąd.";
-                    }
-
-                    return;
-                }
-
-                //sign in success
-                await this.GoToRootAndClose();
-            });
-
+        public async Task GoogleSignIn(string authorizationCode)
+        {
+            ClearError();
+            await sessionProvider.GoogleSignIn(authorizationCode, this.deviceProvider.DeviceName()).ContinueWith(async t => await HandleSignInResult(t));
         }
 
         public override async void Start()
@@ -152,6 +131,35 @@ namespace CloudDeliveryMobile.ViewModels
 
             this.TokenInProgress = false;
             this.InProgress = false;
+        }
+
+        private async Task HandleSignInResult(Task<bool> result)
+        {
+            this.Password = string.Empty;
+
+            //sign in failed
+            if (result.Exception != null)
+            {
+                this.InProgress = false;
+                this.ErrorOccured = true;
+                if (result.Exception.InnerException.GetType() == typeof(SignInException))
+                {
+                    this.ErrorMessage = result.Exception.InnerException.Message;
+                }
+                else if (result.Exception.InnerException.GetType() == typeof(HttpRequestException))
+                {
+                    this.ErrorMessage = "Problem z połączeniem z serwerem.";
+                }
+                else
+                {
+                    this.ErrorMessage = "Wystąpił nieznany błąd.";
+                }
+
+                return;
+            }
+
+            //sign in success
+            await this.GoToRootAndClose();
         }
 
         private void ClearError()

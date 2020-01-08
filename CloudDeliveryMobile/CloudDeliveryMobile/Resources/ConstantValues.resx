@@ -121,6 +121,10 @@
     <value>Słupsk</value>
     <comment>default city in salepoint new order form</comment>
   </data>
+  <data name="google_auth_client_id" xml:space="preserve">
+    <value>488897648270-ee1dch3eqig1jjvkqsa64823e258lhei.apps.googleusercontent.com</value>
+    <comment>google auth client id</comment>
+  </data>
   <data name="map_base_lat" xml:space="preserve">
     <value>54.46405</value>
     <comment>base map position latitude</comment>

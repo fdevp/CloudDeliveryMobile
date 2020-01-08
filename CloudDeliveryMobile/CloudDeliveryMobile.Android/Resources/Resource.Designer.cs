@@ -6609,8 +6609,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0040
 			public const int CTRL = 2131427392;
 			
-			// aapt resource value: 0x7f0b0117
-			public const int DrugName = 2131427607;
+			// aapt resource value: 0x7f0b0118
+			public const int DrugName = 2131427608;
 			
 			// aapt resource value: 0x7f0b0041
 			public const int FUNCTION = 2131427393;
@@ -6630,8 +6630,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0044
 			public const int SYM = 2131427396;
 			
-			// aapt resource value: 0x7f0b00ef
-			public const int action0 = 2131427567;
+			// aapt resource value: 0x7f0b00f0
+			public const int action0 = 2131427568;
 			
 			// aapt resource value: 0x7f0b008c
 			public const int action_bar = 2131427468;
@@ -6654,17 +6654,17 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b006a
 			public const int action_bar_title = 2131427434;
 			
-			// aapt resource value: 0x7f0b00ec
-			public const int action_container = 2131427564;
+			// aapt resource value: 0x7f0b00ed
+			public const int action_container = 2131427565;
 			
 			// aapt resource value: 0x7f0b008d
 			public const int action_context_bar = 2131427469;
 			
-			// aapt resource value: 0x7f0b00f3
-			public const int action_divider = 2131427571;
+			// aapt resource value: 0x7f0b00f4
+			public const int action_divider = 2131427572;
 			
-			// aapt resource value: 0x7f0b00ed
-			public const int action_image = 2131427565;
+			// aapt resource value: 0x7f0b00ee
+			public const int action_image = 2131427566;
 			
 			// aapt resource value: 0x7f0b0003
 			public const int action_menu_divider = 2131427331;
@@ -6681,23 +6681,23 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b006c
 			public const int action_mode_close_button = 2131427436;
 			
-			// aapt resource value: 0x7f0b00ee
-			public const int action_text = 2131427566;
+			// aapt resource value: 0x7f0b00ef
+			public const int action_text = 2131427567;
 			
-			// aapt resource value: 0x7f0b00fc
-			public const int actions = 2131427580;
+			// aapt resource value: 0x7f0b00fd
+			public const int actions = 2131427581;
 			
 			// aapt resource value: 0x7f0b00b8
 			public const int active_route_minimize = 2131427512;
 			
-			// aapt resource value: 0x7f0b0101
-			public const int active_route_point_body = 2131427585;
-			
-			// aapt resource value: 0x7f0b00ff
-			public const int active_route_point_header = 2131427583;
+			// aapt resource value: 0x7f0b0102
+			public const int active_route_point_body = 2131427586;
 			
 			// aapt resource value: 0x7f0b0100
-			public const int active_route_point_toggle = 2131427584;
+			public const int active_route_point_header = 2131427584;
+			
+			// aapt resource value: 0x7f0b0101
+			public const int active_route_point_toggle = 2131427585;
 			
 			// aapt resource value: 0x7f0b00b7
 			public const int active_route_points_list = 2131427511;
@@ -6753,8 +6753,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0073
 			public const int buttonPanel = 2131427443;
 			
-			// aapt resource value: 0x7f0b00f0
-			public const int cancel_action = 2131427568;
+			// aapt resource value: 0x7f0b00f1
+			public const int cancel_action = 2131427569;
 			
 			// aapt resource value: 0x7f0b009e
 			public const int carrier_finished_routes_list = 2131427486;
@@ -6813,8 +6813,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0083
 			public const int checkbox = 2131427459;
 			
-			// aapt resource value: 0x7f0b00f8
-			public const int chronometer = 2131427576;
+			// aapt resource value: 0x7f0b00f9
+			public const int chronometer = 2131427577;
 			
 			// aapt resource value: 0x7f0b005a
 			public const int clip_horizontal = 2131427418;
@@ -6822,8 +6822,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b005b
 			public const int clip_vertical = 2131427419;
 			
-			// aapt resource value: 0x7f0b0122
-			public const int close_button = 2131427618;
+			// aapt resource value: 0x7f0b0123
+			public const int close_button = 2131427619;
 			
 			// aapt resource value: 0x7f0b0046
 			public const int collapseActionView = 2131427398;
@@ -6837,8 +6837,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0076
 			public const int contentPanel = 2131427446;
 			
-			// aapt resource value: 0x7f0b0114
-			public const int content_frame = 2131427604;
+			// aapt resource value: 0x7f0b0115
+			public const int content_frame = 2131427605;
 			
 			// aapt resource value: 0x7f0b00c2
 			public const int coordinator = 2131427522;
@@ -6876,14 +6876,14 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b002e
 			public const int disableHome = 2131427374;
 			
-			// aapt resource value: 0x7f0b0112
-			public const int drawer_layout = 2131427602;
+			// aapt resource value: 0x7f0b0113
+			public const int drawer_layout = 2131427603;
 			
-			// aapt resource value: 0x7f0b0104
-			public const int edit_point_handle = 2131427588;
+			// aapt resource value: 0x7f0b0105
+			public const int edit_point_handle = 2131427589;
 			
-			// aapt resource value: 0x7f0b0102
-			public const int edit_point_item_image = 2131427586;
+			// aapt resource value: 0x7f0b0103
+			public const int edit_point_item_image = 2131427587;
 			
 			// aapt resource value: 0x7f0b008e
 			public const int edit_query = 2131427470;
@@ -6894,11 +6894,11 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b003d
 			public const int end = 2131427389;
 			
-			// aapt resource value: 0x7f0b00fe
-			public const int end_padder = 2131427582;
+			// aapt resource value: 0x7f0b00ff
+			public const int end_padder = 2131427583;
 			
-			// aapt resource value: 0x7f0b0103
-			public const int endpoint_salepoint_image = 2131427587;
+			// aapt resource value: 0x7f0b0104
+			public const int endpoint_salepoint_image = 2131427588;
 			
 			// aapt resource value: 0x7f0b004c
 			public const int enterAlways = 2131427404;
@@ -6927,8 +6927,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b009b
 			public const int finished_order_listitem_header = 2131427483;
 			
-			// aapt resource value: 0x7f0b0105
-			public const int finished_orders_container = 2131427589;
+			// aapt resource value: 0x7f0b0106
+			public const int finished_orders_container = 2131427590;
 			
 			// aapt resource value: 0x7f0b009c
 			public const int finished_routes_container = 2131427484;
@@ -6972,6 +6972,9 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b000a
 			public const int ghost_view = 2131427338;
 			
+			// aapt resource value: 0x7f0b00ec
+			public const int google_auth_button = 2131427564;
+			
 			// aapt resource value: 0x7f0b0005
 			public const int home = 2131427333;
 			
@@ -6984,8 +6987,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0072
 			public const int icon = 2131427442;
 			
-			// aapt resource value: 0x7f0b00fd
-			public const int icon_group = 2131427581;
+			// aapt resource value: 0x7f0b00fe
+			public const int icon_group = 2131427582;
 			
 			// aapt resource value: 0x7f0b0026
 			public const int icon_only = 2131427366;
@@ -6996,8 +6999,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b006f
 			public const int image = 2131427439;
 			
-			// aapt resource value: 0x7f0b00f9
-			public const int info = 2131427577;
+			// aapt resource value: 0x7f0b00fa
+			public const int info = 2131427578;
 			
 			// aapt resource value: 0x7f0b0065
 			public const int italic = 2131427429;
@@ -7041,20 +7044,20 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b00e4
 			public const int main_content = 2131427556;
 			
-			// aapt resource value: 0x7f0b0113
-			public const int main_frame = 2131427603;
+			// aapt resource value: 0x7f0b0114
+			public const int main_frame = 2131427604;
 			
 			// aapt resource value: 0x7f0b00eb
 			public const int main_signin_layout = 2131427563;
 			
-			// aapt resource value: 0x7f0b0121
-			public const int masked = 2131427617;
+			// aapt resource value: 0x7f0b0122
+			public const int masked = 2131427618;
 			
-			// aapt resource value: 0x7f0b00f2
-			public const int media_actions = 2131427570;
+			// aapt resource value: 0x7f0b00f3
+			public const int media_actions = 2131427571;
 			
-			// aapt resource value: 0x7f0b011f
-			public const int message = 2131427615;
+			// aapt resource value: 0x7f0b0120
+			public const int message = 2131427616;
 			
 			// aapt resource value: 0x7f0b003e
 			public const int middle = 2131427390;
@@ -7077,17 +7080,17 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0021
 			public const int normal = 2131427361;
 			
-			// aapt resource value: 0x7f0b00fb
-			public const int notification_background = 2131427579;
+			// aapt resource value: 0x7f0b00fc
+			public const int notification_background = 2131427580;
+			
+			// aapt resource value: 0x7f0b00f6
+			public const int notification_main_column = 2131427574;
 			
 			// aapt resource value: 0x7f0b00f5
-			public const int notification_main_column = 2131427573;
+			public const int notification_main_column_container = 2131427573;
 			
-			// aapt resource value: 0x7f0b00f4
-			public const int notification_main_column_container = 2131427572;
-			
-			// aapt resource value: 0x7f0b010e
-			public const int order_details_title = 2131427598;
+			// aapt resource value: 0x7f0b010f
+			public const int order_details_title = 2131427599;
 			
 			// aapt resource value: 0x7f0b00b0
 			public const int order_pickup_endpoint_address = 2131427504;
@@ -7125,11 +7128,11 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0056
 			public const int right = 2131427414;
 			
-			// aapt resource value: 0x7f0b00fa
-			public const int right_icon = 2131427578;
+			// aapt resource value: 0x7f0b00fb
+			public const int right_icon = 2131427579;
 			
-			// aapt resource value: 0x7f0b00f6
-			public const int right_side = 2131427574;
+			// aapt resource value: 0x7f0b00f7
+			public const int right_side = 2131427575;
 			
 			// aapt resource value: 0x7f0b00b1
 			public const int route_pickup_title = 2131427505;
@@ -7146,65 +7149,65 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b00b5
 			public const int routepoint_details_salepoint_toggle_text = 2131427509;
 			
-			// aapt resource value: 0x7f0b0118
-			public const int salepoint_add_order_search_address = 2131427608;
+			// aapt resource value: 0x7f0b0119
+			public const int salepoint_add_order_search_address = 2131427609;
+			
+			// aapt resource value: 0x7f0b010e
+			public const int salepoint_added_order_item_body = 2131427598;
 			
 			// aapt resource value: 0x7f0b010d
-			public const int salepoint_added_order_item_body = 2131427597;
-			
-			// aapt resource value: 0x7f0b010c
-			public const int salepoint_added_order_item_header = 2131427596;
-			
-			// aapt resource value: 0x7f0b0115
-			public const int salepoint_added_orders_list = 2131427605;
-			
-			// aapt resource value: 0x7f0b0107
-			public const int salepoint_finished_orders_list = 2131427591;
-			
-			// aapt resource value: 0x7f0b0106
-			public const int salepoint_finished_orders_swiperefresh = 2131427590;
-			
-			// aapt resource value: 0x7f0b0109
-			public const int salepoint_gmap_fragment = 2131427593;
-			
-			// aapt resource value: 0x7f0b0111
-			public const int salepoint_inprogress_order_item_header = 2131427601;
+			public const int salepoint_added_order_item_header = 2131427597;
 			
 			// aapt resource value: 0x7f0b0116
-			public const int salepoint_inprogress_orders_list = 2131427606;
+			public const int salepoint_added_orders_list = 2131427606;
 			
 			// aapt resource value: 0x7f0b0108
-			public const int salepoint_map_layout = 2131427592;
+			public const int salepoint_finished_orders_list = 2131427592;
 			
-			// aapt resource value: 0x7f0b010f
-			public const int salepoint_order_details_gmap_container = 2131427599;
-			
-			// aapt resource value: 0x7f0b0110
-			public const int salepoint_order_details_gmap_fragment = 2131427600;
+			// aapt resource value: 0x7f0b0107
+			public const int salepoint_finished_orders_swiperefresh = 2131427591;
 			
 			// aapt resource value: 0x7f0b010a
-			public const int salepoint_refresh_data = 2131427594;
+			public const int salepoint_gmap_fragment = 2131427594;
 			
-			// aapt resource value: 0x7f0b0119
-			public const int salepoint_side_view_container = 2131427609;
+			// aapt resource value: 0x7f0b0112
+			public const int salepoint_inprogress_order_item_header = 2131427602;
 			
-			// aapt resource value: 0x7f0b011c
-			public const int salepoint_side_view_content = 2131427612;
+			// aapt resource value: 0x7f0b0117
+			public const int salepoint_inprogress_orders_list = 2131427607;
+			
+			// aapt resource value: 0x7f0b0109
+			public const int salepoint_map_layout = 2131427593;
+			
+			// aapt resource value: 0x7f0b0110
+			public const int salepoint_order_details_gmap_container = 2131427600;
+			
+			// aapt resource value: 0x7f0b0111
+			public const int salepoint_order_details_gmap_fragment = 2131427601;
 			
 			// aapt resource value: 0x7f0b010b
-			public const int salepoint_side_view_layout = 2131427595;
-			
-			// aapt resource value: 0x7f0b011d
-			public const int salepoint_side_view_tabs = 2131427613;
-			
-			// aapt resource value: 0x7f0b011b
-			public const int salepoint_side_view_touch = 2131427611;
+			public const int salepoint_refresh_data = 2131427595;
 			
 			// aapt resource value: 0x7f0b011a
-			public const int salepoint_side_view_touch_container = 2131427610;
+			public const int salepoint_side_view_container = 2131427610;
+			
+			// aapt resource value: 0x7f0b011d
+			public const int salepoint_side_view_content = 2131427613;
+			
+			// aapt resource value: 0x7f0b010c
+			public const int salepoint_side_view_layout = 2131427596;
 			
 			// aapt resource value: 0x7f0b011e
-			public const int salepoint_side_view_viewpager = 2131427614;
+			public const int salepoint_side_view_tabs = 2131427614;
+			
+			// aapt resource value: 0x7f0b011c
+			public const int salepoint_side_view_touch = 2131427612;
+			
+			// aapt resource value: 0x7f0b011b
+			public const int salepoint_side_view_touch_container = 2131427611;
+			
+			// aapt resource value: 0x7f0b011f
+			public const int salepoint_side_view_viewpager = 2131427615;
 			
 			// aapt resource value: 0x7f0b0022
 			public const int satellite = 2131427362;
@@ -7323,8 +7326,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0057
 			public const int start = 2131427415;
 			
-			// aapt resource value: 0x7f0b00f1
-			public const int status_bar_latest_event_content = 2131427569;
+			// aapt resource value: 0x7f0b00f2
+			public const int status_bar_latest_event_content = 2131427570;
 			
 			// aapt resource value: 0x7f0b0068
 			public const int strong = 2131427432;
@@ -7368,8 +7371,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b0015
 			public const int textinput_error = 2131427349;
 			
-			// aapt resource value: 0x7f0b00f7
-			public const int time = 2131427575;
+			// aapt resource value: 0x7f0b00f8
+			public const int time = 2131427576;
 			
 			// aapt resource value: 0x7f0b001b
 			public const int title = 2131427355;
@@ -7425,8 +7428,8 @@ namespace CloudDeliveryMobile.Android
 			// aapt resource value: 0x7f0b00e7
 			public const int viewpager = 2131427559;
 			
-			// aapt resource value: 0x7f0b0120
-			public const int visible = 2131427616;
+			// aapt resource value: 0x7f0b0121
+			public const int visible = 2131427617;
 			
 			// aapt resource value: 0x7f0b0069
 			public const int weak = 2131427433;

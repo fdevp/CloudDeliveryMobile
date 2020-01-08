@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -54,11 +55,29 @@ namespace CloudDeliveryMobile.Providers.Implementations
             }
         }
 
-        public async Task<bool> SignIn(LoginModel form)
+        public async Task<bool> CredentialsSignIn(LoginModel form)
         {
-            string jsonString = JsonConvert.SerializeObject(form);
+            var content = new FormUrlEncodedContent(form.ToDict());
+            return await SignIn(content);
+        }
+
+        public async Task<bool> GoogleSignIn(string authorizationCode, string device)
+        {
+            var parameters = new Dictionary<string, string>();
+
+            parameters.Add("grant_type", "authorization_code");
+            parameters.Add("code", authorizationCode);
+            parameters.Add("client_id", ConstantValues.google_auth_client_id);
+            parameters.Add("device", device);
+
+            var content = new FormUrlEncodedContent(parameters);
+            return await SignIn(content);
+        }
+
+        private async Task<bool> SignIn(FormUrlEncodedContent content)
+        {
             string url = string.Concat(ApiResources.Host, "/", ApiResources.Login);
-            HttpResponseMessage response = await this.HttpClient.PostAsync(url, new FormUrlEncodedContent(form.ToDict()));
+            HttpResponseMessage response = await this.HttpClient.PostAsync(url, content);
             string responseContent = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {

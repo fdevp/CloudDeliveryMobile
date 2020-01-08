@@ -34,8 +34,9 @@ namespace CloudDeliveryMobile.Providers
         /// </summary>
         /// <param name="form"></param>
         /// <returns></returns>
-        Task<bool> SignIn(LoginModel form);
+        Task<bool> CredentialsSignIn(LoginModel form);
 
+        Task<bool> GoogleSignIn(string authorizationCode, string device);
 
         /// <summary>
         /// removes data about user

@@ -77,13 +77,22 @@
           android:layout_gravity="center_horizontal|center_vertical"
           app:MvxBind="Visible InProgress"/>
 
-      <Button
+			 <Button
          style="@style/Login.ElementsLayout"
          android:text="ZALOGUJ SIĘ"
          android:textColor="#ffffff"
          android:clickable="true"
          android:background="@drawable/ripple_primary_color_rounded"
          app:MvxBind="Visible !InProgress; Click SignInCommand"/>
+
+			<com.google.android.gms.common.SignInButton
+			android:id="@+id/google_auth_button"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginTop="10dp"	
+			android:layout_marginRight="35dp"
+			android:layout_marginLeft="35dp"
+			app:MvxBind="Visible !InProgress"/>
 
     </LinearLayout>
 

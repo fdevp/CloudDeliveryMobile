@@ -11,6 +11,8 @@ namespace CloudDeliveryMobile.Models.Account
 
         public string Password { get; set; } = String.Empty;
 
+        public string Device { get; set; } = String.Empty;
+
         public Dictionary<string,string> ToDict()
         {
             var dictionary = new Dictionary<string, string>();

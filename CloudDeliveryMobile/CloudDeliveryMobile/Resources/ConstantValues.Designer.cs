@@ -105,5 +105,13 @@ namespace CloudDeliveryMobile.Resources {
                 return ResourceManager.GetString("position_watcher_timespan", resourceCulture);
             }
         }
+
+        internal static string google_auth_client_id
+        {
+            get
+            {
+                return ResourceManager.GetString("google_auth_client_id", resourceCulture);
+            }
+        }
     }
 }
