@@ -29,7 +29,7 @@ namespace CloudDeliveryMobile.Providers.Implementations
 
         public string DeviceName()
         {
-            return CrossDeviceInfo.Current.Platform + " " + CrossDeviceInfo.Current.Version;
+            return $" {CrossDeviceInfo.Current.Manufacturer} {CrossDeviceInfo.Current.Model} {CrossDeviceInfo.Current.Platform} {CrossDeviceInfo.Current.Version}";
         }
 
         public bool FileExists(string filename)

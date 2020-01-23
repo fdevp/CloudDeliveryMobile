@@ -1,11 +1,12 @@
 ﻿using CloudDeliveryMobile.Models.Error;
+using CloudDeliveryMobile.Providers;
+using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 
 namespace CloudDeliveryMobile.ViewModels
 {
     public class BaseViewModel : MvxViewModel
     {
-
         public string ErrorMessage
         {
             get

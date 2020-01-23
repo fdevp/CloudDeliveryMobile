@@ -50,7 +50,6 @@ namespace CloudDeliveryMobile.Providers.Implementations
                 this.SocketStatus = connection.State;
                 SocketStatusUpdated?.Invoke(this, null);
             };
-
         }
 
         public void ClearEventHandlers()

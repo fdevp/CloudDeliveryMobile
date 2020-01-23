@@ -1,4 +1,5 @@
 ﻿using CloudDeliveryMobile.Models.Account;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -6,7 +7,9 @@ namespace CloudDeliveryMobile.Providers
 {
     public interface ISessionProvider
     {
-        HttpClient HttpClient { get;}
+        event EventHandler SessionExpired;
+
+        HttpClient HttpClient { get; }
 
         SessionData SessionData { get; }
 
@@ -24,12 +27,6 @@ namespace CloudDeliveryMobile.Providers
         bool HasCarrierRole();
 
         /// <summary>
-        /// try use token to get data
-        /// </summary>
-        /// <returns></returns>
-        Task<bool> CheckToken();
-
-        /// <summary>
         /// get user data with auth token
         /// </summary>
         /// <param name="form"></param>
@@ -38,10 +35,12 @@ namespace CloudDeliveryMobile.Providers
 
         Task<bool> GoogleSignIn(string authorizationCode, string device);
 
+        Task<bool> RefreshTokenSignIn();
+
         /// <summary>
         /// removes data about user
         /// </summary>
         /// <returns></returns>
-        void Logout();
+        Task Logout();
     }
 }

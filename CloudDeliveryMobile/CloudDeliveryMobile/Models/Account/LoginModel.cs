@@ -20,6 +20,7 @@ namespace CloudDeliveryMobile.Models.Account
             dictionary.Add("grant_type", this.GrantType);
             dictionary.Add("username", this.Username);
             dictionary.Add("password", this.Password);
+            dictionary.Add("device", this.Device);
 
             return dictionary;
         }

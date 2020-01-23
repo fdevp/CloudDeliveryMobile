@@ -1,58 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
-using CloudDeliveryMobile.Helpers.Exceptions;
+using CloudDeliveryMobile.Helpers;
 using CloudDeliveryMobile.Models.Account;
 using CloudDeliveryMobile.Resources;
-using Newtonsoft.Json;
-using Refit;
+using Newtonsoft.Json.Linq;
 
 namespace CloudDeliveryMobile.Providers.Implementations
 {
     public class SessionProvider : ISessionProvider
     {
-        public HttpClient HttpClient { get; private set; }
+        public event EventHandler SessionExpired;
 
-        public SessionProvider(IStorageProvider storageProvider)
-        {
-            this.storageProvider = storageProvider;
-            this.HttpClient = new HttpClient();
-            this.HttpClient.BaseAddress = new Uri(ApiResources.Host);
-        }
+        public HttpClient HttpClient { get; private set; }
 
         public SessionData SessionData { get; private set; }
 
-        public async Task<bool> CheckToken()
+        public SessionProvider(IStorageProvider storageProvider, INotificationsProvider notificationsProvider)
         {
-            string token;
-            try
-            {
-                token = this.storageProvider.Select(DataKeys.Token);
-                this.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
-            catch (Exception)
-            {
-                throw new NullReferenceException("Brak danych do logowania.");
-            }
+            this.storageProvider = storageProvider;
+            this.notificationsProvider = notificationsProvider;
 
-            string url = string.Concat(ApiResources.Host, "/", ApiResources.UserInfo);
-            HttpResponseMessage response = await this.HttpClient.GetAsync(url);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            
-            if (response.IsSuccessStatusCode)
+            httpClientHandler = new AuthenticatedHttpClientHandler(null, null);
+            httpClientHandler.SessionExpired += (sender, args) =>
             {
-                this.SessionData = JsonConvert.DeserializeObject<SessionData>(responseContent);
-                this.SessionData.access_token = token;
-                return true;
-            }
-            else
-            {
-                this.HttpClient.DefaultRequestHeaders.Authorization = null;
-                this.storageProvider.Delete(DataKeys.Token);
-                throw new InvalidTokenException("Sesja wygasła.");
-            }
+                ClearSessionData();
+                SessionExpired.Invoke(this, args);
+            };
+
+            HttpClient = new HttpClient(httpClientHandler);
+            HttpClient.BaseAddress = new Uri(ApiResources.Host);
         }
 
         public async Task<bool> CredentialsSignIn(LoginModel form)
@@ -74,42 +53,62 @@ namespace CloudDeliveryMobile.Providers.Implementations
             return await SignIn(content);
         }
 
-        private async Task<bool> SignIn(FormUrlEncodedContent content)
+        public async Task<bool> RefreshTokenSignIn()
         {
-            string url = string.Concat(ApiResources.Host, "/", ApiResources.Login);
-            HttpResponseMessage response = await this.HttpClient.PostAsync(url, content);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                this.SessionData = JsonConvert.DeserializeObject<SessionData>(responseContent);
-            }
-            else
-            {
-                throw new SignInException(responseContent);
-            }
+            refreshToken = storageProvider.SelectOrNull(DataKeys.RefreshToken);
+            if (string.IsNullOrEmpty(refreshToken))
+                return false;
 
-
-            this.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.SessionData.access_token);
-            this.storageProvider.Insert(DataKeys.Token, this.SessionData.access_token);
-            return true;
+            var content = AuthDataProvider.CreateTokenSignInContent(refreshToken);
+            return await SignIn(content);
         }
 
-        public void Logout()
+        public async Task Logout()
         {
-            this.SessionData = null;
-            this.HttpClient.DefaultRequestHeaders.Authorization = null;
-            this.storageProvider.ClearData();
+            var jsonContent = new JObject(new JProperty("token", refreshToken));
+            var httpContent = new StringContent(jsonContent.ToString(), Encoding.UTF8, "application/json");
+            await HttpClient.PutAsync("/api/account/cancelToken", httpContent).ContinueWith(t =>
+            {
+                if (t.IsCompleted && t.Exception == null)
+                    ClearSessionData();
+            });
         }
 
         public bool HasSalePointRole()
         {
-            return this.SessionData.InRole("salepoint");
+            return SessionData.InRole("salepoint");
         }
 
         public bool HasCarrierRole()
         {
-            return this.SessionData.InRole("carrier");
+            return SessionData.InRole("carrier");
         }
+
+        private async Task<bool> SignIn(FormUrlEncodedContent content)
+        {
+            var authData = await AuthDataProvider.FetchAuthData(content);
+            if (!string.IsNullOrEmpty(authData.RefreshToken))
+            {
+                storageProvider.Insert(DataKeys.RefreshToken, authData.RefreshToken);
+                refreshToken = authData.RefreshToken;
+            }
+
+            SessionData = authData;
+            notificationsProvider.SetAuthHeader(authData.AccessToken);
+            httpClientHandler.SetTokens(refreshToken, authData.AccessToken);
+            return true;
+        }
+
+        private void ClearSessionData()
+        {
+            SessionData = null;
+            HttpClient.DefaultRequestHeaders.Authorization = null;
+            storageProvider.ClearData();
+        }
+
         private IStorageProvider storageProvider;
+        private readonly INotificationsProvider notificationsProvider;
+        private string refreshToken;
+        private AuthenticatedHttpClientHandler httpClientHandler;
     }
 }

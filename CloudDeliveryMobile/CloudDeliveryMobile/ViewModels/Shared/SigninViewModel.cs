@@ -59,8 +59,6 @@ namespace CloudDeliveryMobile.ViewModels
             this.storageProvider = storageProvider;
             this.navigationService = navigationService;
             this.deviceProvider = deviceProvider;
-
-
         }
 
         public async Task SignIn()
@@ -73,7 +71,7 @@ namespace CloudDeliveryMobile.ViewModels
                 return;
             }
             this.ClearError();
-            this.model.Device = this.deviceProvider.DeviceName();
+            this.model.Device = $"{this.deviceProvider.DeviceName()}({this.deviceProvider.DeviceID()})";
             await sessionProvider.CredentialsSignIn(this.model).ContinueWith(async t => await HandleSignInResult(t));
 
         }
@@ -81,6 +79,7 @@ namespace CloudDeliveryMobile.ViewModels
         public async Task GoogleSignIn(string authorizationCode)
         {
             ClearError();
+            this.InProgress = true;
             await sessionProvider.GoogleSignIn(authorizationCode, this.deviceProvider.DeviceName()).ContinueWith(async t => await HandleSignInResult(t));
         }
 
@@ -92,7 +91,7 @@ namespace CloudDeliveryMobile.ViewModels
             //try sign in by token
             this.TokenInProgress = true;
 
-            await this.sessionProvider.CheckToken().ContinueWith(async t =>
+            await this.sessionProvider.RefreshTokenSignIn().ContinueWith(async t =>
             {
                 //sign in by token failed
                 if (t.Exception != null)
@@ -112,8 +111,13 @@ namespace CloudDeliveryMobile.ViewModels
 
 
                 //sign in by token success
-                await this.GoToRootAndClose();
-                return;
+                if (t.Result)
+                {
+                    await this.GoToRootAndClose();
+                    return;
+                }
+
+                this.TokenInProgress = false;
             });
 
 

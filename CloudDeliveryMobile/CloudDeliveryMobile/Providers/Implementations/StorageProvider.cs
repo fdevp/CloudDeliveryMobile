@@ -83,6 +83,15 @@ namespace CloudDeliveryMobile.Providers.Implementations
             }
         }
 
+        public string SelectOrNull(string key)
+        {
+            using (var ctx = dbConnectionFactory.GetConnection())
+            {
+                MainTable item = ctx.Table<MainTable>().Where(x => x.Key == key).FirstOrDefault();
+                return item?.Value;
+            }
+        }
+
         private IDeviceProvider deviceProvider;
         private IDbConnectionFactory dbConnectionFactory;
     }

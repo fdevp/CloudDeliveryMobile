@@ -51,7 +51,7 @@ namespace CloudDeliveryMobile.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    this.sessionProvider.Logout();
+                    await this.sessionProvider.Logout();
                     this.carrierOrdersService.ClearData();
                     this.salepointOrdersService.ClearData();
                     this.routesService.ClearData();

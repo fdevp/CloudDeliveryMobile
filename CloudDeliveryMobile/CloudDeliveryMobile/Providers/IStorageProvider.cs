@@ -10,6 +10,14 @@
         string Select(string key);
 
         /// <summary>
+        /// select value of key 
+        /// return null when key not exists in db
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        string SelectOrNull(string key);
+
+        /// <summary>
         /// serialize object and create key with serialized value
         /// </summary>
         /// <param name="key"></param>

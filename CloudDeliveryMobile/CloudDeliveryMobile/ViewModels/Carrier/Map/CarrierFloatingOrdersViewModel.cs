@@ -4,6 +4,7 @@ using CloudDeliveryMobile.Models;
 using CloudDeliveryMobile.Models.Enums.Events;
 using CloudDeliveryMobile.Models.Orders;
 using CloudDeliveryMobile.Models.Routes;
+using CloudDeliveryMobile.Providers;
 using CloudDeliveryMobile.Services;
 using CloudDeliveryMobile.ViewModels.Carrier.ListViewModels;
 using MvvmCross.Core.Navigation;
@@ -64,7 +65,7 @@ namespace CloudDeliveryMobile.ViewModels.Carrier
             }
         }
 
-        public CarrierFloatingOrdersViewModel(IMvxNavigationService navigationService, ICarrierOrdersService ordersService, IUserDialogs dialogsService)
+        public CarrierFloatingOrdersViewModel(ISessionProvider sessionProvider, IMvxNavigationService navigationService, ICarrierOrdersService ordersService, IUserDialogs dialogsService)
         {
             this.navigationService = navigationService;
             this.ordersService = ordersService;

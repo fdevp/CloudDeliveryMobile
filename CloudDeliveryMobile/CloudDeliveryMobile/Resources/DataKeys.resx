@@ -121,12 +121,12 @@
     <value>lastusername</value>
     <comment>Last username which try to sign in</comment>
   </data>
+  <data name="RefreshToken" xml:space="preserve">
+    <value>refreshtoken</value>
+    <comment>Decrypted session token</comment>
+  </data>
   <data name="Streets" xml:space="preserve">
     <value>streets</value>
     <comment>Streets of the default city</comment>
-  </data>
-  <data name="Token" xml:space="preserve">
-    <value>token</value>
-    <comment>Decrypted session token</comment>
   </data>
 </root>

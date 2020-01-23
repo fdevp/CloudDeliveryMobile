@@ -5,8 +5,6 @@ namespace CloudDeliveryMobile.Models.Account
 {
     public class SessionData
     {
-        public string access_token { get; set; }
-
         public string Login { get; set; }
 
         public string Name { get; set; }

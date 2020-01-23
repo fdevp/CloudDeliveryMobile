@@ -35,7 +35,7 @@ namespace CloudDeliveryMobile
             var storageProvider = new StorageProvider(Mvx.Resolve<IDeviceProvider>(), Mvx.Resolve<IDbConnectionFactory>());
             Mvx.RegisterSingleton<IStorageProvider>(storageProvider);
 
-            var sessionProvider = new SessionProvider(Mvx.Resolve<IStorageProvider>());
+            var sessionProvider = new SessionProvider(Mvx.Resolve<IStorageProvider>(), notificationsProvider);
             Mvx.RegisterSingleton<ISessionProvider>(sessionProvider);
 
             //api interfaces

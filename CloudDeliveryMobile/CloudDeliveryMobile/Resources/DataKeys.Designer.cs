@@ -82,7 +82,7 @@ namespace CloudDeliveryMobile.Resources {
         /// <summary>
         ///   Looks up a localized string similar to token.
         /// </summary>
-        internal static string Token {
+        internal static string RefreshToken {
             get {
                 return ResourceManager.GetString("Token", resourceCulture);
             }
